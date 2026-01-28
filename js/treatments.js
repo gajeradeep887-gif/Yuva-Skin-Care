@@ -204,116 +204,42 @@ class TreatmentPage {
             }
         });
     }
+// ===== IMAGE COMPARISON SLIDER =====
+initImageComparison() {
+    const comparison = document.querySelector('.image-comparison');
+    if (!comparison) return;
 
-    // ===== IMAGE COMPARISON SLIDER =====
-    initImageComparison() {
-        const comparison = document.querySelector('.image-comparison');
-        if (!comparison) return;
-        
-        const slider = comparison.querySelector('.comparison-slider');
-        const beforeImage = comparison.querySelector('.comparison-before');
-        if (!slider || !beforeImage) return;
-        
-        let isDragging = false;
-        let containerWidth = comparison.offsetWidth;
-        
-        // Update slider position
-        const updateSlider = (position) => {
-            const percent = Math.max(0, Math.min(100, position));
-            slider.style.left = `${percent}%`;
-            beforeImage.style.clipPath = `polygon(0 0, ${percent}% 0, ${percent}% 100%, 0 100%)`;
-            
-            // Update labels
-            const beforeLabel = comparison.querySelector('.label-before');
-            const afterLabel = comparison.querySelector('.label-after');
-            if (beforeLabel && afterLabel) {
-                beforeLabel.textContent = `Before: ${Math.round(percent)}%`;
-                afterLabel.textContent = `After: ${Math.round(100 - percent)}%`;
-            }
-            
-            // Update ARIA
-            slider.setAttribute('aria-valuenow', percent.toString());
-        };
-        
-        // Mouse events
-        slider.addEventListener('mousedown', () => {
-            isDragging = true;
-            comparison.classList.add('dragging');
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            const rect = comparison.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / containerWidth) * 100;
-            updateSlider(x);
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            comparison.classList.remove('dragging');
-        });
-        
-        // Touch events
-        slider.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            comparison.classList.add('dragging');
-            e.preventDefault();
-        });
-        
-        document.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            
-            const rect = comparison.getBoundingClientRect();
-            const x = ((e.touches[0].clientX - rect.left) / containerWidth) * 100;
-            updateSlider(x);
-            e.preventDefault();
-        });
-        
-        document.addEventListener('touchend', () => {
-            isDragging = false;
-            comparison.classList.remove('dragging');
-        });
-        
-        // Keyboard support
-        slider.addEventListener('keydown', (e) => {
-            let currentPosition = parseFloat(slider.style.left) || 50;
-            
-            switch(e.key) {
-                case 'ArrowLeft':
-                case 'ArrowDown':
-                    e.preventDefault();
-                    updateSlider(currentPosition - 5);
-                    break;
-                case 'ArrowRight':
-                case 'ArrowUp':
-                    e.preventDefault();
-                    updateSlider(currentPosition + 5);
-                    break;
-                case 'Home':
-                    e.preventDefault();
-                    updateSlider(0);
-                    break;
-                case 'End':
-                    e.preventDefault();
-                    updateSlider(100);
-                    break;
-            }
-        });
-        
-        // Handle resize
-        window.addEventListener('resize', () => {
-            containerWidth = comparison.offsetWidth;
-        });
-        
-        // Initialize
-        slider.setAttribute('role', 'slider');
-        slider.setAttribute('aria-valuemin', '0');
-        slider.setAttribute('aria-valuemax', '100');
-        slider.setAttribute('aria-valuenow', '50');
-        slider.setAttribute('tabindex', '0');
-        updateSlider(50);
-    }
+    const slider = comparison.querySelector('.comparison-slider');
+    const afterImage = comparison.querySelector('.comparison-after');
+    if (!slider || !afterImage) return;
+
+    let isDragging = false;
+
+    const updateSlider = (clientX) => {
+        const rect = comparison.getBoundingClientRect();
+        let x = clientX - rect.left;
+
+        x = Math.max(0, Math.min(x, rect.width));
+        const percent = (x / rect.width) * 100;
+
+        slider.style.left = `${percent}%`;
+        afterImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+
+        slider.setAttribute('aria-valuenow', Math.round(percent));
+    };
+
+    slider.addEventListener('mousedown', () => isDragging = true);
+    window.addEventListener('mousemove', e => isDragging && updateSlider(e.clientX));
+    window.addEventListener('mouseup', () => isDragging = false);
+
+    slider.addEventListener('touchstart', () => isDragging = true);
+    window.addEventListener('touchmove', e => isDragging && updateSlider(e.touches[0].clientX));
+    window.addEventListener('touchend', () => isDragging = false);
+
+    slider.style.left = '50%';
+    afterImage.style.clipPath = 'inset(0 50% 0 0)';
+}
+
 
     // ===== FAQ ACCORDION =====
     initFAQAccordion() {

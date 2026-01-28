@@ -1074,3 +1074,79 @@
   align-items: center;
   justify-content: center;
 }
+
+
+/* ===============================
+   IMAGE COMPARISON SLIDER FIX
+   =============================== */
+
+.image-comparison {
+  position: relative;
+  width: 100%;
+  height: 280px;          /* IMPORTANT: fixed height */
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.comparison-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* After image clipped */
+.comparison-after {
+  clip-path: inset(0 50% 0 0); /* start half */
+}
+
+/* Slider bar */
+.comparison-slider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background: #fff;
+  cursor: ew-resize;
+  z-index: 5;
+}
+
+/* Optional handle */
+.comparison-slider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Labels */
+.comparison-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.label-before,
+.label-after {
+  position: absolute;
+  top: 12px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.label-before { left: 12px; }
+.label-after  { right: 12px; }
+
+
+

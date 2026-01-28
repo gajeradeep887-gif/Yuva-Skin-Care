@@ -424,6 +424,112 @@
                 grid-template-columns: 1fr;
             }
         }
+.photo-face {
+    position: relative;
+    width: 300px;
+    height: 400px;
+}
+
+.face-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* clickable areas */
+.face-area {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.face-area:hover {
+    background: rgba(33, 150, 243, 0.25);
+}
+
+.face-area.active {
+    border: 2px solid #2196f3;
+    background: rgba(33, 150, 243, 0.35);
+}
+
+/* area positions (tweak once visually) */
+.area-forehead {
+    top: 8%;
+    left: 30%;
+    width: 40%;
+    height: 12%;
+}
+
+.area-cheeks {
+    top: 25%;
+    left: 15%;
+    width: 70%;
+    height: 25%;
+}
+
+.area-nose {
+    top: 38%;
+    left: 43%;
+    width: 14%;
+    height: 18%;
+}
+
+.area-mouth {
+    top: 55%;
+    left: 33%;
+    width: 34%;
+    height: 10%;
+}
+
+.area-chin {
+    top: 68%;
+    left: 38%;
+    width: 24%;
+    height: 10%;
+}
+
+.area-jawline {
+    bottom: 10%;
+    left: 10%;
+    width: 80%;
+    height: 20%;
+    border-radius: 40%;
+}
+.face-area:hover {
+    border: 2px dashed #2196f3;
+    background: rgba(33, 150, 243, 0.2);
+}
+
+.face-area.active {
+    border: 2px dashed #0d6efd;
+    background: rgba(13, 110, 253, 0.3);
+}
+/* Base clickable look (PERMANENT) */
+.face-area {
+    border: 2px solid rgba(33, 150, 243, 0.35);
+    background: rgba(33, 150, 243, 0.08);
+    transition: all 0.25s ease;
+}
+
+/* Hover – slightly stronger */
+.face-area:hover {
+    border-color: #2196f3;
+    background: rgba(33, 150, 243, 0.18);
+}
+
+/* Active – clearly selected */
+.face-area.active {
+    border-color: #1976d2;
+    background: rgba(33, 150, 243, 0.30);
+    box-shadow:
+        0 0 0 2px rgba(33,150,243,0.25),
+        0 0 12px rgba(33,150,243,0.6);
+}
+
+
+
     </style>
 </head>
 <body>
@@ -435,7 +541,7 @@
 
     <div class="logo-text">
         <h1>Yuva Skin Clinic</h1>
-        <p>Acne Treatment</p>
+        <p>Laser Therapy</p>
     </div>
 </a>
             <button class="menu-btn" id="menuBtn">
@@ -550,13 +656,13 @@
                     <p>Deep Resurfacing</p>
                 </div>
                 
-                <div class="laser-type-card ndyag" data-laser="ndyag">
+                <!-- <div class="laser-type-card ndyag" data-laser="ndyag">
                     <div class="laser-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
                     <h4>Nd:YAG</h4>
                     <p>Hair Removal & Vascular</p>
-                </div>
+                </div> -->
                 
                 <div class="laser-type-card ipl" data-laser="ipl">
                     <div class="laser-icon">
@@ -570,7 +676,7 @@
                     <div class="laser-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h4>Q-Switch</h4>
+                    <h4> Nd:YAG Q-Switch</h4>
                     <p>Tattoo & Pigment Removal</p>
                 </div>
                 
@@ -586,46 +692,89 @@
             <!-- Treatment Areas Visualization -->
             <h3>Treatment Areas</h3>
             <div class="laser-areas">
-                <div class="face-diagram">
-                    <div class="face-area area-forehead active" data-area="forehead"></div>
-                    <div class="face-area area-cheeks" data-area="cheeks"></div>
-                    <div class="face-area area-nose" data-area="nose"></div>
-                    <div class="face-area area-mouth" data-area="mouth"></div>
-                    <div class="face-area area-chin" data-area="chin"></div>
-                    <div class="face-area area-jawline" data-area="jawline"></div>
-                </div>
+                <div class="face-diagram photo-face">
+    <img src="/Images/dr.hiren.JPG" alt="Face Diagram" class="face-photo">
+
+    <div class="face-area area-forehead active" data-area="forehead"></div>
+    <div class="face-area area-cheeks" data-area="cheeks"></div>
+    <div class="face-area area-nose" data-area="nose"></div>
+    <div class="face-area area-mouth" data-area="mouth"></div>
+    <div class="face-area area-chin" data-area="chin"></div>
+    <div class="face-area area-jawline" data-area="jawline"></div>
+</div>
+
+
                 
-                <div class="area-details">
-                    <div class="area-info">
-                        <h4>Forehead</h4>
-                        <p>Treats wrinkles, frown lines, and sun damage. Fractional CO₂ laser recommended for best results.</p>
-                        <div class="area-stats">
-                            <span class="stat">Sessions: 3-5</span>
-                            <span class="stat">Duration: 15 min</span>
-                            <span class="stat">Downtime: 2-3 days</span>
-                        </div>
-                    </div>
-                    
-                    <div class="area-info" style="display: none;">
-                        <h4>Cheeks</h4>
-                        <p>Targets acne scars, pigmentation, and improves skin texture. Combination therapy often recommended.</p>
-                        <div class="area-stats">
-                            <span class="stat">Sessions: 4-6</span>
-                            <span class="stat">Duration: 20 min</span>
-                            <span class="stat">Downtime: 3-5 days</span>
-                        </div>
-                    </div>
-                    
-                    <div class="area-info" style="display: none;">
-                        <h4>Nose</h4>
-                        <p>Reduces enlarged pores, blackheads, and redness. Gentle laser treatments for sensitive area.</p>
-                        <div class="area-stats">
-                            <span class="stat">Sessions: 2-3</span>
-                            <span class="stat">Duration: 10 min</span>
-                            <span class="stat">Downtime: 1-2 days</span>
-                        </div>
-                    </div>
-                </div>
+               <div class="area-details">
+
+    <!-- 1. Forehead -->
+    <div class="area-info">
+        <h4>Forehead</h4>
+        <p>Treats wrinkles, frown lines and sun damage. Fractional CO₂ laser gives best tightening results.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 3–5</span>
+            <span class="stat">Duration: 15 min</span>
+            <span class="stat">Downtime: 2–3 days</span>
+        </div>
+    </div>
+
+    <!-- 2. Cheeks -->
+    <div class="area-info" style="display:none;">
+        <h4>Cheeks</h4>
+        <p>Improves acne scars, pigmentation and uneven texture. Collagen stimulation smoothens skin.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 4–6</span>
+            <span class="stat">Duration: 20 min</span>
+            <span class="stat">Downtime: 3–5 days</span>
+        </div>
+    </div>
+
+    <!-- 3. Nose -->
+    <div class="area-info" style="display:none;">
+        <h4>Nose</h4>
+        <p>Reduces open pores, blackheads and redness. Gentle laser settings used.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 2–3</span>
+            <span class="stat">Duration: 10 min</span>
+            <span class="stat">Downtime: 1–2 days</span>
+        </div>
+    </div>
+
+    <!-- 4. Mouth -->
+    <div class="area-info" style="display:none;">
+        <h4>Mouth Area</h4>
+        <p>Treats fine lines, pigmentation and smoker’s lines around lips.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 3–4</span>
+            <span class="stat">Duration: 10 min</span>
+            <span class="stat">Downtime: 2 days</span>
+        </div>
+    </div>
+
+    <!-- 5. Chin -->
+    <div class="area-info" style="display:none;">
+        <h4>Chin</h4>
+        <p>Helps with acne scars, pigmentation and skin tightening.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 3–5</span>
+            <span class="stat">Duration: 10 min</span>
+            <span class="stat">Downtime: 2–3 days</span>
+        </div>
+    </div>
+
+    <!-- 6. Jawline -->
+    <div class="area-info" style="display:none;">
+        <h4>Jawline</h4>
+        <p>Improves jawline contour, skin laxity and unwanted hair reduction.</p>
+        <div class="area-stats">
+            <span class="stat">Sessions: 4–6</span>
+            <span class="stat">Duration: 15 min</span>
+            <span class="stat">Downtime: 2–4 days</span>
+        </div>
+    </div>
+
+</div>
+
             </div>
         </section>
 
@@ -1422,23 +1571,29 @@
                     updateLaserDetails(laserType);
                 });
             });
+// Face area selector (HD photo version)
+const faceAreas = document.querySelectorAll('.face-area');
+const areaDetails = document.querySelectorAll('.area-details .area-info');
 
-            // Face area selector
-            const faceAreas = document.querySelectorAll('.face-area');
-            const areaDetails = document.querySelectorAll('.area-details .area-info');
-            
-            faceAreas.forEach((area, index) => {
-                area.addEventListener('click', function() {
-                    faceAreas.forEach(a => a.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show corresponding area details
-                    areaDetails.forEach(detail => detail.style.display = 'none');
-                    if (areaDetails[index]) {
-                        areaDetails[index].style.display = 'block';
-                    }
-                });
-            });
+faceAreas.forEach((area, index) => {
+    area.addEventListener('click', function () {
+
+        // remove active class from all areas
+        faceAreas.forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+
+        // hide all area details
+        areaDetails.forEach(detail => {
+            detail.style.display = 'none';
+        });
+
+        // show corresponding area detail
+        if (areaDetails[index]) {
+            areaDetails[index].style.display = 'block';
+        }
+    });
+});
+
 
             // Animate recovery timeline
             const recoveryPoints = document.querySelectorAll('.recovery-point');
