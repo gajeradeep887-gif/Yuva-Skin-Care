@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Botox & Fillers Treatment | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Botox & Fillers page */
+        #botox-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        .treatment-toggle {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            background: var(--light);
+            padding: var(--space-sm);
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .treatment-toggle-btn {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            background: transparent;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+        }
+        
+        .treatment-toggle-btn.active {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            color: var(--primary);
+        }
+        
+        .botox-icon {
+            color: #4caf50;
+        }
+        
+        .fillers-icon {
+            color: #ff9800;
+        }
+        
+        /* Treatment Areas Grid */
+        .treatment-areas {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .area-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .area-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .area-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .area-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--primary);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .area-duration {
+            display: inline-block;
+            background: var(--light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: var(--space-sm);
+        }
+        
+        /* Comparison Table */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .comparison-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .comparison-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        
+        .botox-header .comparison-icon {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+        
+        .fillers-header .comparison-icon {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .comparison-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .comparison-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Price Calculator */
+        .price-calculator {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .calculator-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .calculator-unit {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .unit-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .unit-input {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .unit-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--light-gray);
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .unit-display {
+            flex: 1;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .price-display {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        /* Duration Timeline */
+        .duration-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: var(--space-xl) 0;
+            padding: 0 var(--space-md);
+        }
+        
+        .duration-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .duration-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--primary);
+        }
+        
+        .duration-dot.active {
+            background: var(--primary);
+        }
+        
+        .duration-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+        
+        .duration-line {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light-gray);
+            z-index: 1;
+        }
+        
+        .duration-fill {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            z-index: 1;
+            transition: width 0.5s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .treatment-areas {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .comparison-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .calculator-controls {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .duration-timeline {
+                padding: 0 var(--space-xl);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .treatment-areas {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="botox-hero">
+        <div class="treatment-hero-content">
+            <h1>Botox & Dermal Fillers</h1>
+            <p>Expert injectable treatments for wrinkles, volume loss, and facial rejuvenation</p>
+           
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>15-30 Min</h4>
+            <p>Quick Procedure</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Injectors</h4>
+            <p>15+ Years Experience</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Visible Results</h4>
+            <p>In 3-7 Days</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>FDA Approved</h4>
+            <p>Safe & Effective</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="comparison" role="tab" aria-selected="false">
+                <i class="fas fa-balance-scale"></i> Botox vs Fillers
+            </button>
+            <button class="tab-item" data-tab="areas" role="tab" aria-selected="false">
+                <i class="fas fa-map-marker-alt"></i> Treatment Areas
+            </button>
+            <button class="tab-item" data-tab="procedure" role="tab" aria-selected="false">
+                <i class="fas fa-list-ol"></i> Procedure
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+                 Botox & Fillers Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Botox and dermal fillers are minimally invasive injectable treatments that provide quick, effective solutions for facial rejuvenation. While often mentioned together, they serve different purposes and deliver complementary results.</p>
+                
+                <p>Our expert injectors combine artistic skill with medical precision to deliver natural-looking results that enhance your features while maintaining your unique facial expressions.</p>
+            </div>
+
+            <!-- Treatment Toggle -->
+            <div class="treatment-toggle">
+                <button class="treatment-toggle-btn active" data-treatment="botox">
+                    <i class="fas fa-syringe botox-icon"></i>
+                    <span>Botox</span>
+                </button>
+                <button class="treatment-toggle-btn" data-treatment="fillers">
+                    <i class="fas fa-fill-drip fillers-icon"></i>
+                    <span>Dermal Fillers</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Content based on Toggle -->
+            <div id="botox-content" class="treatment-content active">
+                <h3>What is Botox?</h3>
+                <p>Botox is a purified protein that temporarily relaxes muscle activity, smoothing dynamic wrinkles caused by facial expressions. It's ideal for:</p>
+                
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle text-primary"></i> Forehead lines and frown lines</li>
+                    <li><i class="fas fa-check-circle text-primary"></i> Crow's feet around eyes</li>
+                    <li><i class="fas fa-check-circle text-primary"></i> Bunny lines on nose</li>
+                    <li><i class="fas fa-check-circle text-primary"></i> Lip lines and smoker's lines</li>
+                    <li><i class="fas fa-check-circle text-primary"></i> Jawline slimming (masseter reduction)</li>
+                    <li><i class="fas fa-check-circle text-primary"></i> Excessive sweating (hyperhidrosis)</li>
+                </ul>
+            </div>
+            
+            <div id="fillers-content" class="treatment-content" style="display: none;">
+                <h3>What are Dermal Fillers?</h3>
+                <p>Dermal fillers are gel-like substances that add volume, contour, and hydration to facial tissues. They're perfect for:</p>
+                
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle text-accent"></i> Lip augmentation and definition</li>
+                    <li><i class="fas fa-check-circle text-accent"></i> Cheek enhancement and contouring</li>
+                    <li><i class="fas fa-check-circle text-accent"></i> Nasolabial folds (smile lines)</li>
+                    <li><i class="fas fa-check-circle text-accent"></i> Marionette lines around mouth</li>
+                    <li><i class="fas fa-check-circle text-accent"></i> Under-eye hollows and dark circles</li>
+                    <li><i class="fas fa-check-circle text-accent"></i> Jawline and chin definition</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison-section" class="treatment-section" role="tabpanel" aria-labelledby="comparison-tab">
+            <h2 class="section-title">
+               Botox vs Dermal Fillers
+            </h2>
+            
+            <div class="comparison-container">
+                <div class="comparison-card">
+                    <div class="comparison-header botox-header">
+                        <div class="comparison-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <div>
+                            <h3>Botox</h3>
+                            <p class="text-muted">Muscle Relaxant</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <span class="comparison-label">Works On</span>
+                            <span class="comparison-value">Dynamic Wrinkles</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Mechanism</span>
+                            <span class="comparison-value">Relaxes Muscles</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Results Time</span>
+                            <span class="comparison-value">3-7 Days</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Duration</span>
+                            <span class="comparison-value">3-4 Months</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Ideal For</span>
+                            <span class="comparison-value">Expression Lines</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Downtime</span>
+                            <span class="comparison-value">None</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-card">
+                    <div class="comparison-header fillers-header">
+                        <div class="comparison-icon">
+                            <i class="fas fa-fill-drip"></i>
+                        </div>
+                        <div>
+                            <h3>Dermal Fillers</h3>
+                            <p class="text-muted">Volume Restorer</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <span class="comparison-label">Works On</span>
+                            <span class="comparison-value">Volume Loss</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Mechanism</span>
+                            <span class="comparison-value">Adds Volume</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Results Time</span>
+                            <span class="comparison-value">Immediate</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Duration</span>
+                            <span class="comparison-value">6-24 Months</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Ideal For</span>
+                            <span class="comparison-value">Static Wrinkles</span>
+                        </div>
+                        <div class="comparison-item">
+                            <span class="comparison-label">Downtime</span>
+                            <span class="comparison-value">Minimal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Calculator -->
+            <h3 class="mt-4">Treatment Cost Calculator</h3>
+            <div class="price-calculator">
+                <div class="calculator-controls">
+                    <div class="calculator-unit">
+                        <span class="unit-label">Botox Units</span>
+                        <div class="unit-input">
+                            <button class="unit-btn minus" data-type="botox">-</button>
+                            <span class="unit-display" id="botox-units">20</span>
+                            <button class="unit-btn plus" data-type="botox">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-unit">
+                        <span class="unit-label">Filler Syringes</span>
+                        <div class="unit-input">
+                            <button class="unit-btn minus" data-type="filler">-</button>
+                            <span class="unit-display" id="filler-units">1</span>
+                            <button class="unit-btn plus" data-type="filler">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-unit">
+                        <span class="unit-label">Treatment Areas</span>
+                        <div class="unit-input">
+                            <button class="unit-btn minus" data-type="areas">-</button>
+                            <span class="unit-display" id="treatment-areas">2</span>
+                            <button class="unit-btn plus" data-type="areas">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-unit">
+                        <span class="unit-label">Consultation</span>
+                        <div class="unit-input">
+                            <span class="unit-display">Included</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="price-display">
+                    <div class="price-amount" id="total-price">₹8,500</div>
+                    <p>Estimated Treatment Cost<br><small>(Final price confirmed after consultation)</small></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Treatment Areas Section -->
+        <section id="areas-section" class="treatment-section" role="tabpanel" aria-labelledby="areas-tab">
+            <h2 class="section-title">
+                Treatment Areas
+            </h2>
+            
+            <div class="treatment-areas">
+                <div class="area-card active" data-area="forehead">
+                    <div class="area-number">1</div>
+                    <div class="area-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h4>Forehead Lines</h4>
+                    <p>Horizontal lines</p>
+                    <div class="area-duration">Botox</div>
+                </div>
+                
+                <div class="area-card" data-area="eyes">
+                    <div class="area-number">2</div>
+                    <div class="area-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4>Crow's Feet</h4>
+                    <p>Eye wrinkles</p>
+                    <div class="area-duration">Botox</div>
+                </div>
+                
+                <div class="area-card" data-area="frown">
+                    <div class="area-number">3</div>
+                    <div class="area-icon">
+                        <i class="fas fa-angry"></i>
+                    </div>
+                    <h4>Frown Lines</h4>
+                    <p>11 lines</p>
+                    <div class="area-duration">Botox</div>
+                </div>
+                
+                <div class="area-card" data-area="lips">
+                    <div class="area-number">4</div>
+                    <div class="area-icon">
+                        <i class="fas fa-kiss-wink-heart"></i>
+                    </div>
+                    <h4>Lips</h4>
+                    <p>Volume & definition</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="cheeks">
+                    <div class="area-number">5</div>
+                    <div class="area-icon">
+                        <i class="fas fa-grin"></i>
+                    </div>
+                    <h4>Cheeks</h4>
+                    <p>Contour & volume</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="jawline">
+                    <div class="area-number">6</div>
+                    <div class="area-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <h4>Jawline</h4>
+                    <p>Slimming & definition</p>
+                    <div class="area-duration">Botox/Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="nasolabial">
+                    <div class="area-number">7</div>
+                    <div class="area-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h4>Smile Lines</h4>
+                    <p>Nasolabial folds</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="marionette">
+                    <div class="area-number">8</div>
+                    <div class="area-icon">
+                        <i class="fas fa-sad-tear"></i>
+                    </div>
+                    <h4>Marionette Lines</h4>
+                    <p>Mouth corners</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="under-eye">
+                    <div class="area-number">9</div>
+                    <div class="area-icon">
+                        <i class="fas fa-tired"></i>
+                    </div>
+                    <h4>Under Eye</h4>
+                    <p>Hollows & dark circles</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="chin">
+                    <div class="area-number">10</div>
+                    <div class="area-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <h4>Chin</h4>
+                    <p>Projection & definition</p>
+                    <div class="area-duration">Fillers</div>
+                </div>
+                
+                <div class="area-card" data-area="bunny">
+                    <div class="area-number">11</div>
+                    <div class="area-icon">
+                        <i class="fas fa-nose"></i>
+                    </div>
+                    <h4>Bunny Lines</h4>
+                    <p>Nose wrinkles</p>
+                    <div class="area-duration">Botox</div>
+                </div>
+                
+                <div class="area-card" data-area="neck">
+                    <div class="area-number">12</div>
+                    <div class="area-icon">
+                        <i class="fas fa-arrows-alt-v"></i>
+                    </div>
+                    <h4>Neck Bands</h4>
+                    <p>Platysmal bands</p>
+                    <div class="area-duration">Botox</div>
+                </div>
+            </div>
+
+            <!-- Duration Timeline -->
+            <h3 class="mt-4">Treatment Duration Timeline</h3>
+            <div class="duration-timeline">
+                <div class="duration-line"></div>
+                <div class="duration-fill" id="duration-fill" style="width: 20%;"></div>
+                
+                <div class="duration-point">
+                    <div class="duration-dot active"></div>
+                    <div class="duration-label">Immediate</div>
+                    <div class="duration-value">Fillers show results</div>
+                </div>
+                
+                <div class="duration-point">
+                    <div class="duration-dot"></div>
+                    <div class="duration-label">3-7 Days</div>
+                    <div class="duration-value">Botox takes effect</div>
+                </div>
+                
+                <div class="duration-point">
+                    <div class="duration-dot"></div>
+                    <div class="duration-label">2 Weeks</div>
+                    <div class="duration-value">Optimal results visible</div>
+                </div>
+                
+                <div class="duration-point">
+                    <div class="duration-dot"></div>
+                    <div class="duration-label">3-4 Months</div>
+                    <div class="duration-value">Botox touch-up needed</div>
+                </div>
+                
+                <div class="duration-point">
+                    <div class="duration-dot"></div>
+                    <div class="duration-label">6-24 Months</div>
+                    <div class="duration-value">Fillers last</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Procedure Section -->
+        <section id="procedure-section" class="treatment-section" role="tabpanel" aria-labelledby="procedure-tab">
+            <h2 class="section-title">
+                Treatment Procedure
+            </h2>
+            
+            <div class="progress-tracker">
+                <div class="progress-step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Consultation & Analysis</h4>
+                        <p>15-minute facial assessment and goal discussion</p>
+                    </div>
+                </div>
+                <div class="progress-step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Treatment Planning</h4>
+                        <p>Custom plan with injection points marked</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Preparation</h4>
+                        <p>Cleaning and optional numbing cream applied</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Injection Process</h4>
+                        <p>Precise injections using ultra-fine needles</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Immediate Aftercare</h4>
+                        <p>Ice application and post-care instructions</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Follow-up</h4>
+                        <p>2-week follow-up for touch-ups if needed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3>Patient Transformations</h3>
+            <div class="gallery-grid" id="botox-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Before Botox treatment" loading="lazy">
+                    <div class="gallery-label">Before: Forehead Lines</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544211393-7f7eec4b1d77?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="After Botox treatment" loading="lazy">
+                    <div class="gallery-label">After: 2 Weeks</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Lip filler before" loading="lazy">
+                    <div class="gallery-label">Before: Thin Lips</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551836026-d5c2e0c49b61?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Lip filler after" loading="lazy">
+                    <div class="gallery-label">After: Enhanced Lips</div>
+                </div>
+            </div>
+
+            <!-- Results Stats -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">15min</div>
+                    <h4>Procedure Time</h4>
+                    <p>Quick lunchtime treatment</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">98%</div>
+                    <h4>Success Rate</h4>
+                    <p>Patient satisfaction</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">0</div>
+                    <h4>Downtime</h4>
+                    <p>Back to work immediately</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">5000+</div>
+                    <h4>Treatments</h4>
+                    <p>Successfully completed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="botox-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Does Botox or fillers hurt?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most patients describe the sensation as a slight pinch. We use ultra-fine needles and can apply numbing cream before treatment for maximum comfort. Fillers often contain lidocaine to minimize discomfort during injection.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long do results last?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Botox typically lasts 3-4 months. Fillers last 6-24 months depending on the type used and area treated. With regular maintenance treatments, results can be sustained long-term.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When will I see results?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Fillers show immediate results, though there may be initial swelling. Botox starts working in 3-7 days, with full results visible at 2 weeks. We schedule a follow-up appointment at 2 weeks for any necessary touch-ups.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are there any side effects?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Common temporary side effects include slight redness, swelling, or bruising at injection sites. These typically resolve within 1-3 days. Serious complications are extremely rare when performed by experienced injectors.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I combine Botox and fillers?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Many patients benefit from combination treatments. Botox addresses dynamic wrinkles while fillers restore volume. We often recommend this approach for comprehensive facial rejuvenation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What's the cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Botox is priced per unit, while fillers are priced per syringe. Cost varies based on amount needed and areas treated. During your consultation, we'll provide a detailed cost estimate. We also offer package deals for multiple areas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there any downtime?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>There's minimal to no downtime. You can return to normal activities immediately. We recommend avoiding strenuous exercise, alcohol, and excessive sun exposure for 24 hours. Some patients may have slight bruising that can be covered with makeup.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Who is not a good candidate?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pregnant or breastfeeding women, individuals with certain neurological disorders, or those with active skin infections in the treatment area. During consultation, we review your medical history to ensure safety.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Information -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Safety Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p>Only receive Botox and fillers from licensed medical professionals. Avoid blood thinners before treatment to minimize bruising. Results are not permanent and require maintenance. Always disclose your complete medical history and current medications to your injector.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Consultation
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Send photos for assessment</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>injectables@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Book Your Injectable Treatment</h3>
+                    <form id="botox-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="treatment-interest" class="form-label">Interested In</label>
+                            <select id="treatment-interest" class="form-select" required>
+                                <option value="">Select treatment</option>
+                                <option value="botox">Botox Only</option>
+                                <option value="fillers">Dermal Fillers Only</option>
+                                <option value="both">Both Botox & Fillers</option>
+                                <option value="consultation">Just Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="treatment-areas-interest" class="form-label">Areas of Interest</label>
+                            <select id="treatment-areas-interest" class="form-select" required>
+                                <option value="">Select areas</option>
+                                <option value="forehead">Forehead Lines</option>
+                                <option value="eyes">Crow's Feet</option>
+                                <option value="lips">Lip Enhancement</option>
+                                <option value="cheeks">Cheek Fillers</option>
+                                <option value="multiple">Multiple Areas</option>
+                                <option value="notsure">Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Book Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Urgent Touch-up -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">
+                    <i class="fas fa-syringe text-primary"></i>
+                    Need a quick touch-up or emergency correction?
+                </p>
+                <a href="tel:+917096969625" class="btn btn-accent">
+                    <i class="fas fa-phone-alt"></i> Emergency: +91 70969 69625
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for a Youthful Refresh?</h2>
+            <p>Book your Botox or filler consultation with our expert injectors today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Appointment Booked!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Us!</h4>
+                    <p>Your Botox/Fillers consultation has been scheduled. We'll send confirmation details via SMS and email. Please arrive 10 minutes early for your appointment.</p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Botox & Fillers page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Treatment toggle (Botox vs Fillers)
+            const toggleBtns = document.querySelectorAll('.treatment-toggle-btn');
+            const botoxContent = document.getElementById('botox-content');
+            const fillersContent = document.getElementById('fillers-content');
+            
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    toggleBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const treatmentType = this.dataset.treatment;
+                    
+                    if (treatmentType === 'botox') {
+                        botoxContent.style.display = 'block';
+                        fillersContent.style.display = 'none';
+                    } else {
+                        botoxContent.style.display = 'none';
+                        fillersContent.style.display = 'block';
+                    }
+                });
+            });
+
+            // Treatment areas selector
+            const areaCards = document.querySelectorAll('.area-card');
+            areaCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    areaCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const area = this.dataset.area;
+                    updateAreaDetails(area);
+                });
+            });
+
+            // Price calculator functionality
+            const botoxUnits = document.getElementById('botox-units');
+            const fillerUnits = document.getElementById('filler-units');
+            const treatmentAreas = document.getElementById('treatment-areas');
+            const totalPrice = document.getElementById('total-price');
+            
+            const unitBtns = document.querySelectorAll('.unit-btn');
+            unitBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    const isPlus = this.classList.contains('plus');
+                    
+                    let currentValue;
+                    let element;
+                    
+                    switch(type) {
+                        case 'botox':
+                            element = botoxUnits;
+                            currentValue = parseInt(element.textContent);
+                            currentValue = isPlus ? currentValue + 5 : Math.max(5, currentValue - 5);
+                            element.textContent = currentValue;
+                            break;
+                        case 'filler':
+                            element = fillerUnits;
+                            currentValue = parseInt(element.textContent);
+                            currentValue = isPlus ? currentValue + 0.5 : Math.max(0.5, currentValue - 0.5);
+                            element.textContent = currentValue;
+                            break;
+                        case 'areas':
+                            element = treatmentAreas;
+                            currentValue = parseInt(element.textContent);
+                            currentValue = isPlus ? currentValue + 1 : Math.max(1, currentValue - 1);
+                            element.textContent = currentValue;
+                            break;
+                    }
+                    
+                    calculateTotalPrice();
+                });
+            });
+
+            // Duration timeline animation
+            const durationFill = document.getElementById('duration-fill');
+            const durationPoints = document.querySelectorAll('.duration-point');
+            let currentDuration = 1;
+            
+            // Animate timeline
+            function animateTimeline() {
+                const durations = [20, 40, 60, 80, 100];
+                
+                if (currentDuration < durations.length) {
+                    durationFill.style.width = `${durations[currentDuration]}%`;
+                    
+                    // Update active dot
+                    durationPoints.forEach((point, index) => {
+                        const dot = point.querySelector('.duration-dot');
+                        if (index <= currentDuration) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                    
+                    currentDuration++;
+                    
+                    if (currentDuration < durations.length) {
+                        setTimeout(animateTimeline, 1500);
+                    }
+                }
+            }
+            
+            // Start animation after page load
+            setTimeout(animateTimeline, 1000);
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('botox-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['treatment-interest'] || !data['treatment-areas-interest'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper functions
+            function calculateTotalPrice() {
+                const botox = parseInt(botoxUnits.textContent) || 0;
+                const filler = parseFloat(fillerUnits.textContent) || 0;
+                const areas = parseInt(treatmentAreas.textContent) || 1;
+                
+                // Base prices (in rupees)
+                const botoxPricePerUnit = 300;
+                const fillerPricePerSyringe = 15000;
+                const areaMultiplier = areas * 0.1; // 10% increase per additional area
+                
+                let total = (botox * botoxPricePerUnit) + (filler * fillerPricePerSyringe);
+                total = total * (1 + areaMultiplier);
+                
+                // Format and display
+                totalPrice.textContent = `₹${total.toLocaleString('en-IN')}`;
+            }
+
+            function updateAreaDetails(area) {
+                const areaDetails = {
+                    forehead: "Forehead lines are treated with Botox to relax the frontalis muscle, smoothing horizontal lines.",
+                    eyes: "Crow's feet respond well to Botox injections around the orbital rim.",
+                    lips: "Lip fillers add volume and definition using hyaluronic acid fillers.",
+                    cheeks: "Cheek fillers restore volume and create youthful contours.",
+                    // Add more area details as needed
+                };
+                
+                // In a real app, update UI with area details
+                console.log(`Selected area: ${area} - ${areaDetails[area] || 'Details available'}`);
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Initialize price calculation
+            calculateTotalPrice();
+            
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

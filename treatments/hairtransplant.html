@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Hair Transplant | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Hair Transplant page */
+        #hair-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        /* Hair Loss Stage Selector */
+        .hair-stage-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stage-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .stage-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-5px);
+        }
+        
+        .stage-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stage-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-sm);
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            overflow: hidden;
+        }
+        
+        .stage-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Treatment Techniques */
+        .technique-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .technique-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .technique-card.recommended {
+            border: 2px solid var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .technique-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .technique-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .technique-features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-md) 0;
+        }
+        
+        .technique-features li {
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .technique-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        /* Graft Calculator */
+        .graft-calculator {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .calculator-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .area-visualization {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: var(--space-lg) 0;
+            position: relative;
+        }
+        
+        .head-diagram {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            background: #f5f5f5;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .hair-area {
+            position: absolute;
+            border: 2px dashed var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .hair-area.active {
+            background: rgba(33, 150, 243, 0.3);
+            border-style: solid;
+        }
+        
+        .area-front {
+            top: 60px;
+            left: 100px;
+            width: 100px;
+            height: 80px;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .area-mid {
+            top: 100px;
+            left: 75px;
+            width: 150px;
+            height: 100px;
+        }
+        
+        .area-crown {
+            top: 160px;
+            left: 100px;
+            width: 100px;
+            height: 80px;
+            border-radius: 0 0 50% 50%;
+        }
+        
+        .graft-result {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--primary-light);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .graft-count {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        /* Growth Timeline */
+        .growth-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .growth-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .growth-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .growth-dot.active {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+        
+        .growth-dot.completed::after {
+            content: '✓';
+            position: absolute;
+            top: -3px;
+            left: 4px;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        
+        .growth-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light-gray);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .growth-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: width 1s ease;
+        }
+        
+        /* Before/After Gallery */
+        .hair-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            padding: var(--space-sm);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        /* Density Visualization */
+        .density-visualization {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .density-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .density-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .density-visual {
+            display: flex;
+            justify-content: center;
+            gap: 2px;
+            margin: var(--space-md) 0;
+            flex-wrap: wrap;
+        }
+        
+        .hair-strand {
+            width: 3px;
+            height: 20px;
+            background: var(--dark);
+            border-radius: 1px;
+        }
+        
+        /* Cost Calculator */
+        .cost-calculator {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cost-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .cost-result {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--primary-light);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .cost-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        @media (max-width: 768px) {
+            .hair-stage-selector {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .growth-timeline {
+                flex-direction: column;
+                gap: var(--space-xl);
+            }
+            
+            .growth-line, .growth-progress {
+                display: none;
+            }
+            
+            .calculator-controls, .cost-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hair-stage-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .technique-comparison {
+                grid-template-columns: 1fr;
+            }
+            .logo-text h1 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+                   <div class="logo-text"> <h1>Yuva Skin Clinic</h1>
+                    <p>Hair Transplant</p>
+                    </div>
+                </div>
+            </a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="hair-hero">
+        <div class="treatment-hero-content">
+            <h1>Advanced Hair Transplant</h1>
+            <p>Permanent solution for hair loss with natural-looking results using latest techniques</p>
+            
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>4-8 Hours</h4>
+            <p>Single Session</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Surgeons</h4>
+            <p>15+ Years Experience</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Natural Results</h4>
+            <p>95% Success Rate</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Lifetime Results</h4>
+            <p>Permanent Solution</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="techniques" role="tab" aria-selected="false">
+                <i class="fas fa-microscope"></i> Techniques
+            </button>
+            <button class="tab-item" data-tab="calculator" role="tab" aria-selected="false">
+                <i class="fas fa-calculator"></i> Graft Calculator
+            </button>
+            <button class="tab-item" data-tab="procedure" role="tab" aria-selected="false">
+                <i class="fas fa-list-ol"></i> Procedure
+            </button>
+            <button class="tab-item" data-tab="results" role="tab" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Results
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+                 Hair Transplant Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Hair transplant is a permanent surgical solution for hair loss that involves transferring hair follicles from the donor area (back and sides of the head) to the bald or thinning areas. It's the most effective solution for pattern baldness, offering natural-looking, permanent results.</p>
+                
+                <p>At Yuva Skin Clinic, we use advanced techniques performed by board-certified hair transplant surgeons to ensure maximum graft survival, natural hairline design, and optimal density for a completely natural appearance.</p>
+            </div>
+
+            <!-- Hair Loss Stages -->
+            <h3 class="mt-4">Norwood Scale - Hair Loss Stages</h3>
+            <div class="hair-stage-selector">
+                <div class="stage-card active" data-stage="1">
+                    <div class="stage-number">I</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 1</h4>
+                    <p>Minimal recession</p>
+                </div>
+                
+                <div class="stage-card" data-stage="2">
+                    <div class="stage-number">II</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 2</h4>
+                    <p>Temporal recession</p>
+                </div>
+                
+                <div class="stage-card" data-stage="3">
+                    <div class="stage-number">III</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 3</h4>
+                    <p>First signs of baldness</p>
+                </div>
+                
+                <div class="stage-card" data-stage="4">
+                    <div class="stage-number">IV</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 4</h4>
+                    <p>Advanced recession</p>
+                </div>
+                
+                <div class="stage-card" data-stage="5">
+                    <div class="stage-number">V</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 5</h4>
+                    <p>Severe hair loss</p>
+                </div>
+                
+                <div class="stage-card" data-stage="6">
+                    <div class="stage-number">VI</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 6</h4>
+                    <p>Advanced baldness</p>
+                </div>
+                
+                <div class="stage-card" data-stage="7">
+                    <div class="stage-number">VII</div>
+                    <div class="stage-image">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Stage 7</h4>
+                    <p>Most severe</p>
+                </div>
+            </div>
+
+            <!-- Candidate Criteria -->
+            <h3>Ideal Candidate</h3>
+            <div class="candidate-criteria">
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Pattern Baldness</h4>
+                    <p>Male/Female pattern hair loss</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Good Donor Area</h4>
+                    <p>Sufficient hair at back/sides</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Realistic Expectations</h4>
+                    <p>Understands procedure & results</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Good Health</h4>
+                    <p>No major health issues</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>Not For</h4>
+                    <p>Diffuse unpatterned alopecia</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>Not For</h4>
+                    <p>Uncontrolled medical conditions</p>
+                </div>
+            </div>
+
+            <!-- Types of Hair Loss -->
+            <h3 class="mt-4">Types of Hair Loss We Treat</h3>
+            <div class="hair-loss-types">
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h4>Male Pattern Baldness</h4>
+                    <p>Androgenetic alopecia</p>
+                </div>
+                
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h4>Female Pattern Hair Loss</h4>
+                    <p>Ludwig scale</p>
+                </div>
+                
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h4>Scarring Alopecia</h4>
+                    <p>Hair loss from scars</p>
+                </div>
+                
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-arrows-alt-h"></i>
+                    </div>
+                    <h4>Receding Hairline</h4>
+                    <p>Temporal recession</p>
+                </div>
+                
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Crown Baldness</h4>
+                    <p>Vertex hair loss</p>
+                </div>
+                
+                <div class="type-card">
+                    <div class="type-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h4>Eyebrow Restoration</h4>
+                    <p>Eyebrow hair transplant</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Techniques Section -->
+        <section id="techniques-section" class="treatment-section" role="tabpanel" aria-labelledby="techniques-tab">
+            <h2 class="section-title">
+ Hair Transplant Techniques
+            </h2>
+            
+            <div class="technique-comparison">
+                <div class="technique-card recommended">
+                    <div class="technique-badge">Most Advanced</div>
+                    <div class="technique-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>FUE (Follicular Unit Extraction)</h3>
+                    <p class="text-muted">No-Scar Technique</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> No linear scar</li>
+                        <li><i class="fas fa-check feature-icon"></i> Faster recovery</li>
+                        <li><i class="fas fa-check feature-icon"></i> Less discomfort</li>
+                        <li><i class="fas fa-check feature-icon"></i> Shorter hair possible</li>
+                        <li><i class="fas fa-check feature-icon"></i> High precision</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">1500-3000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">6-8 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">7-10 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h3>FUT (Follicular Unit Transplant)</h3>
+                    <p class="text-muted">Strip Method</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> More grafts in one session</li>
+                        <li><i class="fas fa-check feature-icon"></i> Higher survival rate</li>
+                        <li><i class="fas fa-check feature-icon"></i> Cost-effective</li>
+                        <li><i class="fas fa-check feature-icon"></i> Good for large areas</li>
+                        <li><i class="fas fa-check feature-icon"></i> Proven technique</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">3000-5000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">4-6 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">10-14 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Robotic FUE</h3>
+                    <p class="text-muted">AI-Powered Precision</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> Robotic precision</li>
+                        <li><i class="fas fa-check feature-icon"></i> Consistent results</li>
+                        <li><i class="fas fa-check feature-icon"></i> Reduced human error</li>
+                        <li><i class="fas fa-check feature-icon"></i> Faster procedure</li>
+                        <li><i class="fas fa-check feature-icon"></i> Advanced technology</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">2000-4000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">5-7 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">7-10 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h3>Sapphire FUE</h3>
+                    <p class="text-muted">Premium Technique</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> Sapphire blades</li>
+                        <li><i class="fas fa-check feature-icon"></i> Smaller incisions</li>
+                        <li><i class="fas fa-check feature-icon"></i> Less trauma</li>
+                        <li><i class="fas fa-check feature-icon"></i> Faster healing</li>
+                        <li><i class="fas fa-check feature-icon"></i> Better density</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">1500-2500</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">6-8 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">5-7 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h3>DHI (Direct Hair Implant)</h3>
+                    <p class="text-muted">Choi Implanter Pen</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> No prior slits</li>
+                        <li><i class="fas fa-check feature-icon"></i> Higher density possible</li>
+                        <li><i class="fas fa-check feature-icon"></i> Less handling of grafts</li>
+                        <li><i class="fas fa-check feature-icon"></i> Better angle control</li>
+                        <li><i class="fas fa-check feature-icon"></i> Quicker procedure</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">1000-2000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">7-9 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">7-10 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Combination Technique</h3>
+                    <p class="text-muted">Customized Approach</p>
+                    
+                    <div class="technique-features">
+                        <li><i class="fas fa-check feature-icon"></i> Tailored to patient</li>
+                        <li><i class="fas fa-check feature-icon"></i> Optimizes results</li>
+                        <li><i class="fas fa-check feature-icon"></i> Cost-effective</li>
+                        <li><i class="fas fa-check feature-icon"></i> Maximum coverage</li>
+                        <li><i class="fas fa-check feature-icon"></i> Best of both methods</li>
+                    </div>
+                    
+                    <div class="technique-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Grafts/Day:</span>
+                            <span class="detail-value">2500-4000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Procedure:</span>
+                            <span class="detail-value">6-10 hours</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Recovery:</span>
+                            <span class="detail-value">8-12 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technique Comparison Table -->
+            <h3 class="mt-4">Technique Comparison</h3>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Technique</th>
+                            <th>Scarring</th>
+                            <th>Recovery</th>
+                            <th>Grafts/Session</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="best-choice">
+                            <td><strong>FUE</strong></td>
+                            <td>Dot scars</td>
+                            <td>7-10 days</td>
+                            <td>1500-3000</td>
+                            <td>Short hair, small scars</td>
+                        </tr>
+                        <tr>
+                            <td>FUT</td>
+                            <td>Linear scar</td>
+                            <td>10-14 days</td>
+                            <td>3000-5000</td>
+                            <td>Large bald areas</td>
+                        </tr>
+                        <tr>
+                            <td>Robotic FUE</td>
+                            <td>Dot scars</td>
+                            <td>7-10 days</td>
+                            <td>2000-4000</td>
+                            <td>Precision, consistency</td>
+                        </tr>
+                        <tr>
+                            <td>Sapphire FUE</td>
+                            <td>Minimal</td>
+                            <td>5-7 days</td>
+                            <td>1500-2500</td>
+                            <td>Premium results</td>
+                        </tr>
+                        <tr>
+                            <td>DHI</td>
+                            <td>Minimal</td>
+                            <td>7-10 days</td>
+                            <td>1000-2000</td>
+                            <td>High density, precision</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator-section" class="treatment-section" role="tabpanel" aria-labelledby="calculator-tab">
+            <h2 class="section-title">
+ Graft Calculator & Cost
+            </h2>
+            
+            <!-- Graft Calculator -->
+            <div class="graft-calculator">
+                <h3 class="text-center mb-4">Estimate Your Graft Requirement</h3>
+                
+                <div class="calculator-controls">
+                    <div class="calculator-input">
+                        <label for="norwood-stage" class="form-label">Norwood Stage</label>
+                        <select id="norwood-stage" class="form-select">
+                            <option value="2">Stage II</option>
+                            <option value="3">Stage III</option>
+                            <option value="4" selected>Stage IV</option>
+                            <option value="5">Stage V</option>
+                            <option value="6">Stage VI</option>
+                            <option value="7">Stage VII</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label for="hair-density" class="form-label">Desired Density</label>
+                        <select id="hair-density" class="form-select">
+                            <option value="low">Low (40-50 grafts/cm²)</option>
+                            <option value="medium" selected>Medium (50-60 grafts/cm²)</option>
+                            <option value="high">High (60-70 grafts/cm²)</option>
+                            <option value="very-high">Very High (70-80 grafts/cm²)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label for="coverage-area" class="form-label">Coverage Area</label>
+                        <select id="coverage-area" class="form-select">
+                            <option value="front">Front Only</option>
+                            <option value="front-mid" selected>Front + Mid Scalp</option>
+                            <option value="full">Full Scalp</option>
+                            <option value="crown">Crown Only</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Area Visualization -->
+                <div class="area-visualization">
+                    <div class="head-diagram">
+                        <div class="hair-area area-front active" data-area="front"></div>
+                        <div class="hair-area area-mid" data-area="mid"></div>
+                        <div class="hair-area area-crown" data-area="crown"></div>
+                    </div>
+                </div>
+                
+                <div class="graft-result">
+                    <div class="graft-count" id="graft-count">2800-3500</div>
+                    <div class="graft-category">Estimated Grafts Needed</div>
+                    <p id="graft-description">For Norwood Stage IV with medium density coverage</p>
+                </div>
+            </div>
+
+            <!-- Cost Calculator -->
+            <div class="cost-calculator">
+                <h3 class="text-center mb-4">Cost Estimation</h3>
+                
+                <div class="cost-inputs">
+                    <div class="calculator-input">
+                        <label for="graft-count-input" class="form-label">Number of Grafts</label>
+                        <input type="number" id="graft-count-input" class="form-control" value="3000" min="500" max="8000" step="100">
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label for="technique-type" class="form-label">Technique</label>
+                        <select id="technique-type" class="form-select">
+                            <option value="fue">FUE (₹40-50 per graft)</option>
+                            <option value="sapphire" selected>Sapphire FUE (₹50-60 per graft)</option>
+                            <option value="dhi">DHI (₹60-70 per graft)</option>
+                            <option value="robotic">Robotic FUE (₹70-80 per graft)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label for="package-type" class="form-label">Package</label>
+                        <select id="package-type" class="form-select">
+                            <option value="basic">Basic (Procedure only)</option>
+                            <option value="standard" selected>Standard (Procedure + Medication)</option>
+                            <option value="premium">Premium (All-inclusive)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="cost-result">
+                    <div class="cost-amount" id="cost-amount">₹1,50,000</div>
+                    <div class="cost-category">Estimated Total Cost</div>
+                    <p id="cost-description">Inclusive of procedure, medication, and follow-ups</p>
+                    <div class="cost-breakdown mt-3">
+                        <div class="breakdown-item">
+                            <span>Procedure Cost:</span>
+                            <span id="procedure-cost">₹1,20,000</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Medication:</span>
+                            <span id="medication-cost">₹15,000</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Follow-ups:</span>
+                            <span id="followup-cost">₹15,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Density Visualization -->
+            <h3 class="mt-4">Hair Density Visualization</h3>
+            <div class="density-visualization">
+                <div class="density-card">
+                    <div class="density-value">40-50</div>
+                    <h4>Low Density</h4>
+                    <p>Grafts per cm²</p>
+                    <div class="density-visual">
+                        <!-- Visual representation -->
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                    </div>
+                    <small>Thin coverage, lower cost</small>
+                </div>
+                
+                <div class="density-card">
+                    <div class="density-value">50-60</div>
+                    <h4>Medium Density</h4>
+                    <p>Grafts per cm²</p>
+                    <div class="density-visual">
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                    </div>
+                    <small>Natural look, recommended</small>
+                </div>
+                
+                <div class="density-card">
+                    <div class="density-value">60-70</div>
+                    <h4>High Density</h4>
+                    <p>Grafts per cm²</p>
+                    <div class="density-visual">
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                    </div>
+                    <small>Full coverage, higher cost</small>
+                </div>
+                
+                <div class="density-card">
+                    <div class="density-value">70-80</div>
+                    <h4>Very High Density</h4>
+                    <p>Grafts per cm²</p>
+                    <div class="density-visual">
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                        <div class="hair-strand"></div>
+                    </div>
+                    <small>Maximum density, premium</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Procedure Section -->
+        <section id="procedure-section" class="treatment-section" role="tabpanel" aria-labelledby="procedure-tab">
+            <h2 class="section-title">
+ Hair Transplant Procedure
+            </h2>
+            
+            <!-- Procedure Steps -->
+            <div class="treatment-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h4>Consultation</h4>
+                    <p>Scalp analysis & planning</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-ruler"></i>
+                    </div>
+                    <h4>Hairline Design</h4>
+                    <p>Natural hairline marking</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h4>Donor Extraction</h4>
+                    <p>FUE/FUT graft extraction</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h4>Graft Preparation</h4>
+                    <p>Sorting & preservation</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h4>Recipient Site Creation</h4>
+                    <p>Micro-incisions for grafts</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h4>Graft Implantation</h4>
+                    <p>Precise graft placement</p>
+                </div>
+            </div>
+
+            <!-- Growth Timeline -->
+            <h3 class="mt-4">Hair Growth Timeline</h3>
+            <div class="growth-timeline">
+                <div class="growth-line"></div>
+                <div class="growth-progress" id="growth-progress" style="width: 20%;"></div>
+                
+                <div class="growth-point">
+                    <div class="growth-dot active completed"></div>
+                    <div class="growth-month">Day 1-10</div>
+                    <div class="growth-desc">Scabs form & fall</div>
+                </div>
+                
+                <div class="growth-point">
+                    <div class="growth-dot active"></div>
+                    <div class="growth-month">Month 1</div>
+                    <div class="growth-desc">Transplanted hair sheds</div>
+                </div>
+                
+                <div class="growth-point">
+                    <div class="growth-dot"></div>
+                    <div class="growth-month">Month 3-4</div>
+                    <div class="growth-desc">New hair starts growing</div>
+                </div>
+                
+                <div class="growth-point">
+                    <div class="growth-dot"></div>
+                    <div class="growth-month">Month 6</div>
+                    <div class="growth-desc">50% growth visible</div>
+                </div>
+                
+                <div class="growth-point">
+                    <div class="growth-dot"></div>
+                    <div class="growth-month">Month 9-12</div>
+                    <div class="growth-desc">Full results visible</div>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3>Patient Transformations</h3>
+            <div class="hair-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Hair transplant before" loading="lazy">
+                    <div class="gallery-label">Before: Norwood V</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Hair transplant after" loading="lazy">
+                    <div class="gallery-label">After: 12 Months</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Hairline restoration" loading="lazy">
+                    <div class="gallery-label">Hairline Design</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Crown restoration" loading="lazy">
+                    <div class="gallery-label">Crown Restoration</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Eyebrow transplant" loading="lazy">
+                    <div class="gallery-label">Eyebrow Transplant</div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Beard transplant" loading="lazy">
+                    <div class="gallery-label">Beard Transplant</div>
+                </div>
+            </div>
+
+            <!-- Aftercare Instructions -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Post-Procedure Care</h4>
+                </div>
+                <div class="warning-content">
+                    <ul>
+                        <li>Sleep with head elevated for first week</li>
+                        <li>Avoid direct sun exposure for 2 weeks</li>
+                        <li>No strenuous exercise for 3 weeks</li>
+                        <li>Use prescribed shampoos and medications</li>
+                        <li>Don't scratch or pick at scabs</li>
+                        <li>Attend all follow-up appointments</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="treatment-section" role="tabpanel" aria-labelledby="results-tab">
+            <h2 class="section-title">
+ Expected Results
+            </h2>
+            
+            <!-- Results Statistics -->
+            <div class="results-stats">
+                <div class="stat-card">
+                    <div class="stat-value">95%</div>
+                    <h4>Graft Survival Rate</h4>
+                    <p>With proper technique</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">90%</div>
+                    <h4>Patient Satisfaction</h4>
+                    <p>Natural-looking results</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <h4>Months</h4>
+                    <p>For full results</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1000+</div>
+                    <h4>Successful Procedures</h4>
+                    <p>Performed by our team</p>
+                </div>
+            </div>
+
+            <!-- Monthly Progress -->
+            <h3 class="mt-4">Monthly Progress Guide</h3>
+            <div class="progress-guide">
+                <div class="month-card">
+                    <div class="month-number">Month 1</div>
+                    <div class="month-content">
+                        <h4>Shedding Phase</h4>
+                        <p>Transplanted hair falls out - normal process</p>
+                        <div class="progress-percentage">0% visible</div>
+                    </div>
+                </div>
+                
+                <div class="month-card">
+                    <div class="month-number">Month 3-4</div>
+                    <div class="month-content">
+                        <h4>Early Growth</h4>
+                        <p>New hair starts growing, thin and fine</p>
+                        <div class="progress-percentage">20-30% visible</div>
+                    </div>
+                </div>
+                
+                <div class="month-card">
+                    <div class="month-number">Month 6</div>
+                    <div class="month-content">
+                        <h4>Significant Growth</h4>
+                        <p>Hair becomes thicker and more visible</p>
+                        <div class="progress-percentage">50-60% visible</div>
+                    </div>
+                </div>
+                
+                <div class="month-card">
+                    <div class="month-number">Month 9-12</div>
+                    <div class="month-content">
+                        <h4>Full Results</h4>
+                        <p>Complete growth, natural appearance</p>
+                        <div class="progress-percentage">80-90% visible</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Stories -->
+            <h3>Patient Success Stories</h3>
+            <div class="success-stories">
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 1" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Rahul, 38</h4>
+                        <p>"3500 grafts FUE procedure gave me back my confidence. Natural hairline and full coverage."</p>
+                        <div class="story-stats">
+                            <span class="stat">3500 grafts</span>
+                            <span class="stat">FUE Technique</span>
+                            <span class="stat">12 months</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 2" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Priya, 32</h4>
+                        <p>"Female pattern hair loss treated with 2200 grafts. Can now style my hair any way I want!"</p>
+                        <div class="story-stats">
+                            <span class="stat">2200 grafts</span>
+                            <span class="stat">Sapphire FUE</span>
+                            <span class="stat">10 months</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 3" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Vikram, 45</h4>
+                        <p>"Combination FUT+FUE for maximum coverage. Worth every penny for permanent results."</p>
+                        <div class="story-stats">
+                            <span class="stat">4500 grafts</span>
+                            <span class="stat">FUT+FUE Combo</span>
+                            <span class="stat">14 months</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Tips -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h4>Medication</h4>
+                    <p>Finasteride/Minoxidil as advised</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-shampoo"></i>
+                    </div>
+                    <h4>Gentle Care</h4>
+                    <p>Use mild shampoos</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Sun Protection</h4>
+                    <p>Protect from UV rays</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Healthy Lifestyle</h4>
+                    <p>Balanced diet, no smoking</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+ Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="hair-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is hair transplant painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The procedure is performed under local anesthesia, so you won't feel pain during the surgery. Some discomfort may be experienced during anesthesia injection and post-procedure. We provide pain medication to manage any discomfort during recovery.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long does the procedure take?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Depending on the number of grafts, the procedure takes 4-8 hours. We perform it in a single session for most cases. You'll be awake during the procedure and can watch movies, listen to music, or rest comfortably.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When can I return to work?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most patients return to work in 3-5 days. If your job involves physical labor, you may need 7-10 days. The tiny scabs that form are usually not noticeable after 5-7 days, and you can style your hair to cover them.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are results permanent?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, transplanted hair is permanent as it's taken from the permanent donor area (back and sides of head) which is genetically resistant to balding. However, existing natural hair may continue to thin, so medication may be recommended to preserve it.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Will it look natural?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>With modern techniques and experienced surgeons, results are completely natural. We design hairline based on your facial structure, age, and donor availability. Grafts are placed at correct angles and directions to match your natural hair growth pattern.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can women get hair transplants?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, women are excellent candidates for hair transplant if they have stable donor areas. Female pattern hair loss typically causes diffuse thinning, but we can transplant hair to increase density in thinning areas with excellent results.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What's the cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost is calculated per graft and varies by technique (₹40-80 per graft). A typical procedure of 2500-3500 grafts costs ₹1-3 lakhs. We provide detailed cost breakdown during consultation and offer financing options.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there any scarring?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>FUE leaves tiny dot scars that are not visible even with short hair. FUT leaves a linear scar that can be hidden under hair. With proper technique and sufficient donor hair, scars are minimal and well-concealed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Information -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Not a cosmetic procedure:</strong> Hair transplant is a surgical procedure requiring proper evaluation. Good donor area is essential for success.</p>
+                    <p><strong>Realistic expectations:</strong> Results depend on donor hair quality, surgeon skill, and aftercare. Multiple sessions may be needed for extensive baldness.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Consultation
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Send photos for assessment</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>hairtransplant@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Free Hair Transplant Consultation</h3>
+                    <form id="hair-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hair-loss-stage" class="form-label">Hair Loss Stage</label>
+                            <select id="hair-loss-stage" class="form-select" required>
+                                <option value="">Select stage</option>
+                                <option value="early">Early (Norwood I-II)</option>
+                                <option value="moderate">Moderate (Norwood III-IV)</option>
+                                <option value="advanced">Advanced (Norwood V-VI)</option>
+                                <option value="severe">Severe (Norwood VII)</option>
+                                <option value="notsure">Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age-group" class="form-label">Age Group</label>
+                            <select id="age-group" class="form-select" required>
+                                <option value="">Select age group</option>
+                                <option value="20-30">20-30 years</option>
+                                <option value="30-40">30-40 years</option>
+                                <option value="40-50">40-50 years</option>
+                                <option value="50+">50+ years</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="treatment-interest" class="form-label">Interested In</label>
+                            <select id="treatment-interest" class="form-select" required>
+                                <option value="">Select interest</option>
+                                <option value="fue">FUE Hair Transplant</option>
+                                <option value="sapphire">Sapphire FUE</option>
+                                <option value="dhi">DHI Technique</option>
+                                <option value="beard">Beard Transplant</option>
+                                <option value="eyebrow">Eyebrow Transplant</option>
+                                <option value="consultation">Just Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Book Free Consultation
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Virtual Consultation -->
+            <div class="text-center mt-4">
+                <div class="virtual-consultation">
+                    <i class="fas fa-video text-primary"></i>
+                    <h4>Virtual Consultation Available</h4>
+                    <p>Can't visit in person? Book a video consultation with our hair transplant surgeon</p>
+                    <a href="tel:+917096969625" class="btn btn-accent">
+                        <i class="fas fa-calendar-plus"></i> Book Virtual Consultation
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready to Regain Your Hair?</h2>
+            <p>Book your free hair transplant consultation with our expert surgeons today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+           
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Consultation Booked!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Hair Transplant!</h4>
+                    <p>Your free consultation has been scheduled. Our hair transplant coordinator will contact you within 24 hours to confirm and discuss next steps.</p>
+                    <p style="color: var(--accent); font-weight: 600; margin-top: 15px;">
+                        <i class="fas fa-tip"></i>
+                        Tip: Take clear photos of your hair from front, top, and back for better assessment
+                    </p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Hair Transplant page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hair loss stage selector
+            const stageCards = document.querySelectorAll('.stage-card');
+            stageCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    stageCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const stage = this.dataset.stage;
+                    updateStageRecommendation(stage);
+                });
+            });
+
+            // Hair area selector
+            const hairAreas = document.querySelectorAll('.hair-area');
+            hairAreas.forEach(area => {
+                area.addEventListener('click', function() {
+                    hairAreas.forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Graft calculator
+            const norwoodStage = document.getElementById('norwood-stage');
+            const hairDensity = document.getElementById('hair-density');
+            const coverageArea = document.getElementById('coverage-area');
+            const graftCount = document.getElementById('graft-count');
+            const graftDescription = document.getElementById('graft-description');
+            
+            function calculateGrafts() {
+                const stage = parseInt(norwoodStage.value);
+                const density = hairDensity.value;
+                const area = coverageArea.value;
+                
+                // Base grafts by Norwood stage
+                const stageGrafts = {
+                    2: [800, 1200],
+                    3: [1200, 1800],
+                    4: [1800, 2500],
+                    5: [2500, 3500],
+                    6: [3500, 4500],
+                    7: [4500, 6000]
+                };
+                
+                // Adjust by density
+                const densityMultiplier = {
+                    'low': 0.8,
+                    'medium': 1,
+                    'high': 1.2,
+                    'very-high': 1.4
+                };
+                
+                // Adjust by area
+                const areaMultiplier = {
+                    'front': 0.6,
+                    'front-mid': 1,
+                    'full': 1.4,
+                    'crown': 0.4
+                };
+                
+                let baseRange = stageGrafts[stage] || [1800, 2500];
+                let minGrafts = baseRange[0] * densityMultiplier[density] * areaMultiplier[area];
+                let maxGrafts = baseRange[1] * densityMultiplier[density] * areaMultiplier[area];
+                
+                graftCount.textContent = `${Math.round(minGrafts)}-${Math.round(maxGrafts)}`;
+                
+                const stageNames = {
+                    2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII'
+                };
+                const densityNames = {
+                    'low': 'low', 'medium': 'medium', 'high': 'high', 'very-high': 'very high'
+                };
+                const areaNames = {
+                    'front': 'front only', 'front-mid': 'front + mid scalp', 
+                    'full': 'full scalp', 'crown': 'crown only'
+                };
+                
+                graftDescription.textContent = 
+                    `For Norwood Stage ${stageNames[stage]} with ${densityNames[density]} density coverage (${areaNames[area]})`;
+                
+                // Update cost calculator
+                updateCostCalculator(Math.round((minGrafts + maxGrafts) / 2));
+            }
+            
+            // Cost calculator
+            const graftCountInput = document.getElementById('graft-count-input');
+            const techniqueType = document.getElementById('technique-type');
+            const packageType = document.getElementById('package-type');
+            const costAmount = document.getElementById('cost-amount');
+            const procedureCost = document.getElementById('procedure-cost');
+            const medicationCost = document.getElementById('medication-cost');
+            const followupCost = document.getElementById('followup-cost');
+            const costDescription = document.getElementById('cost-description');
+            
+            function updateCostCalculator(estimatedGrafts) {
+                if (estimatedGrafts) {
+                    graftCountInput.value = estimatedGrafts;
+                }
+                
+                const grafts = parseInt(graftCountInput.value);
+                const technique = techniqueType.value;
+                const package = packageType.value;
+                
+                // Cost per graft by technique
+                const techniqueCosts = {
+                    'fue': [40, 50],
+                    'sapphire': [50, 60],
+                    'dhi': [60, 70],
+                    'robotic': [70, 80]
+                };
+                
+                // Package multipliers
+                const packageMultipliers = {
+                    'basic': 1,
+                    'standard': 1.2,
+                    'premium': 1.4
+                };
+                
+                const costRange = techniqueCosts[technique] || [50, 60];
+                const avgCostPerGraft = (costRange[0] + costRange[1]) / 2;
+                
+                let procedure = grafts * avgCostPerGraft;
+                let medication = procedure * 0.1;
+                let followup = procedure * 0.1;
+                
+                // Apply package multiplier
+                const multiplier = packageMultipliers[package];
+                procedure *= multiplier;
+                medication *= multiplier;
+                followup *= multiplier;
+                
+                const total = procedure + medication + followup;
+                
+                costAmount.textContent = `₹${Math.round(total).toLocaleString('en-IN')}`;
+                procedureCost.textContent = `₹${Math.round(procedure).toLocaleString('en-IN')}`;
+                medicationCost.textContent = `₹${Math.round(medication).toLocaleString('en-IN')}`;
+                followupCost.textContent = `₹${Math.round(followup).toLocaleString('en-IN')}`;
+                
+                const techniqueNames = {
+                    'fue': 'FUE', 'sapphire': 'Sapphire FUE', 
+                    'dhi': 'DHI', 'robotic': 'Robotic FUE'
+                };
+                
+                costDescription.textContent = 
+                    `Inclusive of ${techniqueNames[technique]} procedure, medication, and follow-up care`;
+            }
+            
+            // Event listeners for calculators
+            norwoodStage.addEventListener('change', calculateGrafts);
+            hairDensity.addEventListener('change', calculateGrafts);
+            coverageArea.addEventListener('change', calculateGrafts);
+            
+            graftCountInput.addEventListener('input', updateCostCalculator);
+            techniqueType.addEventListener('change', updateCostCalculator);
+            packageType.addEventListener('change', updateCostCalculator);
+            
+            // Animate growth timeline
+            const growthPoints = document.querySelectorAll('.growth-point');
+            const growthProgress = document.getElementById('growth-progress');
+            let currentGrowthStep = 0;
+            
+            function animateGrowthTimeline() {
+                if (currentGrowthStep < growthPoints.length) {
+                    const progressPercentage = ((currentGrowthStep + 1) / growthPoints.length) * 100;
+                    growthProgress.style.width = `${progressPercentage}%`;
+                    
+                    const dot = growthPoints[currentGrowthStep].querySelector('.growth-dot');
+                    dot.classList.add('completed');
+                    
+                    currentGrowthStep++;
+                    
+                    if (currentGrowthStep < growthPoints.length) {
+                        setTimeout(() => {
+                            growthPoints[currentGrowthStep].querySelector('.growth-dot').classList.add('active');
+                            setTimeout(animateGrowthTimeline, 1000);
+                        }, 500);
+                    }
+                }
+            }
+            
+            // Start animations after page load
+            setTimeout(animateGrowthTimeline, 1500);
+            calculateGrafts();
+            updateCostCalculator();
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('hair-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['hair-loss-stage'] || !data['age-group'] || !data['treatment-interest'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper functions
+            function updateStageRecommendation(stage) {
+                const recommendations = {
+                    1: 'Early intervention with medication may be sufficient',
+                    2: 'Consider medication or small transplant',
+                    3: 'Ideal for hair transplant with 1200-1800 grafts',
+                    4: 'Recommended: 1800-2500 grafts for good coverage',
+                    5: '2500-3500 grafts needed for satisfactory results',
+                    6: '3500-4500 grafts recommended, may need multiple sessions',
+                    7: '4500+ grafts or consider alternative solutions'
+                };
+                
+                console.log(`Stage ${stage}: ${recommendations[stage]}`);
+                // In a real app, update UI with recommendation
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

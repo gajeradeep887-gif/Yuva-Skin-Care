@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Chemical Peels Treatment | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Chemical Peels page */
+        #peels-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        /* Peel Depth Selector */
+        .peel-depth-selector {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            background: var(--light);
+            padding: var(--space-sm);
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .depth-btn {
+            flex: 1;
+            padding: var(--space-md) var(--space-sm);
+            border: none;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .depth-btn.active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .depth-btn.light.active {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            color: #2e7d32;
+        }
+        
+        .depth-btn.medium.active {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            color: #ef6c00;
+        }
+        
+        .depth-btn.deep.active {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            color: #c62828;
+        }
+        
+        .depth-indicator {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            margin-top: var(--space-xs);
+        }
+        
+        .depth-btn.light .depth-indicator {
+            background: linear-gradient(to right, #4caf50, #81c784);
+        }
+        
+        .depth-btn.medium .depth-indicator {
+            background: linear-gradient(to right, #ff9800, #ffb74d);
+        }
+        
+        .depth-btn.deep .depth-indicator {
+            background: linear-gradient(to right, #f44336, #ef5350);
+        }
+        
+        /* Peel Types Grid */
+        .peel-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .peel-type-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+            border: 1px solid var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .peel-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .peel-type-card.popular {
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+        
+        .peel-type-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .peel-acid {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .peel-strength {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .strength-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .strength-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--light-gray);
+        }
+        
+        .strength-dot.active {
+            background: var(--primary);
+        }
+        
+        .peel-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .detail-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .detail-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Skin Concern Selector */
+        .skin-concerns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .concern-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+        }
+        
+        .concern-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .concern-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-sm);
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        /* Peeling Process Timeline */
+        .peeling-process {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+            position: relative;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .process-day {
+            min-width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .process-content {
+            flex: 1;
+        }
+        
+        .process-skin {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .process-skin img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Before/After Stages */
+        .peel-stages {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stage-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stage-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stage-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto var(--space-sm);
+            border: 3px solid var(--light-gray);
+        }
+        
+        .stage-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Results Comparison */
+        .results-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .result-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .result-percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .result-before-after {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .before-value, .after-value {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .before-value {
+            text-decoration: line-through;
+        }
+        
+        .after-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        @media (min-width: 768px) {
+            .skin-concerns {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .peeling-process::before {
+                content: '';
+                position: absolute;
+                left: 30px;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(to bottom, var(--primary-light), var(--accent-light));
+            }
+            
+            .process-step {
+                margin-left: 60px;
+            }
+            
+            .process-step:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+            
+            .peel-stages {
+                grid-template-columns: repeat(7, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .skin-concerns {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="peels-hero">
+        <div class="treatment-hero-content">
+            <h1>Chemical Peels Treatment</h1>
+            <p>Professional-grade skin resurfacing for brighter, smoother, and younger-looking skin</p>
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>30-45 Min</h4>
+            <p>Quick Treatment</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Dermatologists</h4>
+            <p>15+ Years Experience</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Visible Results</h4>
+            <p>After 1-2 Peels</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Medical Grade</h4>
+            <p>Safe & Effective</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="types" role="tab" aria-selected="false">
+                <i class="fas fa-vial"></i> Peel Types
+            </button>
+            <button class="tab-item" data-tab="benefits" role="tab" aria-selected="false">
+                <i class="fas fa-star"></i> Benefits
+            </button>
+            <button class="tab-item" data-tab="process" role="tab" aria-selected="false">
+                <i class="fas fa-list-ol"></i> Peeling Process
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+               Chemical Peels Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Chemical peels are professional skin treatments that use medical-grade acids to exfoliate and rejuvenate the skin. By removing damaged outer layers, they stimulate collagen production and reveal smoother, brighter, and more youthful skin underneath.</p>
+                
+                <p>At Yuva Skin Clinic, we offer a range of chemical peels tailored to your specific skin concerns, from superficial peels for maintenance to medium-depth peels for more significant improvements.</p>
+            </div>
+
+            <!-- Peel Depth Selector -->
+            <h3 class="mt-4">Select Peel Depth</h3>
+            <div class="peel-depth-selector">
+                <button class="depth-btn light active" data-depth="light">
+                    <i class="fas fa-layer-group"></i>
+                    <strong>Light Peel</strong>
+                    <span>Surface Level</span>
+                    <div class="depth-indicator"></div>
+                    <small>No downtime</small>
+                </button>
+                
+                <button class="depth-btn medium" data-depth="medium">
+                    <i class="fas fa-layer-group"></i>
+                    <strong>Medium Peel</strong>
+                    <span>Mid-Depth</span>
+                    <div class="depth-indicator"></div>
+                    <small>3-5 days downtime</small>
+                </button>
+                
+                <button class="depth-btn deep" data-depth="deep">
+                    <i class="fas fa-layer-group"></i>
+                    <strong>Deep Peel</strong>
+                    <span>Deep Penetration</span>
+                    <div class="depth-indicator"></div>
+                    <small>7-10 days downtime</small>
+                </button>
+            </div>
+
+            <!-- Skin Concerns -->
+            <h3>Target Your Skin Concerns</h3>
+            <div class="skin-concerns">
+                <button class="concern-card" data-concern="acne">
+                    <div class="concern-icon">
+                        <i class="fas fa-bacteria"></i>
+                    </div>
+                    <h4>Acne & Scars</h4>
+                    <p>Reduces breakouts and scarring</p>
+                </button>
+                
+                <button class="concern-card" data-concern="pigmentation">
+                    <div class="concern-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Dark Spots</h4>
+                    <p>Even skin tone</p>
+                </button>
+                
+                <button class="concern-card" data-concern="wrinkles">
+                    <div class="concern-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h4>Fine Lines</h4>
+                    <p>Smooths wrinkles</p>
+                </button>
+                
+                <button class="concern-card" data-concern="texture">
+                    <div class="concern-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h4>Uneven Texture</h4>
+                    <p>Smoothes rough skin</p>
+                </button>
+                
+                <button class="concern-card" data-concern="pores">
+                    <div class="concern-icon">
+                        <i class="fas fa-dot-circle"></i>
+                    </div>
+                    <h4>Large Pores</h4>
+                    <p>Minimizes appearance</p>
+                </button>
+                
+                <button class="concern-card" data-concern="dullness">
+                    <div class="concern-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Dull Skin</h4>
+                    <p>Brightens complexion</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Peel Types Section -->
+        <section id="types-section" class="treatment-section" role="tabpanel" aria-labelledby="types-tab">
+            <h2 class="section-title">
+Our Chemical Peels
+            </h2>
+            
+            <div class="peel-types-grid">
+                <div class="peel-type-card">
+                    <div class="peel-acid">Glycolic Acid</div>
+                    <h4>Superficial Peel</h4>
+                    <p>Alpha-hydroxy acid peel for surface exfoliation and brightening</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot"></div>
+                            <div class="strength-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">20-70%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">20min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">4-6</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="peel-type-card popular">
+                    <div class="peel-acid">Salicylic Acid</div>
+                    <h4>Beta Peel</h4>
+                    <p>Oil-soluble acid perfect for acne-prone and oily skin types</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">20-30%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">25min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">3-5</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="peel-type-card">
+                    <div class="peel-acid">Lactic Acid</div>
+                    <h4>Gentle Peel</h4>
+                    <p>Hydrating peel for sensitive skin, improves texture and tone</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot"></div>
+                            <div class="strength-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">30-50%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">15min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">4-6</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="peel-type-card">
+                    <div class="peel-acid">TCA Peel</div>
+                    <h4>Medium Depth</h4>
+                    <p>Trichloroacetic acid for moderate wrinkles and pigmentation</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot active"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">15-35%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">45min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">1-3</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="peel-type-card">
+                    <div class="peel-acid">Jessner's Peel</div>
+                    <h4>Combination Peel</h4>
+                    <p>Multi-acid formula for comprehensive skin rejuvenation</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">14%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">30min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">3-5</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="peel-type-card">
+                    <div class="peel-acid">Retinol Peel</div>
+                    <h4>Vitamin A Peel</h4>
+                    <p>Stimulates collagen and accelerates cell turnover</p>
+                    
+                    <div class="peel-strength">
+                        <span>Strength:</span>
+                        <div class="strength-dots">
+                            <div class="strength-dot active"></div>
+                            <div class="strength-dot"></div>
+                            <div class="strength-dot"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="peel-details">
+                        <div class="detail-item">
+                            <div class="detail-value">1-5%</div>
+                            <div class="detail-label">Concentration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">20min</div>
+                            <div class="detail-label">Duration</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value">4-8</div>
+                            <div class="detail-label">Sessions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acid Comparison Table -->
+            <h3 class="mt-4">Acid Comparison Guide</h3>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Acid Type</th>
+                            <th>Best For</th>
+                            <th>Depth</th>
+                            <th>Downtime</th>
+                            <th>Results</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Glycolic (AHA)</strong></td>
+                            <td>Fine lines, dullness</td>
+                            <td>Superficial</td>
+                            <td>None</td>
+                            <td>1-2 days</td>
+                        </tr>
+                        <tr class="best-choice">
+                            <td><strong>Salicylic (BHA)</strong></td>
+                            <td>Acne, oily skin</td>
+                            <td>Medium</td>
+                            <td>1-2 days</td>
+                            <td>3-5 days</td>
+                        </tr>
+                        <tr>
+                            <td>Lactic (AHA)</td>
+                            <td>Sensitive skin</td>
+                            <td>Superficial</td>
+                            <td>None</td>
+                            <td>2-3 days</td>
+                        </tr>
+                        <tr>
+                            <td>TCA</td>
+                            <td>Moderate wrinkles</td>
+                            <td>Medium</td>
+                            <td>5-7 days</td>
+                            <td>2-3 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Jessner's</td>
+                            <td>Multiple concerns</td>
+                            <td>Medium</td>
+                            <td>3-5 days</td>
+                            <td>1-2 weeks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits-section" class="treatment-section" role="tabpanel" aria-labelledby="benefits-tab">
+            <h2 class="section-title">
+                 Treatment Benefits
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Brighter Skin</h4>
+                    <p>Removes dull surface cells</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h4>Smoother Texture</h4>
+                    <p>Reduces fine lines & wrinkles</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Even Tone</h4>
+                    <p>Fades dark spots & pigmentation</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bacteria"></i>
+                    </div>
+                    <h4>Clearer Skin</h4>
+                    <p>Reduces acne & breakouts</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-dot-circle"></i>
+                    </div>
+                    <h4>Smaller Pores</h4>
+                    <p>Minimizes pore appearance</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Collagen Boost</h4>
+                    <p>Stimulates skin renewal</p>
+                </div>
+            </div>
+
+            <!-- Results Comparison -->
+            <h3 class="mt-4">Expected Improvements</h3>
+            <div class="results-comparison">
+                <div class="result-card">
+                    <div class="result-percentage">70%</div>
+                    <h4>Acne Reduction</h4>
+                    <p>After 3-4 sessions</p>
+                    <div class="result-before-after">
+                        <div class="before-value">Frequent breakouts</div>
+                        <div class="after-value">Clear skin</div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-percentage">80%</div>
+                    <h4>Dark Spot Fading</h4>
+                    <p>After 2-3 sessions</p>
+                    <div class="result-before-after">
+                        <div class="before-value">Visible spots</div>
+                        <div class="after-value">Even tone</div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-percentage">60%</div>
+                    <h4>Wrinkle Reduction</h4>
+                    <p>After 4-6 sessions</p>
+                    <div class="result-before-after">
+                        <div class="before-value">Fine lines</div>
+                        <div class="after-value">Smooth skin</div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-percentage">90%</div>
+                    <h4>Skin Brightness</h4>
+                    <p>After 1-2 sessions</p>
+                    <div class="result-before-after">
+                        <div class="before-value">Dull complexion</div>
+                        <div class="after-value">Radiant glow</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3>Patient Transformations</h3>
+            <div class="gallery-grid" id="peel-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Before chemical peel" loading="lazy">
+                    <div class="gallery-label">Before: Acne & Pigmentation</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="After chemical peel" loading="lazy">
+                    <div class="gallery-label">After: 3 Sessions</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Chemical peel progress" loading="lazy">
+                    <div class="gallery-label">Progress: Week 4</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Clear skin after peel" loading="lazy">
+                    <div class="gallery-label">Results: 2 Months</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Peeling Process Section -->
+        <section id="process-section" class="treatment-section" role="tabpanel" aria-labelledby="process-tab">
+            <h2 class="section-title">
+ The Peeling Process
+            </h2>
+            
+            <div class="peeling-process">
+                <div class="process-step">
+                    <div class="process-day">Day 1</div>
+                    <div class="process-content">
+                        <h4>Treatment Day</h4>
+                        <p>Chemical solution applied, slight tingling sensation. Skin may appear red immediately after.</p>
+                    </div>
+                    <div class="process-skin">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Day 1">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-day">Day 2-3</div>
+                    <div class="process-content">
+                        <h4>Tightening Phase</h4>
+                        <p>Skin feels tight and may start to darken. Begin gentle cleansing and moisturizing.</p>
+                    </div>
+                    <div class="process-skin">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Day 2-3">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-day">Day 3-5</div>
+                    <div class="process-content">
+                        <h4>Peeling Begins</h4>
+                        <p>Visible peeling starts around mouth and nose. Never pull or peel skin manually.</p>
+                    </div>
+                    <div class="process-skin">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Day 3-5">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-day">Day 5-7</div>
+                    <div class="process-content">
+                        <h4>Peaking Peeling</h4>
+                        <p>Maximum peeling occurs. Skin underneath is pink and sensitive. Strict sun protection needed.</p>
+                    </div>
+                    <div class="process-skin">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Day 5-7">
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-day">Day 7-10</div>
+                    <div class="process-content">
+                        <h4>Healing Complete</h4>
+                        <p>Peeling stops, revealing smoother, brighter skin. Can resume normal skincare routine.</p>
+                    </div>
+                    <div class="process-skin">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Day 7-10">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Stages -->
+            <h3>Weekly Healing Stages</h3>
+            <div class="peel-stages">
+                <div class="stage-card">
+                    <div class="stage-day">Day 1</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 1">
+                    </div>
+                    <h5>Treatment</h5>
+                    <p>Redness</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 2</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 2">
+                    </div>
+                    <h5>Tightening</h5>
+                    <p>Darkening</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 3</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 3">
+                    </div>
+                    <h5>Peeling Starts</h5>
+                    <p>Flaking begins</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 4</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 4">
+                    </div>
+                    <h5>Active Peeling</h5>
+                    <p>More flaking</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 5</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 5">
+                    </div>
+                    <h5>Peak Peeling</h5>
+                    <p>Maximum flaking</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 6</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 6">
+                    </div>
+                    <h5>Healing</h5>
+                    <p>Less flaking</p>
+                </div>
+                
+                <div class="stage-card">
+                    <div class="stage-day">Day 7</div>
+                    <div class="stage-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Day 7">
+                    </div>
+                    <h5>New Skin</h5>
+                    <p>Pink, smooth skin</p>
+                </div>
+            </div>
+
+            <!-- Aftercare Instructions -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Avoid Sun</h4>
+                    <p>Use SPF 50+ for 2 weeks</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <h4>Don't Pick</h4>
+                    <p>Let skin peel naturally</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h4>Moisturize</h4>
+                    <p>Keep skin hydrated</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-bath"></i>
+                    </div>
+                    <h4>Gentle Cleansing</h4>
+                    <p>No scrubs or exfoliants</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+                 Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="peel-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How many peels will I need?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most patients need 3-6 sessions spaced 2-4 weeks apart for optimal results. Light peels may require 4-6 sessions, while medium peels often show significant improvement in 2-3 sessions. Maintenance peels are recommended every 3-6 months.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Does it hurt?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>During the peel, you'll feel a tingling or warm sensation that lasts 2-5 minutes. Light peels are generally comfortable, while medium peels may cause more intense sensations. We use fans and cooling techniques to maximize comfort during the procedure.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long is the downtime?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Light peels have no downtime - you can return to normal activities immediately. Medium peels require 3-7 days of social downtime as peeling occurs. We provide detailed aftercare instructions and can schedule treatments before weekends if needed.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When will I see results?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Initial brightness is visible immediately after light peels. For medium peels, results become apparent after peeling completes (5-7 days). Optimal results are seen after 2-3 weeks as collagen continues to rebuild. Multiple sessions provide cumulative benefits.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I wear makeup after?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>After light peels, you can wear makeup the same day. After medium peels, wait until peeling completes (5-7 days). We recommend mineral-based makeup for the first week and provide specific product recommendations during your consultation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Who is not a good candidate?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Not suitable for pregnant or breastfeeding women, those with active cold sores, skin infections, or who have used Accutane in the last 6 months. Certain medical conditions and medications may also contraindicate treatment. We conduct a thorough assessment before proceeding.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How much does it cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost varies by peel type and number of sessions. Light peels start at ₹1,500 per session, medium peels from ₹3,500. We offer package discounts for multiple sessions. During consultation, we'll provide a detailed cost estimate based on your specific needs.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I get a peel in summer?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, but sun protection is crucial. We recommend peels during cooler months or if you can strictly avoid sun exposure. We provide medical-grade sunscreens and detailed sun protection protocols for summer treatments.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pre/Post Care Instructions -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Pre & Post Care Instructions</h4>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Before Treatment:</strong> Stop retinoids 5-7 days prior. Avoid sun exposure, waxing, and chemical depilatories for 2 weeks. Disclose all medications and supplements.</p>
+                    <p><strong>After Treatment:</strong> Use gentle cleanser and moisturizer. Apply SPF 50+ daily. Avoid direct sun, heat, sweating, and picking at skin. Follow specific aftercare instructions based on your peel type.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Chemical Peel
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Send skin photos for assessment</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>peels@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Schedule Your Peel Consultation</h3>
+                    <form id="peel-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="skin-type" class="form-label">Skin Type</label>
+                            <select id="skin-type" class="form-select" required>
+                                <option value="">Select skin type</option>
+                                <option value="oily">Oily/Acne-prone</option>
+                                <option value="dry">Dry/Sensitive</option>
+                                <option value="combination">Combination</option>
+                                <option value="normal">Normal</option>
+                                <option value="notsure">Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="primary-concern" class="form-label">Primary Concern</label>
+                            <select id="primary-concern" class="form-select" required>
+                                <option value="">Select main concern</option>
+                                <option value="acne">Acne & Scars</option>
+                                <option value="pigmentation">Dark Spots/Pigmentation</option>
+                                <option value="wrinkles">Fine Lines/Wrinkles</option>
+                                <option value="texture">Uneven Texture</option>
+                                <option value="dullness">Dull Skin</option>
+                                <option value="pores">Large Pores</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Book Consultation
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Patch Test Info -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">
+                    <i class="fas fa-flask text-primary"></i>
+                    First-time patients require a patch test 48 hours before treatment
+                </p>
+                <a href="tel:+917096969625" class="btn btn-accent">
+                    <i class="fas fa-calendar-plus"></i> Schedule Patch Test
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for Glowing Skin?</h2>
+            <p>Book your chemical peel consultation with our skin experts today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Consultation Booked!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Chemical Peels!</h4>
+                    <p>Your consultation has been scheduled. We'll contact you within 24 hours to confirm and discuss any pre-treatment instructions.</p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Chemical Peels page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Peel depth selector
+            const depthBtns = document.querySelectorAll('.depth-btn');
+            depthBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    depthBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const depth = this.dataset.depth;
+                    updateDepthRecommendation(depth);
+                });
+            });
+
+            // Skin concerns selector
+            const concernCards = document.querySelectorAll('.concern-card');
+            concernCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    concernCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const concern = this.dataset.concern;
+                    updateConcernPeelRecommendation(concern);
+                });
+            });
+
+            // Animate peeling process timeline
+            const processSteps = document.querySelectorAll('.process-step');
+            let currentStep = 0;
+            
+            function animateProcessSteps() {
+                if (currentStep < processSteps.length) {
+                    processSteps[currentStep].style.opacity = '0';
+                    processSteps[currentStep].style.transform = 'translateX(-20px)';
+                    processSteps[currentStep].style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        processSteps[currentStep].style.opacity = '1';
+                        processSteps[currentStep].style.transform = 'translateX(0)';
+                        currentStep++;
+                        
+                        if (currentStep < processSteps.length) {
+                            setTimeout(animateProcessSteps, 500);
+                        }
+                    }, 100);
+                }
+            }
+            
+            // Start animation after page load
+            setTimeout(animateProcessSteps, 1000);
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('peel-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['skin-type'] || !data['primary-concern'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper functions
+            function updateDepthRecommendation(depth) {
+                const recommendations = {
+                    light: 'Ideal for maintenance, brightening, and mild texture issues. No downtime.',
+                    medium: 'Best for acne scars, moderate pigmentation, and fine lines. 3-5 days downtime.',
+                    deep: 'For deep wrinkles, severe sun damage, and significant texture issues. 7-10 days downtime.'
+                };
+                
+                // In a real app, update UI with recommendation
+                console.log(`Selected ${depth} peel: ${recommendations[depth]}`);
+            }
+
+            function updateConcernPeelRecommendation(concern) {
+                const peelRecommendations = {
+                    acne: 'Recommended: Salicylic Acid or Jessner\'s Peel',
+                    pigmentation: 'Recommended: Glycolic Acid or TCA Peel',
+                    wrinkles: 'Recommended: TCA or Retinol Peel',
+                    texture: 'Recommended: Glycolic or Lactic Acid Peel',
+                    pores: 'Recommended: Salicylic Acid or Glycolic Peel',
+                    dullness: 'Recommended: Glycolic or Vitamin C Peel'
+                };
+                
+                // In a real app, update UI with recommendation
+                console.log(`For ${concern}: ${peelRecommendations[concern]}`);
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

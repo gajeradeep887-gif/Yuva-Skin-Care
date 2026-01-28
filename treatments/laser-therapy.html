@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Laser Therapy | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Laser Therapy page */
+        #laser-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        /* Laser Type Selector */
+        .laser-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .laser-type-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .laser-type-card.active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .laser-type-card.active.fractional {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+        
+        .laser-type-card.active.co2 {
+            border-color: #ff9800;
+            background: #fff3e0;
+        }
+        
+        .laser-type-card.active.ndyag {
+            border-color: #2196f3;
+            background: #e3f2fd;
+        }
+        
+        .laser-type-card.active.qswitch {
+            border-color: #9c27b0;
+            background: #f3e5f5;
+        }
+        
+        .laser-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            font-size: 2rem;
+            color: var(--white);
+        }
+        
+        .fractional .laser-icon {
+            background: linear-gradient(135deg, #4caf50, #81c784);
+        }
+        
+        .co2 .laser-icon {
+            background: linear-gradient(135deg, #ff9800, #ffb74d);
+        }
+        
+        .ndyag .laser-icon {
+            background: linear-gradient(135deg, #2196f3, #64b5f6);
+        }
+        
+        .ipl .laser-icon {
+            background: linear-gradient(135deg, #9c27b0, #ba68c8);
+        }
+        
+        .qswitch .laser-icon {
+            background: linear-gradient(135deg, #f44336, #ef5350);
+        }
+        
+        .diode .laser-icon {
+            background: linear-gradient(135deg, #00bcd4, #4dd0e1);
+        }
+        
+        .laser-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        /* Treatment Areas Visualization */
+        .laser-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            justify-content: center;
+            margin-bottom: var(--space-xl);
+            position: relative;
+        }
+        
+        .face-diagram {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            background: #f9f9f9;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .face-area {
+            position: absolute;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .face-area.active {
+            border-color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+        }
+        
+        .area-forehead {
+            top: 40px;
+            left: 100px;
+            width: 100px;
+            height: 40px;
+        }
+        
+        .area-cheeks {
+            top: 120px;
+            left: 50px;
+            width: 200px;
+            height: 100px;
+        }
+        
+        .area-nose {
+            top: 160px;
+            left: 125px;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .area-mouth {
+            top: 220px;
+            left: 100px;
+            width: 100px;
+            height: 40px;
+        }
+        
+        .area-chin {
+            top: 280px;
+            left: 110px;
+            width: 80px;
+            height: 40px;
+        }
+        
+        .area-jawline {
+            top: 200px;
+            left: 10px;
+            width: 280px;
+            height: 60px;
+        }
+        
+        .area-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .area-info {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        /* Treatment Comparison */
+        .laser-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .comparison-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .comparison-card.recommended {
+            border: 2px solid var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .comparison-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .comparison-features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-md) 0;
+        }
+        
+        .comparison-features li {
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .comparison-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        /* Treatment Process */
+        .treatment-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .process-step {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+            color: var(--primary);
+        }
+        
+        /* Recovery Timeline */
+        .recovery-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .recovery-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .recovery-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .recovery-dot.active {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+        
+        .recovery-dot.completed::after {
+            content: '✓';
+            position: absolute;
+            top: -3px;
+            left: 2px;
+            color: var(--white);
+            font-size: 0.8rem;
+        }
+        
+        .recovery-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light-gray);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .recovery-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: width 1s ease;
+        }
+        
+        /* Tech Specs */
+        .tech-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .spec-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .spec-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .spec-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .laser-type-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .recovery-timeline {
+                flex-direction: column;
+                gap: var(--space-xl);
+            }
+            
+            .recovery-line {
+                display: none;
+            }
+            
+            .recovery-progress {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .laser-type-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="laser-hero">
+        <div class="treatment-hero-content">
+            <h1>Advanced Laser Therapy</h1>
+            <p>State-of-the-art laser treatments for skin rejuvenation, hair removal, and scar reduction</p>
+            
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>15-60 Min</h4>
+            <p>Quick Sessions</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Technicians</h4>
+            <p>Certified Laser Specialists</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>FDA Approved</h4>
+            <p>Safe & Effective</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Pain-Free</h4>
+            <p>Advanced Cooling Technology</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+            <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="lasers" role="tab" aria-selected="false">
+                <i class="fas fa-microscope"></i> Laser Types
+            </button>
+            <button class="tab-item" data-tab="benefits" role="tab" aria-selected="false">
+                <i class="fas fa-star"></i> Benefits
+            </button>
+            <button class="tab-item" data-tab="procedure" role="tab" aria-selected="false">
+                <i class="fas fa-list-ol"></i> Procedure
+            </button>
+            <button class="tab-item" data-tab="results" role="tab" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Results
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+                 Laser Therapy Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Laser therapy uses concentrated beams of light to target specific skin concerns with precision and effectiveness. Our advanced laser systems deliver controlled energy to stimulate collagen production, remove unwanted pigmentation, and rejuvenate your skin from within.</p>
+                
+                <p>We utilize FDA-approved, state-of-the-art laser technology that's safe for all skin types. Our certified laser specialists customize treatments based on your unique skin characteristics and treatment goals.</p>
+            </div>
+
+            <!-- Laser Type Selector -->
+            <h3 class="mt-4">Select Your Laser Treatment</h3>
+            <div class="laser-type-selector">
+                <div class="laser-type-card fractional active" data-laser="fractional">
+                    <div class="laser-icon">
+                        <i class="fas fa-braille"></i>
+                    </div>
+                    <h4>Fractional CO₂</h4>
+                    <p>Skin Resurfacing</p>
+                    <div class="laser-tag">Most Popular</div>
+                </div>
+                
+                <div class="laser-type-card co2" data-laser="co2">
+                    <div class="laser-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4>CO₂ Laser</h4>
+                    <p>Deep Resurfacing</p>
+                </div>
+                
+                <div class="laser-type-card ndyag" data-laser="ndyag">
+                    <div class="laser-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Nd:YAG</h4>
+                    <p>Hair Removal & Vascular</p>
+                </div>
+                
+                <div class="laser-type-card ipl" data-laser="ipl">
+                    <div class="laser-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>IPL</h4>
+                    <p>Photo Rejuvenation</p>
+                </div>
+                
+                <div class="laser-type-card qswitch" data-laser="qswitch">
+                    <div class="laser-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Q-Switch</h4>
+                    <p>Tattoo & Pigment Removal</p>
+                </div>
+                
+                <div class="laser-type-card diode" data-laser="diode">
+                    <div class="laser-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h4>Diode Laser</h4>
+                    <p>Permanent Hair Reduction</p>
+                </div>
+            </div>
+
+            <!-- Treatment Areas Visualization -->
+            <h3>Treatment Areas</h3>
+            <div class="laser-areas">
+                <div class="face-diagram">
+                    <div class="face-area area-forehead active" data-area="forehead"></div>
+                    <div class="face-area area-cheeks" data-area="cheeks"></div>
+                    <div class="face-area area-nose" data-area="nose"></div>
+                    <div class="face-area area-mouth" data-area="mouth"></div>
+                    <div class="face-area area-chin" data-area="chin"></div>
+                    <div class="face-area area-jawline" data-area="jawline"></div>
+                </div>
+                
+                <div class="area-details">
+                    <div class="area-info">
+                        <h4>Forehead</h4>
+                        <p>Treats wrinkles, frown lines, and sun damage. Fractional CO₂ laser recommended for best results.</p>
+                        <div class="area-stats">
+                            <span class="stat">Sessions: 3-5</span>
+                            <span class="stat">Duration: 15 min</span>
+                            <span class="stat">Downtime: 2-3 days</span>
+                        </div>
+                    </div>
+                    
+                    <div class="area-info" style="display: none;">
+                        <h4>Cheeks</h4>
+                        <p>Targets acne scars, pigmentation, and improves skin texture. Combination therapy often recommended.</p>
+                        <div class="area-stats">
+                            <span class="stat">Sessions: 4-6</span>
+                            <span class="stat">Duration: 20 min</span>
+                            <span class="stat">Downtime: 3-5 days</span>
+                        </div>
+                    </div>
+                    
+                    <div class="area-info" style="display: none;">
+                        <h4>Nose</h4>
+                        <p>Reduces enlarged pores, blackheads, and redness. Gentle laser treatments for sensitive area.</p>
+                        <div class="area-stats">
+                            <span class="stat">Sessions: 2-3</span>
+                            <span class="stat">Duration: 10 min</span>
+                            <span class="stat">Downtime: 1-2 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Laser Types Section -->
+        <section id="lasers-section" class="treatment-section" role="tabpanel" aria-labelledby="lasers-tab">
+            <h2 class="section-title">
+                 Our Laser Systems
+            </h2>
+            
+            <div class="laser-comparison">
+                <div class="comparison-card recommended">
+                    <div class="comparison-badge">Most Popular</div>
+                    <h3>Fractional CO₂ Laser</h3>
+                    <p class="text-muted">Precision Skin Resurfacing</p>
+                    
+                    <div class="comparison-features">
+                        <li><i class="fas fa-check feature-icon"></i> Treats wrinkles & fine lines</li>
+                        <li><i class="fas fa-check feature-icon"></i> Reduces acne scars</li>
+                        <li><i class="fas fa-check feature-icon"></i> Improves skin texture</li>
+                        <li><i class="fas fa-check feature-icon"></i> Minimizes pore size</li>
+                        <li><i class="fas fa-check feature-icon"></i> Stimulates collagen</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Wavelength:</span>
+                            <span class="detail-value">10,600 nm</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">3-5</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Downtime:</span>
+                            <span class="detail-value">3-7 days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-card">
+                    <h3>Nd:YAG Laser</h3>
+                    <p class="text-muted">Hair Removal & Vascular</p>
+                    
+                    <div class="comparison-features">
+                        <li><i class="fas fa-check feature-icon"></i> Permanent hair reduction</li>
+                        <li><i class="fas fa-check feature-icon"></i> Treats spider veins</li>
+                        <li><i class="fas fa-check feature-icon"></i> Safe for all skin types</li>
+                        <li><i class="fas fa-check feature-icon"></i> Minimal discomfort</li>
+                        <li><i class="fas fa-check feature-icon"></i> Large area coverage</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Wavelength:</span>
+                            <span class="detail-value">1064 nm</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">6-8</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Downtime:</span>
+                            <span class="detail-value">None</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-card">
+                    <h3>Q-Switch Laser</h3>
+                    <p class="text-muted">Tattoo & Pigment Removal</p>
+                    
+                    <div class="comparison-features">
+                        <li><i class="fas fa-check feature-icon"></i> Removes tattoos</li>
+                        <li><i class="fas fa-check feature-icon"></i> Treats age spots</li>
+                        <li><i class="fas fa-check feature-icon"></i> Reduces sun damage</li>
+                        <li><i class="fas fa-check feature-icon"></i> Minimal side effects</li>
+                        <li><i class="fas fa-check feature-icon"></i> Precise targeting</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Wavelength:</span>
+                            <span class="detail-value">532/1064 nm</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">4-10</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Downtime:</span>
+                            <span class="detail-value">1-3 days</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laser Specifications -->
+            <h3 class="mt-4">Technology Specifications</h3>
+            <div class="tech-specs">
+                <div class="spec-card">
+                    <div class="spec-value">99.9%</div>
+                    <div class="spec-label">Precision Accuracy</div>
+                    <p>Micro-precision targeting of skin concerns</p>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-value">0.1°C</div>
+                    <div class="spec-label">Temperature Control</div>
+                    <p>Advanced cooling for maximum comfort</p>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-value">5ms</div>
+                    <div class="spec-label">Pulse Duration</div>
+                    <p>Ultra-short pulses for safety</p>
+                </div>
+                
+                <div class="spec-card">
+                    <div class="spec-value">FDA</div>
+                    <div class="spec-label">Approved</div>
+                    <p>All equipment FDA approved</p>
+                </div>
+            </div>
+
+            <!-- Treatment Conditions -->
+            <h3>Conditions We Treat</h3>
+            <div class="conditions-grid">
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h4>Wrinkles & Lines</h4>
+                    <p>Fractional laser resurfacing</p>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Age Spots</h4>
+                    <p>Pigment-specific lasers</p>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h4>Acne Scars</h4>
+                    <p>Collagen-stimulating lasers</p>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-hair"></i>
+                    </div>
+                    <h4>Unwanted Hair</h4>
+                    <p>Permanent hair reduction</p>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h4>Spider Veins</h4>
+                    <p>Vascular laser treatment</p>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h4>Tattoo Removal</h4>
+                    <p>Q-switch laser technology</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits-section" class="treatment-section" role="tabpanel" aria-labelledby="benefits-tab">
+            <h2 class="section-title">
+                 Laser Therapy Benefits
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Precise Targeting</h4>
+                    <p>Targets only affected areas</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Quick Results</h4>
+                    <p>Visible improvement fast</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Minimal Downtime</h4>
+                    <p>Quick recovery time</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Safe & Controlled</h4>
+                    <p>FDA approved technology</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Collagen Stimulation</h4>
+                    <p>Long-term skin improvement</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h4>Versatile Treatment</h4>
+                    <p>Multiple skin concerns</p>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3 class="mt-4">Treatment Transformations</h3>
+            <div class="gallery-grid" id="laser-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Before laser treatment" loading="lazy">
+                    <div class="gallery-label">Before: Acne Scars</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="After laser treatment" loading="lazy">
+                    <div class="gallery-label">After: 3 Sessions</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Laser hair removal before" loading="lazy">
+                    <div class="gallery-label">Before: Hair Removal</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Laser hair removal after" loading="lazy">
+                    <div class="gallery-label">After: 6 Sessions</div>
+                </div>
+            </div>
+
+            <!-- Results Statistics -->
+            <div class="results-stats">
+                <div class="stat-card">
+                    <div class="stat-value">95%</div>
+                    <h4>Patient Satisfaction</h4>
+                    <p>High success rate</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">70-90%</div>
+                    <h4>Hair Reduction</h4>
+                    <p>After full treatment</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">80%</div>
+                    <h4>Scar Improvement</h4>
+                    <p>Visible reduction</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1000+</div>
+                    <h4>Treatments Done</h4>
+                    <p>Successful procedures</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Procedure Section -->
+        <section id="procedure-section" class="treatment-section" role="tabpanel" aria-labelledby="procedure-tab">
+            <h2 class="section-title">
+                 Treatment Procedure
+            </h2>
+            
+            <div class="treatment-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h4>Consultation</h4>
+                    <p>Skin analysis & patch test</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h4>Preparation</h4>
+                    <p>Cleaning & numbing cream</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Treatment</h4>
+                    <p>Precise laser application</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-ice-pack"></i>
+                    </div>
+                    <h4>Cooling</h4>
+                    <p>Immediate aftercare</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4>Recovery</h4>
+                    <p>Home care instructions</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h4>Follow-up</h4>
+                    <p>Progress evaluation</p>
+                </div>
+            </div>
+
+            <!-- Recovery Timeline -->
+            <h3 class="mt-4">Recovery Timeline</h3>
+            <div class="recovery-timeline">
+                <div class="recovery-line"></div>
+                <div class="recovery-progress" id="recovery-progress" style="width: 20%;"></div>
+                
+                <div class="recovery-point">
+                    <div class="recovery-dot active completed"></div>
+                    <div class="recovery-day">Immediate</div>
+                    <div class="recovery-desc">Redness & swelling</div>
+                </div>
+                
+                <div class="recovery-point">
+                    <div class="recovery-dot active"></div>
+                    <div class="recovery-day">Day 1-3</div>
+                    <div class="recovery-desc">Darkening & crusting</div>
+                </div>
+                
+                <div class="recovery-point">
+                    <div class="recovery-dot"></div>
+                    <div class="recovery-day">Day 4-7</div>
+                    <div class="recovery-desc">Peeling begins</div>
+                </div>
+                
+                <div class="recovery-point">
+                    <div class="recovery-dot"></div>
+                    <div class="recovery-day">Week 2</div>
+                    <div class="recovery-desc">New skin appears</div>
+                </div>
+                
+                <div class="recovery-point">
+                    <div class="recovery-dot"></div>
+                    <div class="recovery-day">Month 1-3</div>
+                    <div class="recovery-desc">Collagen rebuilds</div>
+                </div>
+            </div>
+
+            <!-- Aftercare Instructions -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Post-Treatment Care</h4>
+                </div>
+                <div class="warning-content">
+                    <ul>
+                        <li>Avoid sun exposure for 4-6 weeks after treatment</li>
+                        <li>Use prescribed ointments and gentle cleansers</li>
+                        <li>Do not pick or scratch treated areas</li>
+                        <li>Apply SPF 50+ daily</li>
+                        <li>Avoid heat treatments and strenuous exercise for 48 hours</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="treatment-section" role="tabpanel" aria-labelledby="results-tab">
+            <h2 class="section-title">
+                 Expected Results
+            </h2>
+            
+            <div class="results-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Immediately After</h4>
+                        <p>Redness and mild swelling, which subsides in 24-48 hours</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Week 1-2</h4>
+                        <p>Initial peeling and crusting, revealing smoother skin underneath</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Month 1</h4>
+                        <p>Visible improvement in texture and tone, collagen stimulation begins</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Month 3-6</h4>
+                        <p>Optimal results visible, continued collagen production improves skin</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session Planning -->
+            <h3>Treatment Plan</h3>
+            <div class="session-planning">
+                <div class="session-card">
+                    <div class="session-number">Session 1</div>
+                    <div class="session-content">
+                        <h4>Initial Treatment</h4>
+                        <p>Assessment of skin response, mild settings for safety</p>
+                    </div>
+                    <div class="session-result">20-30% Improvement</div>
+                </div>
+                
+                <div class="session-card">
+                    <div class="session-number">Session 2-3</div>
+                    <div class="session-content">
+                        <h4>Building Phase</h4>
+                        <p>Gradual intensity increase, targeting deeper layers</p>
+                    </div>
+                    <div class="session-result">40-60% Improvement</div>
+                </div>
+                
+                <div class="session-card">
+                    <div class="session-number">Session 4-6</div>
+                    <div class="session-content">
+                        <h4>Optimization Phase</h4>
+                        <p>Maximum safe settings for optimal collagen stimulation</p>
+                    </div>
+                    <div class="session-result">70-90% Improvement</div>
+                </div>
+            </div>
+
+            <!-- Maintenance Info -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Annual Maintenance</h4>
+                    <p>1-2 sessions per year</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Sun Protection</h4>
+                    <p>SPF 50+ required</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h4>Long-lasting</h4>
+                    <p>Results last 2-5 years</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Collagen Boost</h4>
+                    <p>Continues for 6 months</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="laser-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is laser treatment painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most patients describe the sensation as a rubber band snap or mild pinprick. We use advanced cooling technology and topical numbing cream to maximize comfort. Discomfort is temporary and subsides immediately after treatment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How many sessions will I need?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most conditions require 3-6 sessions spaced 4-6 weeks apart. Hair removal typically needs 6-8 sessions. Deep wrinkles or scars may require additional treatments. Your personalized treatment plan will be determined during consultation.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What's the downtime?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Non-ablative lasers have no downtime. Fractional CO₂ requires 3-7 days of social downtime. Most patients can return to work within 2-3 days. We provide detailed aftercare instructions to minimize recovery time.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is it safe for all skin types?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, our advanced lasers are safe for all skin types (Fitzpatrick I-VI). We customize wavelength, pulse duration, and energy settings based on your skin type and tone. A patch test is performed before full treatment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When will I see results?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Initial improvement is visible within 1-2 weeks. Optimal results appear after 2-3 months as collagen production increases. Hair removal shows progressive reduction with each session, with final results after the full course.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are results permanent?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Hair removal results are permanent for treated follicles. Skin rejuvenation results last 2-5 years, but aging continues naturally. Maintenance treatments can prolong results. We provide long-term care plans.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What are the side effects?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Temporary redness, swelling, and mild discomfort are common. Rare side effects include temporary hyperpigmentation or hypopigmentation. Serious complications are extremely rare with proper technique and equipment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How much does it cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost varies by treatment area and number of sessions. Small areas start at ₹2,000 per session, full face from ₹8,000. Package discounts are available. During consultation, we'll provide a detailed cost estimate.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Information -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Safety & Contraindications</h4>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Not suitable if:</strong> Pregnant or breastfeeding, have active skin infections, recent sun exposure, history of keloid scarring, or certain medical conditions. Avoid retinoids, blood thinners, and photosensitizing medications before treatment. Always disclose complete medical history.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                 Book Your Laser Consultation
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Send photos for assessment</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>laser@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Schedule Laser Treatment</h3>
+                    <form id="laser-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="laser-type" class="form-label">Laser Interest</label>
+                            <select id="laser-type" class="form-select" required>
+                                <option value="">Select laser type</option>
+                                <option value="fractional">Fractional CO₂ (Skin Resurfacing)</option>
+                                <option value="hair">Hair Removal</option>
+                                <option value="pigment">Pigment/Tattoo Removal</option>
+                                <option value="vascular">Vascular Treatment</option>
+                                <option value="acne">Acne Scar Treatment</option>
+                                <option value="consultation">Just Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="treatment-area" class="form-label">Treatment Area</label>
+                            <select id="treatment-area" class="form-select" required>
+                                <option value="">Select area</option>
+                                <option value="fullface">Full Face</option>
+                                <option value="forehead">Forehead</option>
+                                <option value="cheeks">Cheeks</option>
+                                <option value="chin">Chin</option>
+                                <option value="underarms">Underarms</option>
+                                <option value="legs">Legs</option>
+                                <option value="back">Back</option>
+                                <option value="multiple">Multiple Areas</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Book Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Patch Test Info -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">
+                    <i class="fas fa-flask text-primary"></i>
+                    First-time laser patients require a patch test 48 hours before treatment
+                </p>
+                <a href="tel:+917096969625" class="btn btn-accent">
+                    <i class="fas fa-calendar-plus"></i> Schedule Patch Test
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for Advanced Laser Treatment?</h2>
+            <p>Book your laser therapy consultation with our certified specialists today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+               
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Consultation Booked!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Laser Therapy!</h4>
+                    <p>Your laser consultation has been scheduled. We'll contact you within 24 hours to confirm and discuss any pre-treatment instructions.</p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Laser Therapy page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Laser type selector
+            const laserCards = document.querySelectorAll('.laser-type-card');
+            laserCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    laserCards.forEach(c => {
+                        c.classList.remove('active');
+                        c.classList.remove('fractional', 'co2', 'ndyag', 'ipl', 'qswitch', 'diode');
+                    });
+                    
+                    const laserType = this.dataset.laser;
+                    this.classList.add('active');
+                    this.classList.add(laserType);
+                    
+                    updateLaserDetails(laserType);
+                });
+            });
+
+            // Face area selector
+            const faceAreas = document.querySelectorAll('.face-area');
+            const areaDetails = document.querySelectorAll('.area-details .area-info');
+            
+            faceAreas.forEach((area, index) => {
+                area.addEventListener('click', function() {
+                    faceAreas.forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding area details
+                    areaDetails.forEach(detail => detail.style.display = 'none');
+                    if (areaDetails[index]) {
+                        areaDetails[index].style.display = 'block';
+                    }
+                });
+            });
+
+            // Animate recovery timeline
+            const recoveryPoints = document.querySelectorAll('.recovery-point');
+            const recoveryProgress = document.getElementById('recovery-progress');
+            let currentRecoveryStep = 0;
+            
+            function animateRecoveryTimeline() {
+                if (currentRecoveryStep < recoveryPoints.length) {
+                    const progressPercentage = ((currentRecoveryStep + 1) / recoveryPoints.length) * 100;
+                    recoveryProgress.style.width = `${progressPercentage}%`;
+                    
+                    const dot = recoveryPoints[currentRecoveryStep].querySelector('.recovery-dot');
+                    dot.classList.add('completed');
+                    
+                    currentRecoveryStep++;
+                    
+                    if (currentRecoveryStep < recoveryPoints.length) {
+                        setTimeout(() => {
+                            recoveryPoints[currentRecoveryStep].querySelector('.recovery-dot').classList.add('active');
+                            setTimeout(animateRecoveryTimeline, 1000);
+                        }, 500);
+                    }
+                }
+            }
+            
+            // Start animation after page load
+            setTimeout(animateRecoveryTimeline, 1500);
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('laser-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['laser-type'] || !data['treatment-area'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper functions
+            function updateLaserDetails(laserType) {
+                const laserDetails = {
+                    fractional: {
+                        name: 'Fractional CO₂ Laser',
+                        description: 'Creates micro-injuries to stimulate collagen while preserving surrounding tissue for faster healing.',
+                        wavelength: '10,600 nm',
+                        sessions: '3-5',
+                        downtime: '3-7 days'
+                    },
+                    co2: {
+                        name: 'Ablative CO₂ Laser',
+                        description: 'Removes entire layers of skin for dramatic resurfacing of deep wrinkles and scars.',
+                        wavelength: '10,600 nm',
+                        sessions: '1-3',
+                        downtime: '7-14 days'
+                    },
+                    ndyag: {
+                        name: 'Nd:YAG Laser',
+                        description: 'Deep-penetrating laser ideal for hair removal on all skin types and vascular lesions.',
+                        wavelength: '1064 nm',
+                        sessions: '6-8',
+                        downtime: 'None'
+                    },
+                    ipl: {
+                        name: 'Intense Pulsed Light',
+                        description: 'Broad-spectrum light treatment for pigmentation, redness, and general skin rejuvenation.',
+                        wavelength: '500-1200 nm',
+                        sessions: '4-6',
+                        downtime: 'None'
+                    },
+                    qswitch: {
+                        name: 'Q-Switched Laser',
+                        description: 'Ultra-short pulse laser for tattoo removal and pigmented lesion treatment.',
+                        wavelength: '532/1064 nm',
+                        sessions: '4-10',
+                        downtime: '1-3 days'
+                    },
+                    diode: {
+                        name: 'Diode Laser',
+                        description: 'Most effective for permanent hair reduction with high patient comfort.',
+                        wavelength: '800-810 nm',
+                        sessions: '6-8',
+                        downtime: 'None'
+                    }
+                };
+                
+                const details = laserDetails[laserType];
+                if (details) {
+                    console.log(`Selected ${details.name}: ${details.description}`);
+                    // In a real app, update UI with these details
+                }
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

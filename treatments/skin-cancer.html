@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Skin Cancer Detection & Treatment | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Skin Cancer page */
+        #skin-cancer-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        /* Warning Banner */
+        .warning-banner {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-banner i {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+        
+        .warning-banner h3 {
+            margin-bottom: var(--space-sm);
+            font-size: 1.5rem;
+        }
+        
+        /* Skin Cancer Types */
+        .cancer-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .cancer-type-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 5px solid transparent;
+            transition: var(--transition-base);
+        }
+        
+        .cancer-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cancer-type-card.basal {
+            border-left-color: #4caf50;
+            background: rgba(76, 175, 80, 0.05);
+        }
+        
+        .cancer-type-card.squamous {
+            border-left-color: #ff9800;
+            background: rgba(255, 152, 0, 0.05);
+        }
+        
+        .cancer-type-card.melanoma {
+            border-left-color: #f44336;
+            background: rgba(244, 67, 54, 0.05);
+        }
+        
+        .type-severity {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .basal .type-severity {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .squamous .type-severity {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .melanoma .type-severity {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        /* ABCDE Rule */
+        .abcde-rule {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .rule-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .rule-letter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .rule-word {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: var(--space-xs);
+        }
+        
+        /* Self-Check Tool */
+        .self-check-tool {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .check-question {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .check-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .check-option {
+            padding: var(--space-md);
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .check-option:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .check-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            font-weight: 600;
+        }
+        
+        .check-result {
+            padding: var(--space-lg);
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-lg);
+            display: none;
+        }
+        
+        .check-result.high-risk {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+        }
+        
+        .check-result.moderate-risk {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .check-result.low-risk {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+        
+        /* Treatment Options */
+        .treatment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .treatment-option-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .treatment-stage {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        /* Survival Statistics */
+        .survival-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-percentage {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .basal-stat .stat-percentage { color: #4caf50; }
+        .squamous-stat .stat-percentage { color: #ff9800; }
+        .melanoma-stat .stat-percentage { color: #f44336; }
+        .early-stat .stat-percentage { color: var(--primary); }
+        
+        /* Risk Factors */
+        .risk-factors {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .risk-factor-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .risk-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        /* Emergency Section */
+        .emergency-section {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+        }
+        
+        .emergency-section h3 {
+            margin-bottom: var(--space-md);
+            font-size: 1.8rem;
+        }
+        
+        .emergency-btn {
+            background: white;
+            color: #f44336;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+        
+        .emergency-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Prevention Tips */
+        .prevention-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .tip-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tip-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        @media (max-width: 768px) {
+            .abcde-rule {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .check-options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .abcde-rule {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+           <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Emergency</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="skin-cancer-hero">
+        <div class="treatment-hero-content">
+            <h1>Skin Cancer Detection & Treatment</h1>
+            <p>Early detection saves lives. Expert diagnosis and comprehensive treatment for all types of skin cancer</p>
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>Immediate Attention</h4>
+            <p>Urgent cases seen same day</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Skin Cancer Specialists</h4>
+            <p>Board-certified dermatologists</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Advanced Detection</h4>
+            <p>Dermatoscopy & biopsy</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Comprehensive Care</h4>
+            <p>From diagnosis to treatment</p>
+        </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div class="warning-banner">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Early Detection Saves Lives</h3>
+        <p>If you notice any new, changing, or unusual skin growths, seek immediate medical attention. Skin cancer is highly treatable when detected early.</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="detection" role="tab" aria-selected="false">
+                <i class="fas fa-search"></i> Detection
+            </button>
+            <button class="tab-item" data-tab="treatment" role="tab" aria-selected="false">
+                <i class="fas fa-procedures"></i> Treatment
+            </button>
+            <button class="tab-item" data-tab="prevention" role="tab" aria-selected="false">
+                <i class="fas fa-shield-alt"></i> Prevention
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+Skin Cancer Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Skin cancer is the most common form of cancer worldwide, but it's also one of the most preventable and treatable when detected early. At Yuva Skin Clinic, we provide comprehensive skin cancer screening, diagnosis, and treatment services with compassion and expertise.</p>
+                
+                <p>Our board-certified dermatologists use advanced diagnostic tools and follow evidence-based treatment protocols to ensure the best possible outcomes for our patients.</p>
+            </div>
+
+            <!-- Skin Cancer Types -->
+            <h3 class="mt-4">Types of Skin Cancer</h3>
+            <div class="cancer-types">
+                <div class="cancer-type-card basal">
+                    <div class="type-severity">Most Common</div>
+                    <h4>Basal Cell Carcinoma (BCC)</h4>
+                    <p>Slow-growing cancer that rarely spreads but can cause significant local damage if untreated.</p>
+                    <div class="type-stats">
+                        <div class="stat">80% of skin cancers</div>
+                        <div class="stat">Rarely metastasizes</div>
+                        <div class="stat">High cure rate</div>
+                    </div>
+                </div>
+                
+                <div class="cancer-type-card squamous">
+                    <div class="type-severity">Second Most Common</div>
+                    <h4>Squamous Cell Carcinoma (SCC)</h4>
+                    <p>Can grow more quickly than BCC and has a higher risk of spreading to other parts of the body.</p>
+                    <div class="type-stats">
+                        <div class="stat">20% of skin cancers</div>
+                        <div class="stat">Can metastasize</div>
+                        <div class="stat">Early treatment crucial</div>
+                    </div>
+                </div>
+                
+                <div class="cancer-type-card melanoma">
+                    <div class="type-severity">Most Dangerous</div>
+                    <h4>Melanoma</h4>
+                    <p>The most serious type of skin cancer that can spread quickly to other organs if not treated early.</p>
+                    <div class="type-stats">
+                        <div class="stat">1% of skin cancers</div>
+                        <div class="stat">High metastasis risk</div>
+                        <div class="stat">Early detection vital</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warning Signs -->
+            <h3>Warning Signs</h3>
+            <div class="warning-signs">
+                <div class="sign-card">
+                    <div class="sign-icon">🔄</div>
+                    <h4>Changing Mole</h4>
+                    <p>Any change in size, shape, or color</p>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-icon">🎨</div>
+                    <h4>Irregular Color</h4>
+                    <p>Multiple colors in one spot</p>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-icon">🔺</div>
+                    <h4>Asymmetry</h4>
+                    <p>One half doesn't match the other</p>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-icon">📏</div>
+                    <h4>Large Size</h4>
+                    <p>Larger than 6mm (pencil eraser)</p>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-icon">⏳</div>
+                    <h4>Non-Healing Sore</h4>
+                    <p>Sore that doesn't heal in 4 weeks</p>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-icon">📈</div>
+                    <h4>Growing Spot</h4>
+                    <p>Spot that keeps growing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detection Section -->
+        <section id="detection-section" class="treatment-section" role="tabpanel" aria-labelledby="detection-tab">
+            <h2 class="section-title">
+ Early Detection
+            </h2>
+            
+            <!-- ABCDE Rule -->
+            <h3>The ABCDE Rule of Melanoma</h3>
+            <div class="abcde-rule">
+                <div class="rule-card">
+                    <div class="rule-letter">A</div>
+                    <div class="rule-word">Asymmetry</div>
+                    <p>One half doesn't match the other</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-letter">B</div>
+                    <div class="rule-word">Border</div>
+                    <p>Irregular, scalloped, or poorly defined</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-letter">C</div>
+                    <div class="rule-word">Color</div>
+                    <p>Varied from one area to another</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-letter">D</div>
+                    <div class="rule-word">Diameter</div>
+                    <p>Larger than 6mm (but can be smaller)</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-letter">E</div>
+                    <div class="rule-word">Evolving</div>
+                    <p>Changing in size, shape, or color</p>
+                </div>
+            </div>
+
+            <!-- Self-Check Tool -->
+            <h3 class="mt-4">Skin Self-Check Assessment</h3>
+            <div class="self-check-tool">
+                <div class="check-question">
+                    <h4>Have you noticed any of these changes?</h4>
+                    <p>Select all that apply to your skin spots</p>
+                </div>
+                
+                <div class="check-options">
+                    <div class="check-option" data-risk="high">Changing size/shape</div>
+                    <div class="check-option" data-risk="high">Multiple colors</div>
+                    <div class="check-option" data-risk="moderate">Irregular border</div>
+                    <div class="check-option" data-risk="moderate">Diameter >6mm</div>
+                    <div class="check-option" data-risk="low">Itching/bleeding</div>
+                    <div class="check-option" data-risk="low">New spot after age 50</div>
+                </div>
+                
+                <button id="check-submit" class="btn btn-primary">
+                    <i class="fas fa-stethoscope"></i> Check My Risk
+                </button>
+                
+                <div id="check-result" class="check-result">
+                    <h4>Assessment Result</h4>
+                    <p id="result-text"></p>
+                    <div id="result-action" class="mt-3"></div>
+                </div>
+            </div>
+
+            <!-- Diagnostic Methods -->
+            <h3>Diagnostic Procedures</h3>
+            <div class="diagnostic-methods">
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h4>Dermatoscopy</h4>
+                    <p>Magnified skin examination using specialized equipment</p>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h4>Skin Biopsy</h4>
+                    <p>Tissue sample sent to lab for definitive diagnosis</p>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h4>Total Body Photography</h4>
+                    <p>Documentation for monitoring changes over time</p>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h4>Genetic Testing</h4>
+                    <p>For high-risk individuals with family history</p>
+                </div>
+            </div>
+
+            <!-- Survival Statistics -->
+            <h3 class="mt-4">Survival Rates with Early Detection</h3>
+            <div class="survival-stats">
+                <div class="stat-card basal-stat">
+                    <div class="stat-percentage">99%</div>
+                    <h4>Basal Cell Carcinoma</h4>
+                    <p>5-year survival rate when treated early</p>
+                </div>
+                
+                <div class="stat-card squamous-stat">
+                    <div class="stat-percentage">95%</div>
+                    <h4>Squamous Cell Carcinoma</h4>
+                    <p>5-year survival rate when treated early</p>
+                </div>
+                
+                <div class="stat-card melanoma-stat">
+                    <div class="stat-percentage">99%</div>
+                    <h4>Early Stage Melanoma</h4>
+                    <p>5-year survival rate when treated early</p>
+                </div>
+                
+                <div class="stat-card early-stat">
+                    <div class="stat-percentage">98%</div>
+                    <h4>All Skin Cancers</h4>
+                    <p>When detected and treated early</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Treatment Section -->
+        <section id="treatment-section" class="treatment-section" role="tabpanel" aria-labelledby="treatment-tab">
+            <h2 class="section-title">
+ Treatment Options
+            </h2>
+            
+            <div class="treatment-options">
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Early Stage</div>
+                    <h4>Surgical Excision</h4>
+                    <p>Complete removal of cancerous tissue with clear margins</p>
+                    <div class="treatment-details">
+                        <div class="detail">Local anesthesia</div>
+                        <div class="detail">Outpatient procedure</div>
+                        <div class="detail">High cure rate</div>
+                    </div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Early Stage</div>
+                    <h4>Mohs Surgery</h4>
+                    <p>Layer-by-layer removal with microscopic examination</p>
+                    <div class="treatment-details">
+                        <div class="detail">Highest cure rate</div>
+                        <div class="detail">Tissue sparing</div>
+                        <div class="detail">Complex areas</div>
+                    </div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Superficial</div>
+                    <h4>Cryotherapy</h4>
+                    <p>Freezing cancerous cells with liquid nitrogen</p>
+                    <div class="treatment-details">
+                        <div class="detail">Quick procedure</div>
+                        <div class="detail">No anesthesia</div>
+                        <div class="detail">Early lesions</div>
+                    </div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Advanced</div>
+                    <h4>Radiation Therapy</h4>
+                    <p>Targeted radiation for inoperable or recurrent cancers</p>
+                    <div class="treatment-details">
+                        <div class="detail">Non-surgical</div>
+                        <div class="detail">Multiple sessions</div>
+                        <div class="detail">Palliative care</div>
+                    </div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Advanced</div>
+                    <h4>Immunotherapy</h4>
+                    <p>Boosts immune system to fight cancer cells</p>
+                    <div class="treatment-details">
+                        <div class="detail">Systemic treatment</div>
+                        <div class="detail">Advanced melanoma</div>
+                        <div class="detail">Targeted therapy</div>
+                    </div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-stage">Pre-cancerous</div>
+                    <h4>Topical Treatments</h4>
+                    <p>Medicated creams for actinic keratosis</p>
+                    <div class="treatment-details">
+                        <div class="detail">Non-invasive</div>
+                        <div class="detail">Home application</div>
+                        <div class="detail">Preventive</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Process -->
+            <h3 class="mt-4">Treatment Journey</h3>
+            <div class="treatment-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Initial Consultation</h4>
+                        <p>Complete skin examination and risk assessment</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Diagnostic Biopsy</h4>
+                        <p>Tissue sampling for laboratory analysis</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Treatment Planning</h4>
+                        <p>Personalized treatment plan based on diagnosis</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Treatment Procedure</h4>
+                        <p>Surgical or non-surgical intervention</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Follow-up Care</h4>
+                        <p>Regular monitoring and skin checks</p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Prevention Strategy</h4>
+                        <p>Long-term skin protection plan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aftercare Instructions -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Post-Treatment Care</h4>
+                </div>
+                <div class="warning-content">
+                    <ul>
+                        <li>Keep wound clean and dry as instructed</li>
+                        <li>Attend all follow-up appointments</li>
+                        <li>Protect scars from sun exposure</li>
+                        <li>Report any changes or concerns immediately</li>
+                        <li>Continue regular skin self-exams</li>
+                        <li>Use recommended sun protection daily</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prevention Section -->
+        <section id="prevention-section" class="treatment-section" role="tabpanel" aria-labelledby="prevention-tab">
+            <h2 class="section-title">
+ Prevention & Protection
+            </h2>
+            
+            <!-- Risk Factors -->
+            <h3>Risk Factors</h3>
+            <div class="risk-factors">
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Sun Exposure</h4>
+                    <p>UV radiation is the primary cause of skin cancer</p>
+                </div>
+                
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Fair Skin</h4>
+                    <p>Less melanin provides less natural protection</p>
+                </div>
+                
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h4>Sunburn History</h4>
+                    <p>Childhood sunburns increase lifetime risk</p>
+                </div>
+                
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h4>Family History</h4>
+                    <p>Genetic predisposition to skin cancer</p>
+                </div>
+                
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h4>Tanning Beds</h4>
+                    <p>Artificial UV exposure increases melanoma risk</p>
+                </div>
+                
+                <div class="risk-factor-card">
+                    <div class="risk-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h4>Immunosuppression</h4>
+                    <p>Weakened immune system increases risk</p>
+                </div>
+            </div>
+
+            <!-- Prevention Tips -->
+            <h3 class="mt-4">Prevention Strategies</h3>
+            <div class="prevention-tips">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h4>Seek Shade</h4>
+                    <p>Avoid direct sun between 10 AM and 4 PM when UV rays are strongest</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h4>Protective Clothing</h4>
+                    <p>Wear long sleeves, pants, and wide-brimmed hats</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Sunscreen Daily</h4>
+                    <p>Use SPF 30+ broad-spectrum sunscreen, reapplied every 2 hours</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h4>Avoid Tanning Beds</h4>
+                    <p>No safe tan - tanning beds increase melanoma risk by 75%</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>Regular Skin Checks</h4>
+                    <p>Monthly self-exams and annual professional checks</p>
+                </div>
+                
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h4>Protect Children</h4>
+                    <p>Childhood protection reduces lifetime skin cancer risk</p>
+                </div>
+            </div>
+
+            <!-- Sun Protection Guide -->
+            <h3 class="mt-4">Sun Protection Guide</h3>
+            <div class="sun-protection-guide">
+                <div class="protection-rule">
+                    <div class="rule-number">SPF 30+</div>
+                    <p>Minimum sun protection factor for daily use</p>
+                </div>
+                
+                <div class="protection-rule">
+                    <div class="rule-number">2 Tablespoons</div>
+                    <p>Amount needed for full body coverage</p>
+                </div>
+                
+                <div class="protection-rule">
+                    <div class="rule-number">Every 2 Hours</div>
+                    <p>Reapplication frequency when outdoors</p>
+                </div>
+                
+                <div class="protection-rule">
+                    <div class="rule-number">80 Minutes</div>
+                    <p>Maximum water resistance claim allowed</p>
+                </div>
+                
+                <div class="protection-rule">
+                    <div class="rule-number">365 Days</div>
+                    <p>Sun protection needed year-round</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="skin-cancer-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How often should I get my skin checked?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Annual professional skin exams are recommended for everyone. High-risk individuals (fair skin, family history, previous skin cancer) may need checks every 6 months. Monthly self-exams are crucial for early detection.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can skin cancer be completely cured?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, when detected early, most skin cancers have a cure rate of over 95%. Basal cell carcinoma and squamous cell carcinoma are highly curable. Early-stage melanoma also has excellent cure rates. Advanced cases require more aggressive treatment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is melanoma always fatal?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No. When detected early (Stage 0 or I), melanoma has a 99% 5-year survival rate. Advanced melanoma (Stage IV) has lower survival rates, which is why early detection is crucial. New treatments have significantly improved outcomes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I get skin cancer even if I don't sunbathe?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes. Cumulative sun exposure (daily activities, driving, walking) contributes to skin cancer risk. Genetic factors, family history, and other risk factors also play a role. Indoor tanning beds significantly increase melanoma risk.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What does a skin biopsy involve?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A small sample of suspicious skin is removed under local anesthesia and sent to a lab for microscopic examination. Different biopsy types include shave, punch, and excisional biopsies. Results typically take 5-7 days.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is Mohs surgery painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Mohs surgery is performed under local anesthesia, so patients feel pressure but not pain during the procedure. Some discomfort may occur during recovery, which can be managed with medications. The procedure has the highest cure rate for certain skin cancers.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can skin cancer come back after treatment?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>There is a risk of recurrence, which is why regular follow-up is essential. Previous skin cancer patients have a higher risk of developing new skin cancers. Lifelong sun protection and regular skin checks are crucial after treatment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are all moles dangerous?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most moles are benign (non-cancerous). However, any changing mole should be evaluated. Use the ABCDE rule to monitor moles. People with many moles (50+) or atypical moles have increased melanoma risk and need regular monitoring.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Notice -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h4>Important Medical Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Disclaimer:</strong> This information is for educational purposes only and does not replace professional medical advice. If you have concerns about skin cancer, consult a qualified dermatologist immediately. Early detection and treatment are crucial for the best outcomes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Section -->
+        <section id="emergency-section" class="treatment-section" role="tabpanel" aria-labelledby="emergency-tab">
+            <div class="emergency-section">
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: var(--space-md);"></i>
+                <h3>Urgent Skin Concern?</h3>
+                <p>If you notice any of these signs, seek immediate medical attention:</p>
+                
+                <div class="emergency-signs">
+                    <div class="emergency-sign">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Rapidly growing spot</span>
+                    </div>
+                    <div class="emergency-sign">
+                        <i class="fas fa-tint"></i>
+                        <span>Bleeding or oozing</span>
+                    </div>
+                    <div class="emergency-sign">
+                        <i class="fas fa-pain"></i>
+                        <span>Painful or itchy lesion</span>
+                    </div>
+                    <div class="emergency-sign">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Rapidly changing appearance</span>
+                    </div>
+                </div>
+                
+                <button class="emergency-btn" onclick="window.location.href='tel:+917096969625'">
+                    <i class="fas fa-phone-alt"></i> Emergency Hotline: +91 70969 69625
+                </button>
+                
+                <p style="margin-top: var(--space-md); font-size: 0.9rem; opacity: 0.9;">
+                    We provide same-day appointments for urgent skin concerns
+                </p>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form-container mt-4">
+                <h3 class="text-center mb-3">Schedule a Skin Cancer Screening</h3>
+                <form id="skin-cancer-booking-form" class="appointment-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="concern-type" class="form-label">Primary Concern</label>
+                        <select id="concern-type" class="form-select" required>
+                            <option value="">Select concern</option>
+                            <option value="new-growth">New skin growth</option>
+                            <option value="changing-mole">Changing mole/spot</option>
+                            <option value="non-healing">Non-healing sore</option>
+                            <option value="family-history">Family history of skin cancer</option>
+                            <option value="routine-check">Routine skin check</option>
+                            <option value="follow-up">Follow-up appointment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="urgency" class="form-label">Urgency Level</label>
+                        <select id="urgency" class="form-select" required>
+                            <option value="">Select urgency</option>
+                            <option value="emergency">Emergency - Rapid changes</option>
+                            <option value="urgent">Urgent - New concerning spot</option>
+                            <option value="soon">Soon - Within 1-2 weeks</option>
+                            <option value="routine">Routine - No immediate concern</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="preferred-date" class="form-label">Preferred Date</label>
+                        <input type="date" id="preferred-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" class="form-label">Additional Notes</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Describe your concern..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-paper-plane"></i> Request Urgent Consultation
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info mt-4">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>24/7 Emergency Line</h4>
+                        <p>+91 70969 69625</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email for Reports</h4>
+                        <p>skincancer@yuvaskinclinic.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Emergency Hours</h4>
+                        <p>24/7 for urgent cases<br>Same-day appointments available</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Emergency Location</h4>
+                        <p>Ground Floor, Main Clinic<br>Immediate access for emergencies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Your Skin Health Matters</h2>
+            <p>Early detection saves lives. Don't wait - schedule your skin cancer screening today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Emergency Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call Now</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab emergency-fab">
+        <i class="fas fa-exclamation-triangle"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Urgent Consultation Requested</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Taking Action!</h4>
+                    <p>Your skin cancer screening request has been received as <strong>URGENT</strong>. Our medical team will contact you within 1 hour to schedule immediate assessment.</p>
+                    <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        If your condition worsens, call emergency: +91 70969 69625
+                    </p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Understood
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Skin Cancer page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Self-check tool functionality
+            const checkOptions = document.querySelectorAll('.check-option');
+            const checkSubmit = document.getElementById('check-submit');
+            const checkResult = document.getElementById('check-result');
+            const resultText = document.getElementById('result-text');
+            const resultAction = document.getElementById('result-action');
+            
+            checkOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+            
+            checkSubmit.addEventListener('click', function() {
+                const selectedOptions = document.querySelectorAll('.check-option.selected');
+                let highRiskCount = 0;
+                let moderateRiskCount = 0;
+                let lowRiskCount = 0;
+                
+                selectedOptions.forEach(option => {
+                    const risk = option.dataset.risk;
+                    if (risk === 'high') highRiskCount++;
+                    else if (risk === 'moderate') moderateRiskCount++;
+                    else if (risk === 'low') lowRiskCount++;
+                });
+                
+                // Determine risk level
+                let riskLevel = 'low';
+                let riskMessage = '';
+                let actionMessage = '';
+                
+                if (highRiskCount > 0 || moderateRiskCount >= 2) {
+                    riskLevel = 'high';
+                    riskMessage = 'You have selected symptoms that require immediate medical attention. Please contact us immediately for a professional evaluation.';
+                    actionMessage = '<a href="tel:+917096969625" class="btn btn-accent"><i class="fas fa-phone-alt"></i> Call Emergency: +91 70969 69625</a>';
+                } else if (moderateRiskCount > 0 || lowRiskCount >= 2) {
+                    riskLevel = 'moderate';
+                    riskMessage = 'You have some concerning symptoms that should be evaluated by a dermatologist soon. We recommend scheduling an appointment within 1-2 weeks.';
+                    actionMessage = '<button class="btn btn-primary" data-tab="emergency"><i class="fas fa-calendar-alt"></i> Schedule Appointment</button>';
+                } else if (selectedOptions.length > 0) {
+                    riskLevel = 'low';
+                    riskMessage = 'Your selected symptoms are generally low risk, but any skin changes should be monitored. We recommend a routine skin check for peace of mind.';
+                    actionMessage = '<button class="btn btn-outline" data-tab="emergency"><i class="fas fa-calendar-alt"></i> Schedule Routine Check</button>';
+                } else {
+                    riskLevel = 'low';
+                    riskMessage = 'No concerning symptoms selected. Continue regular skin self-exams and annual professional checks for prevention.';
+                    actionMessage = '<button class="btn btn-outline" onclick="location.reload()"><i class="fas fa-redo"></i> Retake Assessment</button>';
+                }
+                
+                // Update result display
+                checkResult.className = 'check-result ' + riskLevel + '-risk';
+                resultText.textContent = riskMessage;
+                resultAction.innerHTML = actionMessage;
+                checkResult.style.display = 'block';
+                
+                // Scroll to result
+                checkResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // Add click handlers for appointment buttons
+                setTimeout(() => {
+                    const appointmentBtns = resultAction.querySelectorAll('[data-tab="emergency"]');
+                    appointmentBtns.forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const tabBtns = document.querySelectorAll('.tab-item');
+                            tabBtns.forEach(tabBtn => {
+                                if (tabBtn.dataset.tab === 'emergency') {
+                                    tabBtn.click();
+                                }
+                            });
+                        });
+                    });
+                }, 100);
+            });
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('skin-cancer-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['concern-type'] || !data['urgency'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Add emergency styling to FAB
+            const fab = document.querySelector('.fab');
+            if (fab) {
+                fab.classList.add('emergency-fab');
+                fab.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+    <style>
+        /* Emergency FAB styling */
+        .emergency-fab {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 20px rgba(244, 67, 54, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(244, 67, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+        
+        .emergency-fab:hover {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            transform: scale(1.1);
+        }
+    </style>
+</body>
+</html>

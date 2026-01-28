@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Dr. Dholariya's Yuva Skin Clinic | Advanced Skin Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* MOBILE-FIRST CORE STYLES */
+        :root {
+            --primary: #2a9d8f;
+            --primary-dark: #21867a;
+            --primary-light: #e8f1f0;
+            --accent: #e76f51;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* PAGE CONTAINER */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            padding: 20px 16px 90px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FIXED TOP HEADER */
+        .header-mobile {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-mobile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-circle {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 2px;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--dark);
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .menu-btn:active {
+            background: var(--light);
+        }
+
+        /* BOTTOM NAVIGATION */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            padding: 12px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.05);
+            padding-bottom: calc(12px + var(--safe-bottom));
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 12px;
+            min-width: 60px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* FLOATING ACTION BUTTON */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.3);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+        }
+
+        /* HERO SECTION (Home Page) */
+        .hero-mobile {
+            text-align: center;
+            padding: 40px 0 30px;
+        }
+
+        .hero-mobile h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .hero-mobile p {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            padding: 16px;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .action-btn.outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .action-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* SERVICE TILES GRID */
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .see-all {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .service-tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .service-tile {
+            aspect-ratio: 1;
+            background: var(--light);
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-tile:active {
+            transform: scale(0.97);
+            background: var(--primary-light);
+        }
+
+        .tile-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .tile-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* QUICK INFO CARDS */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .info-card:active {
+            transform: translateY(-2px);
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .info-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* SERVICES PAGE */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--dark);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:active {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img {
+            height: 140px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:active .service-img img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 16px;
+        }
+
+        .service-content h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .service-content p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .service-link {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ABOUT PAGE */
+        .doctor-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .doctor-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 16px;
+            border: 3px solid var(--primary-light);
+        }
+
+        .doctor-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .doctor-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .specialty {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .doctor-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .doctor-contact {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .contact-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .contact-btn:active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* CONTACT PAGE */
+        .contact-info {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+
+        .contact-details p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 30px 0;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* MODAL OVERLAY */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-header h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .close-modal:active {
+            background: var(--light);
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        /* DESKTOP ENHANCEMENTS */
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 0;
+            }
+
+            .page {
+                padding: 100px 40px 40px;
+            }
+
+            .header-mobile {
+                padding: 20px 40px;
+            }
+
+            .logo-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .logo-text p {
+                font-size: 0.85rem;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .fab {
+                display: none;
+            }
+
+            /* Desktop Navigation */
+            .desktop-nav {
+                display: flex;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .desktop-nav a {
+                text-decoration: none;
+                color: var(--dark);
+                font-weight: 500;
+                font-size: 1rem;
+                padding: 8px 0;
+                position: relative;
+                transition: var(--transition);
+            }
+
+            .desktop-nav a:hover {
+                color: var(--primary);
+            }
+
+            .desktop-nav a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--primary);
+                transition: width 0.3s ease;
+            }
+
+            .desktop-nav a:hover::after {
+                width: 100%;
+            }
+
+            .hero-mobile {
+                padding: 60px 0;
+            }
+
+            .hero-mobile h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-mobile p {
+                font-size: 1.1rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 800px;
+                margin: 0 auto 40px;
+            }
+
+            .service-tiles {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 16px;
+                max-width: 1000px;
+                margin: 0 auto 40px;
+            }
+
+            .info-cards {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1000px;
+                margin: 0 auto 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .service-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            }
+
+            .service-img {
+                height: 180px;
+            }
+
+            .contact-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .service-tiles {
+                grid-template-columns: repeat(8, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero-mobile h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* UTILITY CLASSES */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 8px; }
+        .mt-2 { margin-top: 16px; }
+        .mt-3 { margin-top: 24px; }
+        .mb-1 { margin-bottom: 8px; }
+        .mb-2 { margin-bottom: 16px; }
+        .mb-3 { margin-bottom: 24px; }
+        .py-2 { padding-top: 16px; padding-bottom: 16px; }
+        .py-3 { padding-top: 24px; padding-bottom: 24px; } 
+    </style>
+</head>
+<body>
+    <!-- FIXED HEADER -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="#home" class="logo-mobile">
+    <img src="Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Dr. Dholariya's Dermatology</p>
+    </div>
+</a>
+
+            <!-- <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button> -->
+            <nav class="desktop-nav">
+                <a href="#home" data-page="home">Home</a>
+                <a href="#services" data-page="services">Services</a>
+                <a href="#about" data-page="about">About</a>
+                <a href="#contact" data-page="contact">Contact</a>
+                <a href="tel:+917096969625" class="action-btn primary" style="padding: 8px 20px; font-size: 0.9rem;">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGES -->
+    <!-- HOME PAGE -->
+    <section id="home-page" class="page active">
+        <div class="hero-mobile">
+            <h1>Expert Skin Care for Healthier, Brighter Skin</h1>
+            <p>Personalized treatments from board-certified dermatologists using the latest technology and techniques.</p>
+            
+            <div class="quick-actions">
+                <a href="tel:+917096969625" class="action-btn primary">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                <a href="https://wa.me/917096969625" class="action-btn outline" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="#contact" data-page="contact" class="action-btn primary">
+                    <i class="fas fa-calendar-alt"></i> Book Now
+                </a>
+                <a href="#services" data-page="services" class="action-btn outline">
+                    <i class="fas fa-stethoscope"></i> Services
+                </a>
+            </div>
+        </div>
+
+        <!-- Popular Services -->
+        <h2 class="section-title">
+            Popular Treatments
+            <a href="#services" data-page="services" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+        </h2>
+        
+        <div class="service-tiles">
+            <a href="treatments/acne.html" class="service-tile">
+                <div class="tile-icon">🧴</div>
+                <div class="tile-label">Acne</div>
+            </a>
+            <a href="treatments/anti-aging.html" class="service-tile">
+                <div class="tile-icon">✨</div>
+                <div class="tile-label">Anti-Aging</div>
+            </a>
+            <a href="treatments/laser-therapy.html" class="service-tile">
+                <div class="tile-icon">⚡</div>
+                <div class="tile-label">Laser</div>
+            </a>
+            <a href="treatments/botox-fillers.html" class="service-tile">
+                <div class="tile-icon">💉</div>
+                <div class="tile-label">Botox</div>
+            </a>
+            <a href="treatments/chemical-peels.html" class="service-tile">
+                <div class="tile-icon">🍋</div>
+                <div class="tile-label">Peels</div>
+            </a>
+            <a href="treatments/slimming.html" class="service-tile">
+                <div class="tile-icon">⚖️</div>
+                <div class="tile-label">Slimming</div>
+            </a>
+            <a href="treatments/skin-cancer.html" class="service-tile">
+                <div class="tile-icon">🤒</div>
+                <div class="tile-label">Skin Cancer</div>
+            </a>
+            <a href="treatments/hairtransplant.html" class="service-tile">
+                <div class="tile-icon"></div>
+                <div class="tile-label">Hair Transplant</div>
+            </a>
+        </div>
+
+        <!-- Quick Info -->
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-award"></i></div>
+                <h3>Expert Specialists</h3>
+                <p>Board-certified dermatologists with 15+ years experience</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-clock"></i></div>
+                <h3>Same Day Appointments</h3>
+                <p>Quick consultation slots available</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-flask"></i></div>
+                <h3>Advanced Technology</h3>
+                <p>Latest FDA-approved equipment</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon"><i class="fas fa-user-md"></i></div>
+                <h3>Personalized Care</h3>
+                <p>Custom treatment plans for each patient</p>
+            </div>
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="text-center py-3">
+            <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">Need immediate consultation?</p>
+            <a href="tel:+917096969625" class="action-btn primary" style="display: inline-flex; padding: 14px 28px;">
+                <i class="fas fa-phone-alt"></i> Emergency: +91 70969 69625
+            </a>
+        </div>
+    </section>
+
+    <!-- SERVICES PAGE -->
+    <section id="services-page" class="page">
+        <h2 class="section-title">All Services</h2>
+        
+        <div class="services-grid">
+            <a href="treatments/acne.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Acne Treatment" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Acne Treatment</h3>
+                    <p>Customized solutions for all types of acne using medical-grade treatments.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/laser-therapy.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1599351431403-64b3608dcf2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Laser Therapy" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Laser Therapy</h3>
+                    <p>Advanced laser treatments for skin rejuvenation and hair removal.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/anti-aging.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Anti-Aging" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Anti-Aging</h3>
+                    <p>Comprehensive solutions to reduce wrinkles and restore youthful skin.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/skin-cancer.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Skin Cancer Screening" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Skin Cancer Screening</h3>
+                    <p>Early detection and treatment using advanced diagnostic techniques.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/chemical-peels.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chemical Peels" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Chemical Peels</h3>
+                    <p>Customized peels to improve skin texture and address concerns.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/botox-fillers.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1599351431441-50e32240c5aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Botox & Fillers" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Botox & Fillers</h3>
+                    <p>Non-surgical facial rejuvenation to smooth wrinkles and restore volume.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            
+            <a href="treatments/slimming.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Body Slimming" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Body Slimming</h3>
+                    <p>Advanced non-surgical treatments for body contouring and fat reduction.</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="treatments/hairtransplant.html" class="service-card">
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Body Slimming" loading="lazy">
+                </div>
+                <div class="service-content">
+                    <h3>Hair Transplant</h3>
+                    <p>Permanent solution for hair loss with natural-looking results using latest techniques</p>
+                    <span class="service-link">Learn More <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about-page" class="page">
+        <h2 class="section-title"> <br>
+Our Doctors</h2>
+        
+        <div class="doctor-card">
+            <div class="doctor-img">
+                <img src="Images/dr.hiren.JPG" alt="Dr. Hiren Dholariya" loading="lazy">
+            </div>
+            <h3>Dr. Hiren Dholariya</h3>
+            <p class="specialty">MD DVD, FCPS Dermatology</p>
+            <p>6+ years of experience in skin treatments, cosmetic dermatology, and laser procedures. Specialized in acne, anti-aging, and skin rejuvenation treatments.</p>
+            <div class="doctor-contact">
+                <a href="https://wa.me/917096969625" class="contact-btn" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                </a>
+                <a href="tel:+917096969625" class="contact-btn">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+                <a href="mailto:drhirendholariya21@gmail.com" class="contact-btn">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+        
+        
+        
+        <div class="text-center mt-3">
+            <h3 style="margin-bottom: 16px;">Clinic Hours</h3>
+            <div style="background: var(--light); padding: 20px; border-radius: var(--radius);">
+                <p style="margin-bottom: 8px;"><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
+                <p style="margin-bottom: 8px;"><strong>Saturday:</strong> 9:00 AM - 2:00 PM</p>
+                <p><strong>Sunday:</strong> Emergency Only</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="contact-page" class="page">
+        <h2 class="section-title"><br>Contact Us</h2>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Address</h4>
+                        <p>Skin Care Avenue, Ahmedabad, Gujarat 380058</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Phone Number</h4>
+                        <p>+91 70969 69625</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email Address</h4>
+                        <p>drhirendholariya21@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Working Hours</h4>
+                        <p>Mon-Sat: 9:00 AM - 7:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Contact Form (Simplified for mobile) 
+            <div style="background: var(--light); padding: 20px; border-radius: var(--radius);">
+                <h3 style="margin-bottom: 16px;">Quick Appointment</h3>
+                <button class="action-btn primary" style="width: 100%; margin-bottom: 12px;" onclick="callNumber()">
+                    <i class="fas fa-phone-alt"></i> Call for Appointment
+                </button>
+                <a href="https://wa.me/917096969625" class="action-btn outline" style="width: 100%; margin-bottom: 12px; text-align: center;" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Chat
+                </a>
+                <button class="action-btn primary" style="width: 100%;" onclick="openEmail()">
+                    <i class="fas fa-envelope"></i> Email Us
+                </button>
+            </div>
+        </div> -->
+        
+       <!-- <div class="social-links">
+            <a href="#" class="social-link">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://wa.me/917096969625" class="social-link" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div> -->
+    </section>
+
+    <!-- BOTTOM NAVIGATION (Mobile only) -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-item active" data-page="home">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="#services" class="nav-item" data-page="services">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="#about" class="nav-item" data-page="about">
+                <i class="fas fa-user-md nav-icon"></i>
+                <span class="nav-label">Doctors</span>
+            </a>
+            <a href="#contact" class="nav-item" data-page="contact">
+                <i class="fas fa-envelope nav-icon"></i>
+                <span class="nav-label">Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    
+
+    <!-- MODAL FOR TREATMENT DETAILS -->
+    <div class="modal-overlay" id="treatmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Treatment Details</h3>
+                <button class="close-modal" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PAGE NAVIGATION
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial page
+            showPage('home');
+            
+            // Bottom nav click handlers
+            document.querySelectorAll('.nav-item, .desktop-nav a').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (this.hash) {
+                        e.preventDefault();
+                        const page = this.getAttribute('data-page') || this.hash.substring(1);
+                        showPage(page);
+                        
+                        // Update active nav items
+                        document.querySelectorAll('.nav-item').forEach(nav => {
+                            nav.classList.remove('active');
+                        });
+                        if (this.classList.contains('nav-item')) {
+                            this.classList.add('active');
+                        }
+                        
+                        // Update URL hash
+                        history.pushState(null, null, this.hash);
+                    }
+                });
+            });
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function() {
+                const page = window.location.hash.substring(1) || 'home';
+                showPage(page);
+            });
+            
+            // Menu button for mobile
+            document.getElementById('menuBtn').addEventListener('click', function() {
+                alert('Mobile menu would open here. On desktop, navigation is visible.');
+            });
+        });
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Scroll to top smoothly
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // CONTACT FUNCTIONS
+        function callNumber() {
+            window.location.href = 'tel:+917096969625';
+        }
+        
+        function openEmail() {
+            window.location.href = 'mailto:drhirendholariya21@gmail.com?subject=Appointment%20Request&body=Hello,%20I%20would%20like%20to%20book%20an%20appointment.';
+        }
+        
+        // MODAL FUNCTIONS
+        function openModal(title, content) {
+            document.getElementById('modalContent').innerHTML = content;
+            document.querySelector('#treatmentModal .modal-header h3').textContent = title;
+            document.getElementById('treatmentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('treatmentModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal on overlay click
+        document.getElementById('treatmentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Load treatment details dynamically (for future enhancement)
+        function loadTreatment(treatmentId) {
+            // This would typically fetch from an API
+            const treatments = {
+                'acne': {
+                    title: 'Acne Treatment',
+                    content: '<p>Customized solutions for all types of acne...</p><button class="action-btn primary" style="width:100%;margin-top:20px;">Book Consultation</button>'
+                }
+                // Add other treatments here
+            };
+            
+            if (treatments[treatmentId]) {
+                openModal(treatments[treatmentId].title, treatments[treatmentId].content);
+            }
+        }
+        
+        // Service tile clicks (for future modal integration)
+        document.querySelectorAll('.service-tile').forEach(tile => {
+            tile.addEventListener('click', function(e) {
+                // For now, just follow the link
+                // In future: e.preventDefault(); loadTreatment(this.dataset.treatment);
+            });
+        });
+        
+        // Handle initial hash on page load
+        if (window.location.hash) {
+            const initialPage = window.location.hash.substring(1);
+            showPage(initialPage);
+            
+            // Update active nav
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+                if (nav.getAttribute('data-page') === initialPage) {
+                    nav.classList.add('active');
+                }
+            });
+        }
+    </script>
+    <script>
+  function toggleFab() {
+    const fab = document.querySelector('.fab');
+    const homePage = document.getElementById('home-page');
+
+    if (homePage && homePage.classList.contains('active')) {
+      fab.style.display = 'none';   // Home page → HIDE
+    } else {
+      fab.style.display = 'flex';  // Other pages → SHOW
+    }
+  }
+
+  // Run on page load
+  toggleFab();
+
+  // Run whenever navigation changes
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-page]')) {
+      setTimeout(toggleFab, 50);
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Anti-Aging Treatment | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Anti-Aging page */
+        #antiaging-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        .aging-concerns {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .concern-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+        }
+        
+        .concern-card.active {
+            border-color: var(--accent);
+            background: rgba(156, 39, 176, 0.1);
+        }
+        
+        .concern-icon {
+            font-size: 1.8rem;
+            margin-bottom: var(--space-xs);
+            color: var(--accent);
+        }
+        
+        .treatment-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .treatment-option-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .treatment-option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .treatment-option-card.premium {
+            border: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .treatment-option-card.premium::before {
+            content: 'BEST RESULTS';
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 4px 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .treatment-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .treatment-duration {
+            display: inline-block;
+            background: var(--light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: var(--space-sm);
+        }
+        
+        /* Age Comparison */
+        .age-comparison {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .age-slider-container {
+            width: 100%;
+            max-width: 600px;
+            margin: var(--space-lg) 0;
+        }
+        
+        .age-slider {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #4caf50, #ff9800, #f44336);
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .age-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .age-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-top: var(--space-xs);
+        }
+        
+        .age-label {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Timeline */
+        .aging-timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: var(--space-xl) 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: var(--space-xl);
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding: var(--space-md);
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .timeline-age {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        
+        /* Results Stats */
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        @media (min-width: 768px) {
+            .aging-concerns {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .results-stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .timeline-item {
+                width: 50%;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                align-self: flex-start;
+                padding-right: var(--space-xl);
+            }
+            
+            .timeline-item:nth-child(even) {
+                align-self: flex-end;
+                padding-left: var(--space-xl);
+            }
+            
+            .aging-timeline::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(to bottom, var(--primary-light), var(--accent-light));
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="antiaging-hero">
+        <div class="treatment-hero-content">
+            <h1>Advanced Anti-Aging Treatment</h1>
+            <p>Reverse the signs of aging with our scientifically-proven treatments for youthful, radiant skin</p>
+            
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>60 Min Session</h4>
+            <p>Comprehensive Treatment</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Dermatologists</h4>
+            <p>15+ Years Experience</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Visible Results</h4>
+            <p>In 1-2 Weeks</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Safe & Proven</h4>
+            <p>No Downtime</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="benefits" role="tab" aria-selected="false">
+                <i class="fas fa-star"></i> Benefits
+            </button>
+            <button class="tab-item" data-tab="treatments" role="tab" aria-selected="false">
+                <i class="fas fa-procedures"></i> Treatments
+            </button>
+            <button class="tab-item" data-tab="results" role="tab" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Results
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+            
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+                Anti-Aging Treatment Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Aging is a natural process, but visible signs like wrinkles, fine lines, and sagging skin can be effectively managed with our advanced anti-aging treatments. We combine cutting-edge technology with personalized care to help you maintain youthful, radiant skin at any age.</p>
+                
+                <p>Our holistic approach addresses both intrinsic (genetic) and extrinsic (environmental) aging factors, providing comprehensive solutions that deliver natural-looking results without the need for invasive surgery.</p>
+            </div>
+
+            <!-- Aging Concerns Selector -->
+            <h3 class="mt-4">Your Aging Concerns</h3>
+            <div class="aging-concerns">
+                <button class="concern-card" data-concern="wrinkles">
+                    <div class="concern-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h4>Wrinkles & Lines</h4>
+                    <p>Fine lines and deep wrinkles</p>
+                </button>
+                <button class="concern-card" data-concern="sagging">
+                    <div class="concern-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <h4>Sagging Skin</h4>
+                    <p>Loss of elasticity and firmness</p>
+                </button>
+                <button class="concern-card" data-concern="volume">
+                    <div class="concern-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h4>Volume Loss</h4>
+                    <p>Hollow cheeks, thin lips</p>
+                </button>
+                <button class="concern-card" data-concern="pigmentation">
+                    <div class="concern-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Age Spots</h4>
+                    <p>Hyperpigmentation and dark spots</p>
+                </button>
+            </div>
+
+            <!-- Age Slider -->
+            <h3 class="mt-4">Target Your Age Group</h3>
+            <div class="age-comparison">
+                <div class="age-slider-container">
+                    <input type="range" min="25" max="65" value="40" class="age-slider" id="ageSlider">
+                    <div class="age-labels">
+                        <div class="age-label">25-35<br>Prevention</div>
+                        <div class="age-label">35-45<br>Early Signs</div>
+                        <div class="age-label">45-55<br>Moderate</div>
+                        <div class="age-label">55-65<br>Advanced</div>
+                    </div>
+                </div>
+                <div id="ageRecommendation" class="info-box mt-3">
+                    <h4>Recommended for Age 40:</h4>
+                    <p>Combination therapy including Botox, fillers, and collagen-stimulating treatments for optimal results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits-section" class="treatment-section" role="tabpanel" aria-labelledby="benefits-tab">
+            <h2 class="section-title">
+                 Treatment Benefits
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h4>Reduces Wrinkles</h4>
+                    <p>Smooths fine lines and deep wrinkles</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <h4>Lifts & Tightens</h4>
+                    <p>Improves skin elasticity and firmness</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-fill-drip"></i>
+                    </div>
+                    <h4>Restores Volume</h4>
+                    <p>Adds volume to hollow areas</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-brightness"></i>
+                    </div>
+                    <h4>Brightens Complexion</h4>
+                    <p>Reduces age spots and pigmentation</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Stimulates Collagen</h4>
+                    <p>Boosts natural collagen production</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Prevents Further Aging</h4>
+                    <p>Protects against future damage</p>
+                </div>
+            </div>
+
+            <!-- Image Comparison -->
+            <h3 class="mt-4">See the Transformation</h3>
+            <div class="image-comparison" id="antiaging-comparison">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Before anti-aging treatment" class="comparison-image comparison-before">
+                <img src="https://images.unsplash.com/photo-1544211393-7f7eec4b1d77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="After anti-aging treatment" class="comparison-image comparison-after">
+                <div class="comparison-slider" tabindex="0" aria-label="Before and after image comparison slider"></div>
+                <div class="comparison-labels">
+                    <span class="label-before">Before</span>
+                    <span class="label-after">After</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Treatments Section -->
+        <section id="treatments-section" class="treatment-section" role="tabpanel" aria-labelledby="treatments-tab">
+            <h2 class="section-title">
+                 Our Anti-Aging Treatments
+            </h2>
+            
+            <div class="treatment-options-grid">
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h4>Botox & Fillers</h4>
+                    <p>Reduce wrinkles and restore facial volume with FDA-approved injectables</p>
+                    <div class="treatment-duration">Duration: 15-30 min</div>
+                </div>
+                
+                <div class="treatment-option-card premium">
+                    <div class="treatment-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Laser Resurfacing</h4>
+                    <p>Fractional laser treatment to stimulate collagen and reduce deep wrinkles</p>
+                    <div class="treatment-duration">Duration: 45-60 min</div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h4>Chemical Peels</h4>
+                    <p>Medical-grade peels to improve texture, tone, and reduce fine lines</p>
+                    <div class="treatment-duration">Duration: 30-45 min</div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h4>Microneedling RF</h4>
+                    <p>Radiofrequency microneedling for collagen induction and skin tightening</p>
+                    <div class="treatment-duration">Duration: 60-75 min</div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>PRP Therapy</h4>
+                    <p>Platelet-rich plasma treatment using your own growth factors</p>
+                    <div class="treatment-duration">Duration: 60 min</div>
+                </div>
+                
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>LED Light Therapy</h4>
+                    <p>Non-invasive light treatment to boost collagen and reduce inflammation</p>
+                    <div class="treatment-duration">Duration: 20-30 min</div>
+                </div>
+            </div>
+
+            <!-- Aging Timeline -->
+            <h3 class="mt-4">Aging Timeline & Solutions</h3>
+            <div class="aging-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-age">30s</div>
+                    <div class="timeline-content">
+                        <h4>Early Prevention</h4>
+                        <p>Focus on prevention with retinoids, antioxidants, and mild peels. First signs of fine lines appear.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-age">40s</div>
+                    <div class="timeline-content">
+                        <h4>Moderate Treatment</h4>
+                        <p>Botox for dynamic wrinkles, fillers for volume loss, and laser treatments for texture improvement.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-age">50s</div>
+                    <div class="timeline-content">
+                        <h4>Advanced Solutions</h4>
+                        <p>Combination therapies including deep fillers, skin tightening procedures, and collagen stimulation.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-age">60s+</div>
+                    <div class="timeline-content">
+                        <h4>Comprehensive Rejuvenation</h4>
+                        <p>Multi-modal approach addressing volume loss, deep wrinkles, and skin laxity for overall rejuvenation.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="treatment-section" role="tabpanel" aria-labelledby="results-tab">
+            <h2 class="section-title">
+                 Expected Results
+            </h2>
+            
+            <div class="results-stats">
+                <div class="stat-card">
+                    <div class="stat-value">70%</div>
+                    <h4>Wrinkle Reduction</h4>
+                    <p>Visible improvement in fine lines</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">85%</div>
+                    <h4>Skin Firmness</h4>
+                    <p>Improved elasticity and tightness</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">90%</div>
+                    <h4>Patient Satisfaction</h4>
+                    <p>High satisfaction rates</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2-4</div>
+                    <h4>Weeks</h4>
+                    <p>To see optimal results</p>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3>Patient Transformations</h3>
+            <div class="gallery-grid" id="antiaging-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Anti-aging before treatment" loading="lazy">
+                    <div class="gallery-label">Before: Age 52</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544211393-7f7eec4b1d77?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Anti-aging after treatment" loading="lazy">
+                    <div class="gallery-label">After: 6 Weeks</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Anti-aging progress" loading="lazy">
+                    <div class="gallery-label">Progress: Month 3</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1551836026-d5c2e0c49b61?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Clear skin after treatment" loading="lazy">
+                    <div class="gallery-label">Results: 6 Months</div>
+                </div>
+            </div>
+
+            <!-- Results Timeline -->
+            <h3 class="mt-4">Results Timeline</h3>
+            <div class="results-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Immediately</h4>
+                        <p>Botox starts working in 3-7 days, fillers show instant results</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>2-4 Weeks</h4>
+                        <p>Optimal results from injectables, collagen stimulation begins</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>1-3 Months</h4>
+                        <p>Laser and energy-based treatments show significant improvement</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>6+ Months</h4>
+                        <p>Long-term collagen remodeling provides ongoing improvement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+                Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="antiaging-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        At what age should I start anti-aging treatments?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Prevention is key! We recommend starting preventive treatments in your late 20s to early 30s with retinoids, antioxidants, and sun protection. Corrective treatments can begin when signs of aging appear, typically mid-30s to 40s.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long do results last?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Results vary by treatment: Botox lasts 3-6 months, fillers 6-24 months, while collagen-stimulating treatments provide results that can last 1-2 years with proper maintenance. We recommend follow-up treatments to maintain optimal results.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there any downtime?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most treatments have minimal downtime. Injectables may cause slight bruising or swelling for 1-3 days. Laser treatments may require 3-7 days of social downtime. We'll provide a detailed recovery plan based on your specific treatment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are the treatments painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We use topical anesthetics and advanced techniques to maximize comfort. Most patients describe treatments as mild discomfort rather than pain. Injectable treatments use ultra-fine needles, and energy-based treatments have built-in cooling systems.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can men benefit from anti-aging treatments?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! Men's skin has unique characteristics, and we offer tailored treatments addressing male-specific aging patterns. Treatments are discreet with natural-looking results suitable for all genders.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What's the cost of anti-aging treatments?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost varies based on treatment type and areas treated. During your consultation, we'll provide a detailed cost breakdown. We offer package deals for multiple sessions and financing options to make treatments accessible.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Warning -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Aftercare Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p>Avoid sun exposure and use SPF 50+ daily. Follow post-treatment instructions carefully. Some treatments require avoiding certain medications or supplements. Always inform your dermatologist about your complete medical history.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Consultation
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Chat with our specialists</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>antiaging@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Youthful Skin Consultation</h3>
+                    <form id="antiaging-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age-range" class="form-label">Age Range</label>
+                            <select id="age-range" class="form-select" required>
+                                <option value="">Select your age range</option>
+                                <option value="25-35">25-35 (Prevention)</option>
+                                <option value="35-45">35-45 (Early Signs)</option>
+                                <option value="45-55">45-55 (Moderate)</option>
+                                <option value="55+">55+ (Advanced)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="primary-concern" class="form-label">Primary Concern</label>
+                            <select id="primary-concern" class="form-select" required>
+                                <option value="">Select main concern</option>
+                                <option value="wrinkles">Wrinkles & Fine Lines</option>
+                                <option value="sagging">Sagging Skin</option>
+                                <option value="volume">Volume Loss</option>
+                                <option value="pigmentation">Age Spots/Pigmentation</option>
+                                <option value="combination">Combination of Concerns</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Request Consultation
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- VIP Consultation -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">
+                    <i class="fas fa-crown text-accent"></i>
+                    Request a VIP consultation with Dr. Dholariya for comprehensive anti-aging planning
+                </p>
+                <a href="tel:+917096969625" class="btn btn-accent">
+                    <i class="fas fa-star"></i> VIP Consultation: +91 70969 69625
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for Youthful, Radiant Skin?</h2>
+            <p>Contact our anti-aging specialists today to start your rejuvenation journey</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Lightbox for Gallery 
+    <div class="lightbox" id="gallery-lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-next" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div> -->
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Consultation Requested!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Youthful Skin!</h4>
+                    <p>We've received your anti-aging consultation request. Our specialists will contact you within 24 hours to schedule your personalized assessment.</p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to anti-aging page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aging concerns selector
+            const concernCards = document.querySelectorAll('.concern-card');
+            concernCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    concernCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update treatment recommendations based on concern
+                    const concern = this.dataset.concern;
+                    updateConcernRecommendation(concern);
+                });
+            });
+
+            // Age slider functionality
+            const ageSlider = document.getElementById('ageSlider');
+            const ageRecommendation = document.getElementById('ageRecommendation');
+            
+            if (ageSlider && ageRecommendation) {
+                const recommendations = {
+                    30: "Preventive treatments: Retinoids, antioxidants, sun protection, mild peels",
+                    40: "Combination therapy: Botox for dynamic wrinkles, fillers for volume loss, laser treatments",
+                    50: "Advanced solutions: Deep fillers, skin tightening procedures, collagen stimulation",
+                    60: "Comprehensive rejuvenation: Multi-modal approach for volume, wrinkles, and skin laxity"
+                };
+                
+                ageSlider.addEventListener('input', function() {
+                    const age = parseInt(this.value);
+                    let ageGroup = "";
+                    
+                    if (age <= 35) ageGroup = "30";
+                    else if (age <= 45) ageGroup = "40";
+                    else if (age <= 55) ageGroup = "50";
+                    else ageGroup = "60";
+                    
+                    ageRecommendation.innerHTML = `
+                        <h4>Recommended for Age ${age}:</h4>
+                        <p>${recommendations[ageGroup]}</p>
+                    `;
+                });
+                
+                // Trigger initial update
+                ageSlider.dispatchEvent(new Event('input'));
+            }
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('antiaging-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['age-range'] || !data['primary-concern'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper function
+            function updateConcernRecommendation(concern) {
+                const recommendations = {
+                    wrinkles: 'Botox, Fillers, Laser Resurfacing',
+                    sagging: 'Radiofrequency, Ultherapy, Thread Lifts',
+                    volume: 'Dermal Fillers, PRP, Fat Transfer',
+                    pigmentation: 'Chemical Peels, Laser Toning, Brightening Treatments'
+                };
+                
+                // In a real app, update UI with recommendation
+                console.log(`Recommended for ${concern}: ${recommendations[concern]}`);
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

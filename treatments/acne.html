@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Acne Treatment | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Acne page */
+        #acne-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        .acne-severity {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .severity-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+        }
+        
+        .severity-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        
+        .severity-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .mild .severity-icon { color: #4caf50; }
+        .moderate .severity-icon { color: #ff9800; }
+        .severe .severity-icon { color: #f44336; }
+        .cystic .severity-icon { color: #9c27b0; }
+        
+        .acne-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .acne-type {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm);
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            font-size: 0.85rem;
+        }
+        
+        /* Progress tracker */
+        .progress-tracker {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--light);
+            border-radius: var(--radius-md);
+            position: relative;
+        }
+        
+        .progress-step.completed {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .progress-step.completed .step-number {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .step-content h4 {
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+        
+        .step-content p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Treatment Comparison */
+        .comparison-table {
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th {
+            background: var(--primary);
+            color: var(--white);
+            padding: var(--space-md);
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light);
+        }
+        
+        .best-choice {
+            background: var(--primary-light) !important;
+            position: relative;
+        }
+        
+        .best-choice::after {
+            content: '★';
+            position: absolute;
+            right: 10px;
+            color: var(--accent);
+        }
+        
+        @media (min-width: 768px) {
+            .acne-severity {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .progress-tracker {
+                margin-left: var(--space-xl);
+                margin-right: var(--space-xl);
+            }
+            
+            .progress-step::before {
+                content: '';
+                position: absolute;
+                left: 24px;
+                top: 50px;
+                width: 2px;
+                height: calc(100% + var(--space-md));
+                background: var(--light-gray);
+            }
+            
+            .progress-step:last-child::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+            <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="acne-hero">
+        <div class="treatment-hero-content">
+            <h1>Advanced Acne Treatment</h1>
+            <p>Customized solutions for all types of acne, from mild to severe cases</p>
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>45 Min Session</h4>
+            <p>Quick & Effective</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Expert Dermatologists</h4>
+            <p>15+ Years Experience</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>Visible Results</h4>
+            <p>In 2-4 Weeks</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Safe & FDA Approved</h4>
+            <p>No Side Effects</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="benefits" role="tab" aria-selected="false">
+                <i class="fas fa-star"></i> Benefits
+            </button>
+            <button class="tab-item" data-tab="procedure" role="tab" aria-selected="false">
+                <i class="fas fa-list-ol"></i> Procedure
+            </button>
+            <button class="tab-item" data-tab="results" role="tab" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Results
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+            
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+                 Acne Treatment Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Acne is one of the most common skin conditions affecting over 80% of people at some point in their lives. Our comprehensive acne treatment program combines advanced medical therapies with personalized care to help you achieve clear, healthy skin.</p>
+                
+                <p>We understand that acne isn't just a skin problem—it affects your confidence and quality of life. That's why we take a holistic approach, addressing the root causes while providing immediate relief from active breakouts.</p>
+            </div>
+
+            <!-- Acne Severity Selector -->
+            <h3 class="mt-4">What's Your Acne Severity?</h3>
+            <div class="acne-severity">
+                <button class="severity-card mild" data-severity="mild">
+                    <div class="severity-icon">⚪</div>
+                    <h4>Mild</h4>
+                    <p>Few blackheads/whiteheads</p>
+                </button>
+                <button class="severity-card moderate" data-severity="moderate">
+                    <div class="severity-icon">🟡</div>
+                    <h4>Moderate</h4>
+                    <p>More frequent breakouts</p>
+                </button>
+                <button class="severity-card severe" data-severity="severe">
+                    <div class="severity-icon">🔴</div>
+                    <h4>Severe</h4>
+                    <p>Many inflamed pimples</p>
+                </button>
+                <button class="severity-card cystic" data-severity="cystic">
+                    <div class="severity-icon">🟣</div>
+                    <h4>Cystic</h4>
+                    <p>Deep, painful cysts</p>
+                </button>
+            </div>
+
+            <!-- Acne Types -->
+            <h3>Types of Acne We Treat</h3>
+            <div class="acne-types">
+                <div class="acne-type">Whiteheads</div>
+                <div class="acne-type">Blackheads</div>
+                <div class="acne-type">Papules</div>
+                <div class="acne-type">Pustules</div>
+                <div class="acne-type">Nodules</div>
+                <div class="acne-type">Cysts</div>
+                <div class="acne-type">Hormonal</div>
+                <div class="acne-type">Adult Acne</div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits-section" class="treatment-section" role="tabpanel" aria-labelledby="benefits-tab">
+            <h2 class="section-title">
+                 Treatment Benefits
+            </h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h4>Reduces Breakouts</h4>
+                    <p>Significantly decreases active acne lesions</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bacteria"></i>
+                    </div>
+                    <h4>Kills Bacteria</h4>
+                    <p>Eliminates acne-causing bacteria</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h4>Controls Oil</h4>
+                    <p>Regulates sebum production</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Unclogs Pores</h4>
+                    <p>Prevents future breakouts</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Reduces Inflammation</h4>
+                    <p>Calms red, inflamed skin</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h4>Minimizes Scars</h4>
+                    <p>Prevents and treats acne scars</p>
+                </div>
+            </div>
+
+            <!-- Image Comparison -->
+            <h3 class="mt-4">See the Difference</h3>
+            <div class="image-comparison" id="acne-comparison">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Before acne treatment" class="comparison-image comparison-before">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="After acne treatment" class="comparison-image comparison-after">
+                <div class="comparison-slider" tabindex="0" aria-label="Before and after image comparison slider"></div>
+                <div class="comparison-labels">
+                    <span class="label-before">Before</span>
+                    <span class="label-after">After</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Procedure Section -->
+        <section id="procedure-section" class="treatment-section" role="tabpanel" aria-labelledby="procedure-tab">
+            <h2 class="section-title">
+                 Treatment Procedure
+            </h2>
+            
+            <div class="progress-tracker">
+                <div class="progress-step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Initial Consultation</h4>
+                        <p>30-minute detailed skin analysis with dermatologist</p>
+                    </div>
+                </div>
+                <div class="progress-step completed">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Personalized Plan</h4>
+                        <p>Custom treatment plan based on your skin type</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>First Treatment</h4>
+                        <p>Medical-grade facial and medication prescription</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Follow-up Sessions</h4>
+                        <p>Regular treatments every 2-4 weeks</p>
+                    </div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Maintenance</h4>
+                        <p>Monthly check-ups for lasting results</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Options -->
+            <h3>Our Acne Treatments</h3>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Treatment</th>
+                            <th>Best For</th>
+                            <th>Sessions Needed</th>
+                            <th>Results Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="best-choice">
+                            <td><strong>Medical Facials</strong></td>
+                            <td>Mild to Moderate</td>
+                            <td>4-6</td>
+                            <td>2-3 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Chemical Peels</td>
+                            <td>Blackheads/Whiteheads</td>
+                            <td>3-5</td>
+                            <td>1-2 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Laser Therapy</td>
+                            <td>Severe/Cystic</td>
+                            <td>3-6</td>
+                            <td>4-6 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Prescription Medications</td>
+                            <td>All Types</td>
+                            <td>Ongoing</td>
+                            <td>4-8 weeks</td>
+                        </tr>
+                        <tr>
+                            <td>Light Therapy</td>
+                            <td>Inflamed Acne</td>
+                            <td>8-12</td>
+                            <td>3-4 weeks</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="treatment-section" role="tabpanel" aria-labelledby="results-tab">
+            <h2 class="section-title">
+                 Expected Results
+            </h2>
+            
+            <div class="results-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Week 1-2</h4>
+                        <p>Reduction in active breakouts, less inflammation</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-week"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Week 3-4</h4>
+                        <p>Clearer skin texture, fewer new breakouts</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Month 2</h4>
+                        <p>Significant improvement, fading of dark spots</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-month"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Month 3+</h4>
+                        <p>Clear skin, minimal scarring, maintained results</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Before/After Gallery -->
+            <h3>Patient Results</h3>
+            <div class="gallery-grid" id="acne-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Acne before treatment" loading="lazy">
+                    <div class="gallery-label">Before: Severe Acne</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Acne after treatment" loading="lazy">
+                    <div class="gallery-label">After: 4 Weeks</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160561-c4d22a8d95e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Acne clearing progress" loading="lazy">
+                    <div class="gallery-label">Progress: Week 6</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576091160299-0d70c8945fb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Clear skin after treatment" loading="lazy">
+                    <div class="gallery-label">Results: 3 Months</div>
+                </div>
+            </div>
+
+            <!-- Success Rate -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">95%</div>
+                    <h4>Success Rate</h4>
+                    <p>Patients see significant improvement</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">2-4</div>
+                    <h4>Weeks</h4>
+                    <p>To see visible results</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">1000+</div>
+                    <h4>Patients Treated</h4>
+                    <p>Successfully cleared acne</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">99%</div>
+                    <h4>Satisfaction</h4>
+                    <p>Patient satisfaction rate</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+                 Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="acne-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How many sessions will I need?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most patients see significant improvement in 3-6 sessions, but this varies based on acne severity. Mild cases may require 3-4 sessions, while severe or cystic acne might need 6-8 sessions spaced 2-4 weeks apart.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is the treatment painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most acne treatments are well-tolerated with minimal discomfort. We use techniques to maximize comfort, and any mild discomfort typically subsides quickly after treatment. For more sensitive procedures, we offer topical anesthetics.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When will I see results?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Some patients see improvement within 2-4 weeks, but optimal results typically appear after 2-3 months of consistent treatment. Your dermatologist will provide a realistic timeline based on your specific condition and treatment plan.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are there any side effects?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Mild redness, dryness, or peeling may occur initially as your skin adjusts to treatment. These side effects are temporary and our dermatologists will provide proper aftercare instructions to minimize any discomfort.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can acne scars be treated?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we offer various treatments for acne scars including laser therapy, chemical peels, microneedling, and dermal fillers. We typically recommend starting scar treatment once active acne is under control.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How much does it cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost varies based on treatment type and number of sessions needed. During your consultation, we'll provide a detailed cost breakdown and discuss payment options. We also offer package deals for multiple sessions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Effects Warning -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Safety Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p>Avoid sun exposure for 48 hours after treatment. Some medications may increase sensitivity. Consult with our dermatologists about any current medications or health conditions before starting treatment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Consultation
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Chat with our specialists</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>acne@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: Emergency Only</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Quick Appointment Request</h3>
+                    <form id="acne-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="acne-type" class="form-label">Acne Type</label>
+                            <select id="acne-type" class="form-select" required>
+                                <option value="">Select acne type</option>
+                                <option value="mild">Mild (Few pimples)</option>
+                                <option value="moderate">Moderate (Regular breakouts)</option>
+                                <option value="severe">Severe (Many inflamed pimples)</option>
+                                <option value="cystic">Cystic (Deep, painful cysts)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Request Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Emergency Contact -->
+            <div class="text-center mt-4">
+                <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 16px;">
+                    <i class="fas fa-exclamation-circle text-accent"></i>
+                    Need urgent consultation for severe acne?
+                </p>
+                <a href="tel:+917096969625" class="btn btn-accent">
+                    <i class="fas fa-phone-alt"></i> Emergency: +91 70969 69625
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for Clearer Skin?</h2>
+            <p>Contact our acne specialists today to start your journey to clearer skin</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Appointment Requested!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You!</h4>
+                    <p>We've received your appointment request. Our team will contact you within 24 hours to confirm your consultation.</p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to acne page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Severity selector
+            const severityCards = document.querySelectorAll('.severity-card');
+            severityCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    severityCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update treatment recommendations based on severity
+                    const severity = this.dataset.severity;
+                    updateTreatmentRecommendation(severity);
+                });
+            });
+
+            // Initialize progress steps
+            const progressSteps = document.querySelectorAll('.progress-step');
+            let completedCount = 0;
+            
+            // Simulate progress (in real app, this would come from backend)
+            setInterval(() => {
+                if (completedCount < progressSteps.length) {
+                    progressSteps[completedCount].classList.add('completed');
+                    completedCount++;
+                }
+            }, 1500);
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('acne-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['acne-type'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper function
+            function updateTreatmentRecommendation(severity) {
+                const recommendations = {
+                    mild: 'Medical Facials + Topical Creams',
+                    moderate: 'Chemical Peels + Prescription Medications',
+                    severe: 'Laser Therapy + Oral Medications',
+                    cystic: 'Combination Therapy + Regular Monitoring'
+                };
+                
+                // In a real app, update UI with recommendation
+                console.log(`Recommended for ${severity}: ${recommendations[severity]}`);
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>

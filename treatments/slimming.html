@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Body Slimming & Contouring | Dr. Dholariya's Yuva Skin Clinic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/treatments.css">
+    <style>
+        /* Custom styles for Body Slimming page */
+        #slimming-hero {
+            --hero-bg: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+        }
+        
+        .treatment-quick-info {
+            margin-top: -40px;
+        }
+        
+        /* Body Area Selector */
+        .body-areas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .area-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .area-card.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-5px);
+        }
+        
+        .area-card.popular::after {
+            content: 'POPULAR';
+            position: absolute;
+            top: 8px;
+            right: -25px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 3px 25px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .area-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-xs);
+            color: var(--primary);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .area-measurement {
+            display: inline-block;
+            background: var(--light);
+            color: var(--gray);
+            padding: 2px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-top: var(--space-xs);
+        }
+        
+        /* BMI Calculator */
+        .bmi-calculator {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .bmi-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .bmi-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+        
+        .input-with-unit {
+            position: relative;
+        }
+        
+        .input-unit {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-weight: 600;
+        }
+        
+        .bmi-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #4caf50, #ff9800, #f44336);
+            border-radius: 4px;
+            outline: none;
+            margin: var(--space-md) 0;
+        }
+        
+        .bmi-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        .bmi-result {
+            text-align: center;
+            padding: var(--space-lg);
+            background: var(--light);
+            border-radius: var(--radius-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .bmi-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .bmi-category {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .underweight { color: #2196f3; }
+        .normal { color: #4caf50; }
+        .overweight { color: #ff9800; }
+        .obese { color: #f44336; }
+        
+        /* Treatment Comparison */
+        .treatment-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .treatment-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .treatment-card.recommended {
+            border: 2px solid var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .treatment-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .treatment-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .treatment-features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-md) 0;
+        }
+        
+        .treatment-features li {
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .treatment-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        /* Results Timeline */
+        .results-timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: var(--space-xl) 0;
+            padding: var(--space-lg);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .timeline-dot.active {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+        
+        .timeline-dot.completed::after {
+            content: '✓';
+            position: absolute;
+            top: -3px;
+            left: 4px;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light-gray);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        .timeline-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: width 1s ease;
+        }
+        
+        /* Measurement Tracking */
+        .measurement-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .measurement-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .measurement-change {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .measurement-change.positive {
+            color: #4caf50;
+        }
+        
+        .measurement-change.positive::before {
+            content: '-';
+        }
+        
+        .measurement-change.negative {
+            color: #f44336;
+        }
+        
+        .measurement-change.negative::before {
+            content: '+';
+        }
+        
+        .measurement-before-after {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .before-value, .after-value {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .before-value {
+            text-decoration: line-through;
+        }
+        
+        .after-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Before/After Slider */
+        .comparison-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .comparison-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .comparison-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+        
+        .comparison-slider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--white);
+            cursor: ew-resize;
+            transform: translateX(-50%);
+        }
+        
+        .comparison-slider::before {
+            content: '↔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .body-areas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bmi-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-timeline {
+                flex-direction: column;
+                gap: var(--space-xl);
+            }
+            
+            .timeline-line, .timeline-progress {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .body-areas {
+                grid-template-columns: 1fr;
+            }
+            
+            .treatment-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="header-mobile">
+        <div class="header-content">
+           <a href="../index.html" class="logo-mobile">
+    <img src="../Images/yuva12.png" alt="Yuva Skin Clinic Logo" class="site-logo">
+
+    <div class="logo-text">
+        <h1>Yuva Skin Clinic</h1>
+        <p>Acne Treatment</p>
+    </div>
+</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="desktop-nav">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#services-page">Services</a>
+                <a href="../index.html#about-page">About</a>
+                <a href="../index.html#contact-page">Contact</a>
+                <a href="tel:+917096969625" class="btn btn-primary btn-sm">Call Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Treatment Hero -->
+    <section class="treatment-hero" id="slimming-hero">
+        <div class="treatment-hero-content">
+            <h1>Body Slimming & Contouring</h1>
+            <p>Non-surgical fat reduction and body sculpting treatments for your ideal silhouette</p>
+            
+        </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <div class="treatment-quick-info">
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h4>30-60 Min</h4>
+            <p>Lunchtime Procedure</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h4>Body Contouring Experts</h4>
+            <p>Certified Specialists</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h4>No Surgery</h4>
+            <p>Non-invasive Treatment</p>
+        </div>
+        <div class="quick-info-card">
+            <div class="quick-info-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Safe & Effective</h4>
+            <p>FDA Approved Technology</p>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="treatment-nav-tabs">
+        <div class="tab-list" role="tablist">
+            <button class="tab-item active" data-tab="overview" role="tab" aria-selected="true">
+                <i class="fas fa-info-circle"></i> Overview
+            </button>
+            <button class="tab-item" data-tab="treatments" role="tab" aria-selected="false">
+                <i class="fas fa-procedures"></i> Treatments
+            </button>
+            <button class="tab-item" data-tab="calculator" role="tab" aria-selected="false">
+                <i class="fas fa-calculator"></i> BMI Calculator
+            </button>
+            <button class="tab-item" data-tab="results" role="tab" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Results
+            </button>
+            <button class="tab-item" data-tab="faq" role="tab" aria-selected="false">
+                <i class="fas fa-question-circle"></i> FAQ
+            </button>
+        </div>
+    </nav>
+
+    <!-- Treatment Sections -->
+    <main class="treatment-container">
+        <!-- Overview Section -->
+        <section id="overview-section" class="treatment-section active" role="tabpanel" aria-labelledby="overview-tab">
+            <h2 class="section-title">
+ Body Slimming Overview
+            </h2>
+            
+            <div class="overview-content">
+                <p>Body slimming and contouring treatments offer non-surgical solutions to eliminate stubborn fat, tighten skin, and sculpt your ideal silhouette. Our advanced technologies target specific areas that don't respond to diet and exercise alone.</p>
+                
+                <p>Whether you're looking to reduce love handles, contour your abdomen, slim your thighs, or sculpt your arms, we offer personalized treatment plans to help you achieve your body goals safely and effectively.</p>
+            </div>
+
+            <!-- Body Areas Selector -->
+            <h3 class="mt-4">Target Areas</h3>
+            <div class="body-areas">
+                <div class="area-card active" data-area="abdomen">
+                    <div class="area-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h4>Abdomen</h4>
+                    <p>Belly fat & waistline</p>
+                    <div class="area-measurement">Most Popular</div>
+                </div>
+                
+                <div class="area-card popular" data-area="lovehandles">
+                    <div class="area-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Love Handles</h4>
+                    <p>Flanks & sides</p>
+                    <div class="area-measurement">2-4 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="thighs">
+                    <div class="area-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h4>Thighs</h4>
+                    <p>Inner & outer thighs</p>
+                    <div class="area-measurement">3-5 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="arms">
+                    <div class="area-icon">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <h4>Arms</h4>
+                    <p>Bingo wings & upper arms</p>
+                    <div class="area-measurement">2-3 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="back">
+                    <div class="area-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Back</h4>
+                    <p>Bra fat & back rolls</p>
+                    <div class="area-measurement">3-4 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="chin">
+                    <div class="area-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h4>Double Chin</h4>
+                    <p>Submental fat</p>
+                    <div class="area-measurement">1-2 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="buttocks">
+                    <div class="area-icon">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <h4>Buttocks</h4>
+                    <p>Lift & contour</p>
+                    <div class="area-measurement">3-4 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="calves">
+                    <div class="area-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <h4>Calves</h4>
+                    <p>Ankle & calf fat</p>
+                    <div class="area-measurement">2-3 sessions</div>
+                </div>
+                
+                <div class="area-card" data-area="multiple">
+                    <div class="area-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h4>Multiple Areas</h4>
+                    <p>Full body contouring</p>
+                    <div class="area-measurement">Package deals</div>
+                </div>
+            </div>
+
+            <!-- Ideal Candidates -->
+            <h3>Ideal Candidates</h3>
+            <div class="candidate-criteria">
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Near Ideal Weight</h4>
+                    <p>Within 10-15 kg of target weight</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Stubborn Fat</h4>
+                    <p>Areas resistant to diet/exercise</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Good Skin Elasticity</h4>
+                    <p>Skin retracts well after fat loss</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4>Realistic Expectations</h4>
+                    <p>Understanding of gradual results</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>Not For</h4>
+                    <p>Pregnant women, pacemaker users</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h4>Not For</h4>
+                    <p>Significant weight loss needed</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Treatments Section -->
+        <section id="treatments-section" class="treatment-section" role="tabpanel" aria-labelledby="treatments-tab">
+            <h2 class="section-title">
+Slimming Treatments
+            </h2>
+            
+            <div class="treatment-comparison">
+                <div class="treatment-card recommended">
+                    <div class="treatment-badge">Most Popular</div>
+                    <div class="treatment-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h3>Cryolipolysis</h3>
+                    <p class="text-muted">Fat Freezing Technology</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Freezes fat cells</li>
+                        <li><i class="fas fa-check feature-icon"></i> No downtime</li>
+                        <li><i class="fas fa-check feature-icon"></i> 20-25% fat reduction</li>
+                        <li><i class="fas fa-check feature-icon"></i> Lasting results</li>
+                        <li><i class="fas fa-check feature-icon"></i> FDA approved</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">1-2 per area</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">45-60 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">2-4 months</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Radiofrequency</h3>
+                    <p class="text-muted">Skin Tightening & Fat Reduction</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Heats fat cells</li>
+                        <li><i class="fas fa-check feature-icon"></i> Stimulates collagen</li>
+                        <li><i class="fas fa-check feature-icon"></i> Tightens loose skin</li>
+                        <li><i class="fas fa-check feature-icon"></i> Improves cellulite</li>
+                        <li><i class="fas fa-check feature-icon"></i> Painless treatment</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">6-8</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">30-45 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">Immediate + cumulative</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h3>Ultrasound Cavitation</h3>
+                    <p class="text-muted">Non-Invasive Liposuction</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Breaks fat cells</li>
+                        <li><i class="fas fa-check feature-icon"></i> Lymphatic drainage</li>
+                        <li><i class="fas fa-check feature-icon"></i> Reduces cellulite</li>
+                        <li><i class="fas fa-check feature-icon"></i> Improves circulation</li>
+                        <li><i class="fas fa-check feature-icon"></i> Quick sessions</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">6-10</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">20-30 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">After 3-4 sessions</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3>Laser Lipolysis</h3>
+                    <p class="text-muted">Laser Fat Reduction</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Laser melts fat</li>
+                        <li><i class="fas fa-check feature-icon"></i> Minimal discomfort</li>
+                        <li><i class="fas fa-check feature-icon"></i> Skin tightening</li>
+                        <li><i class="fas fa-check feature-icon"></i> Quick recovery</li>
+                        <li><i class="fas fa-check feature-icon"></i> Precise targeting</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">1-3</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">60-90 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">3-6 months</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>EMS Sculpting</h3>
+                    <p class="text-muted">Muscle Toning & Fat Burn</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Electrical stimulation</li>
+                        <li><i class="fas fa-check feature-icon"></i> Muscle building</li>
+                        <li><i class="fas fa-check feature-icon"></i> Increases metabolism</li>
+                        <li><i class="fas fa-check feature-icon"></i> Improves posture</li>
+                        <li><i class="fas fa-check feature-icon"></i> Enhances workout</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">8-12</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">30 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">After 4 sessions</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h3>Combination Therapy</h3>
+                    <p class="text-muted">Customized Multi-Modal</p>
+                    
+                    <div class="treatment-features">
+                        <li><i class="fas fa-check feature-icon"></i> Multiple technologies</li>
+                        <li><i class="fas fa-check feature-icon"></i> Faster results</li>
+                        <li><i class="fas fa-check feature-icon"></i> Comprehensive approach</li>
+                        <li><i class="fas fa-check feature-icon"></i> Customized plans</li>
+                        <li><i class="fas fa-check feature-icon"></i> Optimal outcomes</li>
+                    </div>
+                    
+                    <div class="treatment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Sessions:</span>
+                            <span class="detail-value">Varies</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">60-90 min</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results:</span>
+                            <span class="detail-value">Accelerated timeline</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Process -->
+            <h3 class="mt-4">Treatment Process</h3>
+            <div class="treatment-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h4>Body Analysis</h4>
+                    <p>Measurements & goal setting</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h4>Treatment Planning</h4>
+                    <p>Customized treatment areas</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h4>Procedure</h4>
+                    <p>Comfortable treatment session</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4>Aftercare</h4>
+                    <p>Home instructions & hydration</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <h4>Follow-up</h4>
+                    <p>Progress tracking sessions</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Results</h4>
+                    <p>Final measurements & maintenance</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator-section" class="treatment-section" role="tabpanel" aria-labelledby="calculator-tab">
+            <h2 class="section-title">
+BMI & Goal Calculator
+            </h2>
+            
+            <div class="bmi-calculator">
+                <h3 class="text-center mb-4">Calculate Your BMI</h3>
+                
+                <div class="bmi-inputs">
+                    <div class="bmi-input-group">
+                        <label for="height" class="form-label">Height (cm)</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="height" class="form-control" min="100" max="250" value="165" step="1">
+                            <span class="input-unit">cm</span>
+                        </div>
+                        <input type="range" id="height-slider" class="bmi-slider" min="100" max="250" value="165">
+                    </div>
+                    
+                    <div class="bmi-input-group">
+                        <label for="weight" class="form-label">Weight (kg)</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="weight" class="form-control" min="30" max="200" value="65" step="0.5">
+                            <span class="input-unit">kg</span>
+                        </div>
+                        <input type="range" id="weight-slider" class="bmi-slider" min="30" max="200" value="65">
+                    </div>
+                </div>
+                
+                <div class="bmi-result">
+                    <div class="bmi-value" id="bmi-value">23.9</div>
+                    <div class="bmi-category normal" id="bmi-category">Normal Weight</div>
+                    <p id="bmi-description">You have a healthy body weight. Maintain with balanced diet and exercise.</p>
+                </div>
+            </div>
+
+            <!-- Goal Setting -->
+            <h3 class="mt-4">Set Your Slimming Goals</h3>
+            <div class="goal-setting">
+                <div class="goal-inputs">
+                    <div class="goal-input">
+                        <label for="current-weight" class="form-label">Current Weight</label>
+                        <input type="number" id="current-weight" class="form-control" value="65" min="30" max="200" step="0.5">
+                    </div>
+                    
+                    <div class="goal-input">
+                        <label for="target-weight" class="form-label">Target Weight</label>
+                        <input type="number" id="target-weight" class="form-control" value="60" min="30" max="200" step="0.5">
+                    </div>
+                    
+                    <div class="goal-input">
+                        <label for="timeframe" class="form-label">Timeframe (weeks)</label>
+                        <select id="timeframe" class="form-select">
+                            <option value="4">4 weeks (Aggressive)</option>
+                            <option value="8" selected>8 weeks (Recommended)</option>
+                            <option value="12">12 weeks (Gradual)</option>
+                            <option value="16">16 weeks (Sustainable)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="goal-result">
+                    <div class="goal-summary">
+                        <div class="goal-stat">
+                            <div class="stat-value" id="weight-loss">5.0</div>
+                            <div class="stat-label">kg to lose</div>
+                        </div>
+                        
+                        <div class="goal-stat">
+                            <div class="stat-value" id="weekly-loss">0.63</div>
+                            <div class="stat-label">kg/week</div>
+                        </div>
+                        
+                        <div class="goal-stat">
+                            <div class="stat-value" id="sessions-needed">3-4</div>
+                            <div class="stat-label">sessions needed</div>
+                        </div>
+                        
+                        <div class="goal-stat">
+                            <div class="stat-value" id="inches-lost">2-3</div>
+                            <div class="stat-label">inches lost</div>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-timeline">
+                        <div class="timeline-week week-1 active">Week 1-2<br>Initial Reduction</div>
+                        <div class="timeline-week week-2">Week 3-4<br>Visible Changes</div>
+                        <div class="timeline-week week-3">Week 5-6<br>Significant Loss</div>
+                        <div class="timeline-week week-4">Week 7-8<br>Goal Achieved</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Measurement Calculator -->
+            <h3 class="mt-4">Inches & Measurements</h3>
+            <div class="measurement-tracker">
+                <div class="measurement-card">
+                    <div class="measurement-change positive">2-4</div>
+                    <h4>Waist Inches</h4>
+                    <p>Average reduction</p>
+                    <div class="measurement-before-after">
+                        <div class="before-value">32"</div>
+                        <div class="after-value">30"</div>
+                    </div>
+                </div>
+                
+                <div class="measurement-card">
+                    <div class="measurement-change positive">1-3</div>
+                    <h4>Hip Inches</h4>
+                    <p>Average reduction</p>
+                    <div class="measurement-before-after">
+                        <div class="before-value">40"</div>
+                        <div class="after-value">38"</div>
+                    </div>
+                </div>
+                
+                <div class="measurement-card">
+                    <div class="measurement-change positive">1-2</div>
+                    <h4>Thigh Inches</h4>
+                    <p>Per thigh</p>
+                    <div class="measurement-before-after">
+                        <div class="before-value">24"</div>
+                        <div class="after-value">22"</div>
+                    </div>
+                </div>
+                
+                <div class="measurement-card">
+                    <div class="measurement-change positive">20-25%</div>
+                    <h4>Fat Reduction</h4>
+                    <p>In treated areas</p>
+                    <div class="measurement-before-after">
+                        <div class="before-value">100%</div>
+                        <div class="after-value">75%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="treatment-section" role="tabpanel" aria-labelledby="results-tab">
+            <h2 class="section-title">Expected Results
+            </h2>
+            
+            <!-- Before/After Comparison -->
+            <h3>Visual Transformation</h3>
+            <div class="comparison-container">
+                <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                     alt="Before body slimming" class="comparison-image">
+                <div class="comparison-before">
+                    <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Before body slimming" class="comparison-image">
+                </div>
+                <div class="comparison-slider"></div>
+                <div class="comparison-labels">
+                    <span class="label-before">Before</span>
+                    <span class="label-after">After 8 Weeks</span>
+                </div>
+            </div>
+
+            <!-- Results Timeline -->
+            <h3 class="mt-4">Results Timeline</h3>
+            <div class="results-timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" id="timeline-progress" style="width: 20%;"></div>
+                
+                <div class="timeline-point">
+                    <div class="timeline-dot active completed"></div>
+                    <div class="timeline-week">Week 1-2</div>
+                    <div class="timeline-desc">Initial inflammation reduction</div>
+                </div>
+                
+                <div class="timeline-point">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-week">Week 3-4</div>
+                    <div class="timeline-desc">First visible changes</div>
+                </div>
+                
+                <div class="timeline-point">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 5-6</div>
+                    <div class="timeline-desc">Significant fat reduction</div>
+                </div>
+                
+                <div class="timeline-point">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Week 7-8</div>
+                    <div class="timeline-desc">Optimal results visible</div>
+                </div>
+                
+                <div class="timeline-point">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-week">Month 3-4</div>
+                    <div class="timeline-desc">Final results achieved</div>
+                </div>
+            </div>
+
+            <!-- Success Stories -->
+            <h3>Patient Success Stories</h3>
+            <div class="success-stories">
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 1" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Preeti, 34</h4>
+                        <p>"Lost 4 inches from waist after 3 cryolipolysis sessions. No diet changes needed!"</p>
+                        <div class="story-stats">
+                            <span class="stat">-4 inches</span>
+                            <span class="stat">3 sessions</span>
+                            <span class="stat">8 weeks</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 2" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Raj, 42</h4>
+                        <p>"Combination therapy helped me lose love handles I've had for 10 years."</p>
+                        <div class="story-stats">
+                            <span class="stat">-6 inches</span>
+                            <span class="stat">5 sessions</span>
+                            <span class="stat">12 weeks</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Success story 3" loading="lazy">
+                    </div>
+                    <div class="story-content">
+                        <h4>Anjali, 29</h4>
+                        <p>"Post-pregnancy belly fat gone with radiofrequency. Skin is tighter too!"</p>
+                        <div class="story-stats">
+                            <span class="stat">-5 inches</span>
+                            <span class="stat">6 sessions</span>
+                            <span class="stat">10 weeks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Tips -->
+            <div class="info-cards mt-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-glass-whiskey"></i>
+                    </div>
+                    <h4>Hydration</h4>
+                    <p>Drink 3L water daily</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h4>Balanced Diet</h4>
+                    <p>Maintain healthy eating</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h4>Regular Exercise</h4>
+                    <p>30 min daily activity</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <h4>Maintenance</h4>
+                    <p>Annual touch-ups</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-section" class="treatment-section" role="tabpanel" aria-labelledby="faq-tab">
+            <h2 class="section-title">
+Frequently Asked Questions
+            </h2>
+            
+            <div class="faq-accordion" id="slimming-faq">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is body slimming treatment painful?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most treatments are comfortable with minimal discomfort. Cryolipolysis feels like intense cold followed by numbness. Radiofrequency feels like a warm massage. We ensure maximum comfort throughout the procedure with advanced technology and techniques.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How many sessions will I need?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most areas require 1-2 sessions of cryolipolysis or 6-10 sessions of radiofrequency/ultrasound. Multiple small areas can be treated in one session. During your consultation, we'll create a personalized treatment plan based on your goals and body type.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        When will I see results?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Initial changes appear in 3-4 weeks. Optimal results are visible at 2-3 months as your body naturally eliminates the treated fat cells. Radiofrequency shows immediate skin tightening with cumulative results over sessions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there any downtime?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most treatments have zero downtime. You can return to normal activities immediately. Some patients experience temporary redness, swelling, or numbness that resolves within hours to days. We provide detailed aftercare instructions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are results permanent?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, fat cells eliminated through treatments are permanently removed. However, remaining fat cells can still expand with weight gain. Maintaining a stable weight through healthy lifestyle ensures long-lasting results. Annual maintenance sessions can help maintain optimal results.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I treat multiple areas at once?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we can treat multiple areas in one session or consecutive sessions. Popular combinations include abdomen + love handles, thighs + buttocks, or arms + back. We offer package deals for multiple area treatments.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What's the cost?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Cost varies by treatment type and areas treated. Small areas start at ₹5,000 per session, medium areas from ₹8,000, large areas from ₹12,000. We offer package discounts and financing options. Consultation includes detailed cost estimate.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Who is not a good candidate?
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Pregnant or breastfeeding women, individuals with certain medical conditions (liver disease, blood disorders), those with loose skin or severe obesity. We conduct thorough medical screening to ensure safety and optimal results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Information -->
+            <div class="warning-box">
+                <div class="warning-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h4>Important Information</h4>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Not a weight loss solution:</strong> Body slimming treatments target specific areas of stubborn fat, not overall weight loss. Maintain healthy diet and exercise for best results.</p>
+                    <p><strong>Realistic expectations:</strong> Results vary based on individual factors. Multiple sessions may be needed for desired results. Follow post-treatment instructions carefully.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="treatment-section" role="tabpanel" aria-labelledby="booking-tab">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-check"></i> Book Your Body Analysis
+            </h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Call to Book</h4>
+                            <p>+91 70969 69625</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>Get instant consultation</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>slimming@yuvaskinclinic.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Clinic Hours</h4>
+                            <p>Mon-Sat: 9AM-7PM<br>Sun: 10AM-2PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Booking Form -->
+                <div class="booking-form-container">
+                    <h3 class="text-center mb-3">Free Body Analysis Session</h3>
+                    <form id="slimming-booking-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+91 00000 00000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="target-areas" class="form-label">Target Areas</label>
+                            <select id="target-areas" class="form-select" required multiple>
+                                <option value="abdomen">Abdomen/Belly</option>
+                                <option value="lovehandles">Love Handles</option>
+                                <option value="thighs">Thighs</option>
+                                <option value="arms">Arms</option>
+                                <option value="back">Back</option>
+                                <option value="chin">Double Chin</option>
+                                <option value="buttocks">Buttocks</option>
+                                <option value="multiple">Multiple Areas</option>
+                            </select>
+                            <small class="form-text">Hold Ctrl/Cmd to select multiple areas</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight-goal" class="form-label">Weight Goal (kg)</label>
+                            <input type="number" id="weight-goal" class="form-control" placeholder="e.g., 5 kg" min="1" max="50" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="preferred-date" class="form-label">Preferred Date</label>
+                            <input type="date" id="preferred-date" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">
+                            <i class="fas fa-paper-plane"></i> Book Free Analysis
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Special Offer -->
+            <div class="text-center mt-4">
+                <div class="offer-banner">
+                    <i class="fas fa-gift text-accent"></i>
+                    <h4>Limited Time Offer</h4>
+                    <p>Book your first session and get <strong>20% OFF</strong> on package of 3 sessions</p>
+                    <a href="tel:+917096969625" class="btn btn-accent">
+                        <i class="fas fa-tag"></i> Claim Offer: +91 70969 69625
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Treatment CTA -->
+    <section class="treatment-cta">
+        <div class="container">
+            <h2>Ready for Your Dream Body?</h2>
+            <p>Book your free body analysis and start your slimming journey today</p>
+            <div class="cta-buttons">
+                <a href="tel:+917096969625" class="btn btn-primary btn-lg">
+                    <i class="fas fa-phone-alt"></i> Call Now
+                </a>
+                <a href="https://wa.me/917096969625" class="btn btn-accent btn-lg" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-item">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+            <a href="../index.html#services-page" class="nav-item">
+                <i class="fas fa-stethoscope nav-icon"></i>
+                <span class="nav-label">Services</span>
+            </a>
+            <a href="tel:+917096969625" class="nav-item">
+                <i class="fas fa-phone-alt nav-icon"></i>
+                <span class="nav-label">Call</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <a href="tel:+917096969625" class="fab">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+   
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Free Analysis Booked!</h3>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="text-center">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h4>Thank You for Choosing Body Slimming!</h4>
+                    <p>Your free body analysis has been scheduled. We'll contact you within 24 hours to confirm and provide pre-consultation instructions.</p>
+                    <p style="color: var(--accent); font-weight: 600; margin-top: 15px;">
+                        <i class="fas fa-gift"></i>
+                        Don't forget to ask about our 20% package discount!
+                    </p>
+                    <button class="btn btn-primary btn-block mt-3" onclick="closeModal('success-modal')">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/treatment.js"></script>
+    <script>
+        // Initialize components specific to Body Slimming page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Body area selector
+            const areaCards = document.querySelectorAll('.area-card');
+            areaCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    areaCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const area = this.dataset.area;
+                    updateAreaTreatment(area);
+                });
+            });
+
+            // BMI Calculator
+            const heightInput = document.getElementById('height');
+            const heightSlider = document.getElementById('height-slider');
+            const weightInput = document.getElementById('weight');
+            const weightSlider = document.getElementById('weight-slider');
+            const bmiValue = document.getElementById('bmi-value');
+            const bmiCategory = document.getElementById('bmi-category');
+            const bmiDescription = document.getElementById('bmi-description');
+            
+            function calculateBMI() {
+                const height = parseFloat(heightInput.value) / 100; // Convert cm to m
+                const weight = parseFloat(weightInput.value);
+                
+                if (height > 0 && weight > 0) {
+                    const bmi = weight / (height * height);
+                    bmiValue.textContent = bmi.toFixed(1);
+                    
+                    let category = '';
+                    let description = '';
+                    let categoryClass = '';
+                    
+                    if (bmi < 18.5) {
+                        category = 'Underweight';
+                        description = 'You may need to gain weight for optimal health. Consult with our nutritionist.';
+                        categoryClass = 'underweight';
+                    } else if (bmi < 25) {
+                        category = 'Normal Weight';
+                        description = 'You have a healthy body weight. Maintain with balanced diet and exercise.';
+                        categoryClass = 'normal';
+                    } else if (bmi < 30) {
+                        category = 'Overweight';
+                        description = 'Consider weight management. Our body slimming treatments can help reduce stubborn fat.';
+                        categoryClass = 'overweight';
+                    } else {
+                        category = 'Obese';
+                        description = 'Weight management is recommended. We offer comprehensive slimming programs.';
+                        categoryClass = 'obese';
+                    }
+                    
+                    bmiCategory.textContent = category;
+                    bmiCategory.className = 'bmi-category ' + categoryClass;
+                    bmiDescription.textContent = description;
+                }
+            }
+            
+            // Sync sliders with inputs
+            heightInput.addEventListener('input', function() {
+                heightSlider.value = this.value;
+                calculateBMI();
+            });
+            
+            heightSlider.addEventListener('input', function() {
+                heightInput.value = this.value;
+                calculateBMI();
+            });
+            
+            weightInput.addEventListener('input', function() {
+                weightSlider.value = this.value;
+                calculateBMI();
+            });
+            
+            weightSlider.addEventListener('input', function() {
+                weightInput.value = this.value;
+                calculateBMI();
+            });
+            
+            // Goal Calculator
+            const currentWeightInput = document.getElementById('current-weight');
+            const targetWeightInput = document.getElementById('target-weight');
+            const timeframeSelect = document.getElementById('timeframe');
+            const weightLossSpan = document.getElementById('weight-loss');
+            const weeklyLossSpan = document.getElementById('weekly-loss');
+            const sessionsNeededSpan = document.getElementById('sessions-needed');
+            const inchesLostSpan = document.getElementById('inches-lost');
+            
+            function calculateGoal() {
+                const currentWeight = parseFloat(currentWeightInput.value);
+                const targetWeight = parseFloat(targetWeightInput.value);
+                const timeframe = parseInt(timeframeSelect.value);
+                
+                if (currentWeight > targetWeight && timeframe > 0) {
+                    const totalLoss = currentWeight - targetWeight;
+                    const weeklyLoss = totalLoss / timeframe;
+                    
+                    weightLossSpan.textContent = totalLoss.toFixed(1);
+                    weeklyLossSpan.textContent = weeklyLoss.toFixed(2);
+                    
+                    // Estimate sessions needed (1 session per 1.5kg of target loss)
+                    const sessionsNeeded = Math.ceil(totalLoss / 1.5);
+                    sessionsNeededSpan.textContent = sessionsNeeded + '-' + (sessionsNeeded + 1);
+                    
+                    // Estimate inches lost (1 inch per 2kg fat loss)
+                    const inchesLost = (totalLoss / 2).toFixed(1);
+                    inchesLostSpan.textContent = inchesLost + '-' + (parseFloat(inchesLost) + 1).toFixed(1);
+                }
+            }
+            
+            currentWeightInput.addEventListener('input', calculateGoal);
+            targetWeightInput.addEventListener('input', calculateGoal);
+            timeframeSelect.addEventListener('change', calculateGoal);
+            
+            // Animate results timeline
+            const timelinePoints = document.querySelectorAll('.timeline-point');
+            const timelineProgress = document.getElementById('timeline-progress');
+            let currentTimelineStep = 0;
+            
+            function animateTimeline() {
+                if (currentTimelineStep < timelinePoints.length) {
+                    const progressPercentage = ((currentTimelineStep + 1) / timelinePoints.length) * 100;
+                    timelineProgress.style.width = `${progressPercentage}%`;
+                    
+                    const dot = timelinePoints[currentTimelineStep].querySelector('.timeline-dot');
+                    dot.classList.add('completed');
+                    
+                    currentTimelineStep++;
+                    
+                    if (currentTimelineStep < timelinePoints.length) {
+                        setTimeout(() => {
+                            timelinePoints[currentTimelineStep].querySelector('.timeline-dot').classList.add('active');
+                            setTimeout(animateTimeline, 1000);
+                        }, 500);
+                    }
+                }
+            }
+            
+            // Start animations after page load
+            setTimeout(animateTimeline, 1500);
+            calculateBMI();
+            calculateGoal();
+
+            // Before/After Slider
+            const comparisonContainer = document.querySelector('.comparison-container');
+            const comparisonSlider = document.querySelector('.comparison-slider');
+            const comparisonBefore = document.querySelector('.comparison-before');
+            
+            if (comparisonContainer && comparisonSlider && comparisonBefore) {
+                let isDragging = false;
+                
+                comparisonSlider.addEventListener('mousedown', function(e) {
+                    isDragging = true;
+                    updateSlider(e);
+                });
+                
+                comparisonSlider.addEventListener('touchstart', function(e) {
+                    isDragging = true;
+                    updateSlider(e.touches[0]);
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (isDragging) {
+                        updateSlider(e);
+                    }
+                });
+                
+                document.addEventListener('touchmove', function(e) {
+                    if (isDragging) {
+                        updateSlider(e.touches[0]);
+                    }
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    isDragging = false;
+                });
+                
+                document.addEventListener('touchend', function() {
+                    isDragging = false;
+                });
+                
+                function updateSlider(e) {
+                    const rect = comparisonContainer.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percentage = (x / rect.width) * 100;
+                    const clampedPercentage = Math.min(Math.max(percentage, 0), 100);
+                    
+                    comparisonBefore.style.width = `${clampedPercentage}%`;
+                    comparisonSlider.style.left = `${clampedPercentage}%`;
+                }
+            }
+
+            // Handle booking form submission
+            const bookingForm = document.getElementById('slimming-booking-form');
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple validation
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    if (!data.name || !data.phone || !data['target-areas'] || !data['preferred-date']) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Show success modal
+                    const modal = document.getElementById('success-modal');
+                    if (modal) {
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    
+                    // Reset form
+                    this.reset();
+                });
+            }
+
+            // Helper functions
+            function updateAreaTreatment(area) {
+                const areaTreatments = {
+                    abdomen: 'Recommended: Cryolipolysis or Combination Therapy',
+                    lovehandles: 'Recommended: Cryolipolysis or Radiofrequency',
+                    thighs: 'Recommended: Radiofrequency or Ultrasound',
+                    arms: 'Recommended: Cryolipolysis or Laser Lipolysis',
+                    back: 'Recommended: Radiofrequency or Combination',
+                    chin: 'Recommended: Cryolipolysis or Laser Lipolysis',
+                    buttocks: 'Recommended: Radiofrequency or EMS Sculpting',
+                    multiple: 'Recommended: Custom Combination Therapy Package'
+                };
+                
+                console.log(`Selected ${area}: ${areaTreatments[area]}`);
+                // In a real app, update UI with recommendation
+            }
+
+            function closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
+            // Make closeModal available globally
+            window.closeModal = closeModal;
+        });
+    </script>
+</body>
+</html>
