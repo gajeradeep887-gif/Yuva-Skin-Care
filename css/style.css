@@ -1813,3 +1813,11 @@ textarea.form-control {
   background-position-x: center;
   background-size: cover;
 } */
+
+/* =====================================
+   FORCE LIGHT MODE (DISABLE SYSTEM DARK)
+   ===================================== */
+
+:root {
+  color-scheme: light;
+}
