@@ -76,7 +76,7 @@
             color: var(--white);
         }
         
-        .fractional .laser-icon {
+        .mnrf .laser-icon {
             background: linear-gradient(135deg, #4caf50, #81c784);
         }
         
@@ -182,13 +182,13 @@
         .area-chin {
             top: 280px;
             left: 110px;
-            width: 80px;
+            width: 40px;
             height: 40px;
         }
         
         .area-jawline {
-            top: 200px;
-            left: 10px;
+            top: 265px;
+            left: 240px;
             width: 280px;
             height: 60px;
         }
@@ -456,14 +456,14 @@
 
 /* area positions (tweak once visually) */
 .area-forehead {
-    top: 8%;
+    top: 25%;
     left: 30%;
     width: 40%;
     height: 12%;
 }
 
 .area-cheeks {
-    top: 25%;
+    top: 35%;
     left: 15%;
     width: 70%;
     height: 25%;
@@ -477,24 +477,24 @@
 }
 
 .area-mouth {
-    top: 55%;
+    top: 45%;
     left: 33%;
-    width: 34%;
+    width: 50%;
     height: 10%;
 }
 
 .area-chin {
-    top: 68%;
-    left: 38%;
+    top: 56%;
+    left: 39%;
     width: 24%;
     height: 10%;
 }
 
 .area-jawline {
     bottom: 10%;
-    left: 10%;
-    width: 80%;
-    height: 20%;
+    left: 41%;
+    width: 20%;
+    height: 10%;
     border-radius: 40%;
 }
 .face-area:hover {
@@ -639,13 +639,14 @@
             <!-- Laser Type Selector -->
             <h3 class="mt-4">Select Your Laser Treatment</h3>
             <div class="laser-type-selector">
-                <div class="laser-type-card fractional active" data-laser="fractional">
+
+                <div class="laser-type-card mnrf" data-laser="mnrf">
                     <div class="laser-icon">
-                        <i class="fas fa-braille"></i>
+                    <i class="fas fa-bolt"></i>
                     </div>
-                    <h4>Fractional CO₂</h4>
-                    <p>Skin Resurfacing</p>
-                    <div class="laser-tag">Most Popular</div>
+                     <h4>MNRF</h4>
+                    <p>Collagen Induction & Skin Tightening</p>
+                    <div class="laser-tag">Advanced Treatment</div>
                 </div>
                 
                 <div class="laser-type-card co2" data-laser="co2">
@@ -693,7 +694,7 @@
             <h3>Treatment Areas</h3>
             <div class="laser-areas">
                 <div class="face-diagram photo-face">
-    <img src="/Images/dr.hiren.JPG" alt="Face Diagram" class="face-photo">
+    <img src="../Images/face.jpeg" alt="Face Diagram" class="face-photo">
 
     <div class="face-area area-forehead active" data-area="forehead"></div>
     <div class="face-area area-cheeks" data-area="cheeks"></div>

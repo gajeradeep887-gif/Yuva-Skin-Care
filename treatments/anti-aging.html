@@ -320,7 +320,7 @@
                 <i class="fas fa-user-md"></i>
             </div>
             <h4>Expert Dermatologists</h4>
-            <p>15+ Years Experience</p>
+            <p>6+ Years Experience</p>
         </div>
         <div class="quick-info-card">
             <div class="quick-info-icon">
@@ -553,9 +553,28 @@
                     <p>Non-invasive light treatment to boost collagen and reduce inflammation</p>
                     <div class="treatment-duration">Duration: 20-30 min</div>
                 </div>
+
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 
+                    </div>
+                    <h4>Threads</h4>
+                    <p>Thread lifting is a minimally invasive anti-aging procedure that lifts and tightens sagging skin while stimulating natural collagen for a firmer, youthful look</p>
+                    <div class="treatment-duration">Duration: 15-60 min</div>
+                </div>
+
+                <div class="treatment-option-card">
+                    <div class="treatment-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h4>HIFU</h4>
+                    <p>HIFU (High-Intensity Focused Ultrasound) is a non-surgical anti-aging treatment that tightens and lifts the skin by stimulating deep collagen for long-lasting firmness and youthful contours.</p>
+                    <div class="treatment-duration">Duration: 30-60 min</div>
+                </div>
             </div>
 
             <!-- Aging Timeline -->
+             
             <h3 class="mt-4">Aging Timeline & Solutions</h3>
             <div class="aging-timeline">
                 <div class="timeline-item">
@@ -982,32 +1001,51 @@
             });
 
             // Age slider functionality
-            const ageSlider = document.getElementById('ageSlider');
-            const ageRecommendation = document.getElementById('ageRecommendation');
-            
-            if (ageSlider && ageRecommendation) {
-                const recommendations = {
-                    30: "Preventive treatments: Retinoids, antioxidants, sun protection, mild peels",
-                    40: "Combination therapy: Botox for dynamic wrinkles, fillers for volume loss, laser treatments",
-                    50: "Advanced solutions: Deep fillers, skin tightening procedures, collagen stimulation",
-                    60: "Comprehensive rejuvenation: Multi-modal approach for volume, wrinkles, and skin laxity"
-                };
-                
-                ageSlider.addEventListener('input', function() {
-                    const age = parseInt(this.value);
-                    let ageGroup = "";
-                    
-                    if (age <= 35) ageGroup = "30";
-                    else if (age <= 45) ageGroup = "40";
-                    else if (age <= 55) ageGroup = "50";
-                    else ageGroup = "60";
-                    
-                    ageRecommendation.innerHTML = `
-                        <h4>Recommended for Age ${age}:</h4>
-                        <p>${recommendations[ageGroup]}</p>
-                    `;
-                });
-                
+            // Age slider functionality
+const ageSlider = document.getElementById('ageSlider');
+const ageRecommendation = document.getElementById('ageRecommendation');
+
+if (ageSlider && ageRecommendation) {
+    
+    const recommendations = {
+        21: "Basic skincare, sun protection, hydration focused treatments",
+        22: "Preventive antioxidants, mild exfoliation, acne control therapies",
+        23: "Light chemical peels, skin polishing, glow treatments",
+        24: "Preventive anti-aging skincare, hydration facials",
+        25: "Retinoid-based skincare, PRP for skin health",
+        26: "Collagen stimulation, laser toning if needed",
+        27: "Preventive Botox (micro doses), skin boosters",
+        28: "Skin boosters, pigmentation control treatments",
+        29: "Early anti-aging protocols, collagen therapies",
+        30: "Preventive treatments: Retinoids, antioxidants, sun protection, mild peels",
+        31: "Early Botox for expression lines, laser toning",
+        32: "Skin tightening light procedures, PRP",
+        33: "Botox + skin boosters combination",
+        34: "Laser resurfacing (light), collagen stimulation",
+        35: "Botox for dynamic wrinkles, PRP / GFC",
+        40: "Combination therapy: Botox for wrinkles, fillers for volume loss, laser treatments",
+        50: "Advanced solutions: Deep fillers, skin tightening procedures, collagen stimulation",
+        60: "Comprehensive rejuvenation: Multi-modal approach for volume, wrinkles, and skin laxity"
+    };
+    
+    ageSlider.addEventListener('input', function () {
+        const age = parseInt(this.value);
+        
+        // exact age fallback (nearest lower age)
+        let selectedAge = Math.max(
+            ...Object.keys(recommendations)
+                .map(Number)
+                .filter(a => a <= age)
+        );
+
+        ageRecommendation.innerHTML = `
+            <h4>Recommended for Age ${age}:</h4>
+            <p>${recommendations[selectedAge]}</p>
+        `;
+    });
+}
+
+        {        
                 // Trigger initial update
                 ageSlider.dispatchEvent(new Event('input'));
             }

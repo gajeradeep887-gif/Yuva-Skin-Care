@@ -61,3 +61,32 @@
   --warning: #ffc107;
   --danger: #dc3545;
   --info: #17a2b8;
+
+
+
+  // Age slider functionality
+            const ageSlider = document.getElementById('ageSlider');
+            const ageRecommendation = document.getElementById('ageRecommendation');
+            
+            if (ageSlider && ageRecommendation) {
+                const recommendations = {
+                    30: "Preventive treatments: Retinoids, antioxidants, sun protection, mild peels",
+                    40: "Combination therapy: Botox for dynamic wrinkles, fillers for volume loss, laser treatments",
+                    50: "Advanced solutions: Deep fillers, skin tightening procedures, collagen stimulation",
+                    60: "Comprehensive rejuvenation: Multi-modal approach for volume, wrinkles, and skin laxity"
+                };
+                
+                ageSlider.addEventListener('input', function() {
+                    const age = parseInt(this.value);
+                    let ageGroup = "";
+                    
+                    if (age <= 35) ageGroup = "30";
+                    else if (age <= 45) ageGroup = "40";
+                    else if (age <= 55) ageGroup = "50";
+                    else ageGroup = "60";
+                    
+                    ageRecommendation.innerHTML = `
+                        <h4>Recommended for Age ${age}:</h4>
+                        <p>${recommendations[ageGroup]}</p>
+                    `;
+                });
