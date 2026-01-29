@@ -5,31 +5,31 @@
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
   /* Primary Colors */
-  --primary: #2a9d8f;
-  --primary-dark: #21867a;
-  --primary-darker: #1a6f65;
-  --primary-light: #e8f1f0;
-  --primary-lighter: #f5f9f9;
+  --primary: #7D5A94;
+  --primary-dark: #5A416B;
+  --primary-darker: #3D2C48;
+  --primary-light: #F4F1F6;
+  --primary-lighter: #F9F7FA;
   
   /* Accent Colors */
-  --accent: #e76f51;
-  --accent-dark: #d95c3e;
-  --accent-light: #fdeae5;
+  --accent: #E9D2B5;
+  --accent-dark: #D4B38A;
+  --accent-light: #F7F0E6;
   
   /* Neutral Colors */
   --white: #ffffff;
-  --light: #f8f9fa;
-  --light-gray: #e9ecef;
-  --gray: #6c757d;
-  --dark-gray: #495057;
-  --dark: #212529;
-  --black: #000000;
+  --light: #FAF9FB;
+  --light-gray: #E2E0E3;
+  --gray: #7A747E;
+  --dark-gray: #4E4852;
+  --dark: #2D2430;
+  --black: #120E14;
   
   /* Semantic Colors */
-  --success: #28a745;
-  --warning: #ffc107;
-  --danger: #dc3545;
-  --info: #17a2b8;
+  --success: #528D6F;
+  --warning: #D99B52;
+  --danger: #B55D67;
+  --info: #6B9CB5;
   
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -1807,9 +1807,9 @@ textarea.form-control {
   scroll-margin-top: 90px; /* header height approx */
 }
 
-.hero-mobile{
+/* .hero-mobile{
   background-image: url(../Images/home.jpg);
   background-repeat: no-repeat;
   background-position-x: center;
   background-size: cover;
-} 
+} */
