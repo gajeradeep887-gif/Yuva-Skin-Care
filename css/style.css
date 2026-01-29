@@ -1655,7 +1655,7 @@ textarea.form-control {
   }
 }
 
-/* ===== DARK MODE SUPPORT ===== */
+/* ===== DARK MODE SUPPORT 
 @media (prefers-color-scheme: dark) {
   :root {
     --white: #121212;
@@ -1691,7 +1691,7 @@ textarea.form-control {
   .modal {
     background: var(--light);
   }
-}
+} ===== */
 
 /* ===== CUSTOM SCROLLBAR ===== */
 @media (min-width: 768px) {
