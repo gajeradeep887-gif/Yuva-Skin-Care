@@ -1807,3 +1807,9 @@ textarea.form-control {
   scroll-margin-top: 90px; /* header height approx */
 }
 
+.hero-mobile{
+  background-image: url(/Images/home.jpg);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: cover;
+} 
