@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Allow search engines to crawl all important directories
+Allow: /css/
+Allow: /js/
+Allow: /Images/
+
+# Block unnecessary files
+Disallow: /_*
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://yuvaskinclinic.com/sitemap.xml
+
+# Crawl delay (optional, be nice to servers)
+Crawl-delay: 1

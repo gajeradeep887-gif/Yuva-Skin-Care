@@ -1,0 +1,51 @@
+{
+  "name": "Dr. Dholariya's Yuva Skin Clinic",
+  "short_name": "Yuva Skin Clinic",
+  "description": "Advanced dermatology and skin care clinic in Rajkot offering expert skin treatments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7D5A94",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["health", "medical", "beauty"],
+  "icons": [
+    {
+      "src": "Images/yuva12.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Images/yuva12.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Appointment",
+      "short_name": "Book",
+      "description": "Book a consultation appointment",
+      "url": "/#contact",
+      "icons": [{ "src": "Images/yuva12.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "View Services",
+      "short_name": "Services",
+      "description": "Browse our dermatology services",
+      "url": "/#services",
+      "icons": [{ "src": "Images/yuva12.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our clinic",
+      "url": "/#contact",
+      "icons": [{ "src": "Images/yuva12.png", "sizes": "96x96" }]
+    }
+  ]
+}
